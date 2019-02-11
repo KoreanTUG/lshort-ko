@@ -425,7 +425,8 @@ contain the name of the file.
 
 \footnotetext{%
   [역주] 한국어 \TeX 에서 \cs{today} 명령이 만들어내는 문자열은 
-  ``2019년 2월 9일''과 같은 모양일 수 있다.
+  ``2019년 2월 12일''과 같은 모양일 수 있다. 이 날짜 문자열은 
+  \pai{polyglossia} 패키지가 해당 언어에 따라 생성할 수도 있다.
 }
 
 % \section{Special Characters and Symbols}
@@ -1935,8 +1936,12 @@ The \verb|\ldots| command \ldots
 
 % special case: 
 % conflict between memoir's verbatim and minted package
-\noindent 
+\checkoddpage
+\ifoddpage
 \noindent\begin{adjustwidth}{0pt}{-\margheadwidth}
+\else
+\noindent\begin{adjustwidth}{-\margheadwidth}{0pt}
+\fi 
 \noindent\hspace*{-1.5em}\begin{minipage}[c]{.49\linewidth}%
     \setstretch{1.0}%
     \noindent
@@ -2527,14 +2532,14 @@ width와 height 인자의 값으로는 절대 길이를 지정할 수도 있다.
 % appearance for each type of float. That's why a figure that cannot
 % be placed pushes all further figures to the end of the document.
 % Therefore:
-\LaTeX 은 떠다니는 개체를 만날 때마다 문서작성자가 제공한 위치지정자에 맞추어서 위치를 정한다.
-한 개체가 현재 페이지에서 자리를 잡지 못하면 그것은 \emph{figures}나 \emph{tables} 대기열에
-넣어서 처리를 미룬다.\footnote{FIFO, 즉 ``먼저 들어온 것이 먼저 나가는'' 큐(queue)이다.}
-\LaTeX 은 대기열에 있는 개체들이 특별한 `플로트가 놓이는' 페이지를 만들기에 충분한지를 검사한다.
-이것이 가능하다면 대기열의 첫 번째 개체를 바로 그 위치에 개체가 불린 것처럼 취급한다. 즉
-\LaTeX 은 다시 그 개체에 주어져 있는 위치지정자의 요구에 따라서 위치를 결정하려 한다. (단 `h'
-지정자는 더이상 불가능하다.)
-텍스트에서 새로운 떠다니는 개체가 발생할 때마다 적절한 대기열 속에 들어간다.
+\LaTeX 은 떠다니는 개체를 만날 때마다 문서작성자가 지시한 위치지정자에 맞추어서 위치를 정한다.
+한 개체가 현재 페이지에서 자리를 잡지 못하면 그것을 \emph{figures}나 \emph{tables} 대기열에
+넣어두고 처리를 미룬다.\footnote{FIFO, 즉 ``먼저 들어온 것이 먼저 나가는'' 큐(queue)이다.}
+\LaTeX 은 대기열에 있는 개체들로 특별한 `플로트가 놓이는' 페이지를 만들기에 충분한지를 검사한다.
+이것이 만약 불가능하면 대기열의 첫 번째 개체가 지금 막 그 위치에서 불린 것처럼 취급한다. 즉
+\LaTeX 은 그 개체에 주어져 있는 위치지정자의 요구에 따라 다시 위치를 결정하려 한다. (단 `h'
+지정자는 더이상 무의미하다.)
+텍스트에서 떠다니는 개체가 새로이 발생할 때마다 각자 대기열 속에 들어간다.
 \LaTeX 은 개체의 유형별로 출현 순서를 엄격히 유지한다. 그러다 보면 문서의 끝까지
 더이상 그림의 자리를 잡지 못하고 미루어지는 경우가 생기는 것이다.
 그러므로,
