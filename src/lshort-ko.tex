@@ -1,0 +1,63 @@
+%!TEX TS-program = arara
+% arara: xelatex: { shell: yes, synctex: yes }
+% arara: komkindex: { style: kotex, koreanfirst: yes }
+% arara: xelatex: { shell: yes, synctex: yes }
+%
+\documentclass[a4paper,twoside,chapter,openany,quotespacing,amsmath]{oblivoir}
+
+\usepackage{lshort-ko}
+%\usepackage{makeidx}
+\makeindex
+
+\includeonly{%
+    lsk-title,
+    lsk-contrib,
+    lsk-overview,
+    lsk-things,
+    lsk-typeset,
+    lsk-math,
+    lsk-lssym,
+    lsk-spec,
+    lsk-graphic,
+    lsk-custom,
+    lsk-appendix,
+    lsk-biblio,
+    lsk-afterword
+}
+
+\begin{document}
+
+\flushbottom 
+
+\pagestyle{lshortko}
+\frontmatter
+\include{lsk-title}
+\include{lsk-contrib}
+\include{lsk-overview}
+
+\tableofcontents*
+\clearpage
+\listoftables
+\listoffigures
+
+\mainmatter
+\include{lsk-things}
+\include{lsk-typeset}
+\include{lsk-math}
+\include{lsk-lssym}
+\include{lsk-spec}
+\include{lsk-graphic}
+\include{lsk-custom}
+
+\appendix
+\setuplshortappendix
+
+\include{lsk-appendix}
+
+\backmatter
+\include{lsk-biblio}
+
+\printindex
+\include{lsk-afterword}
+
+\end{document}

@@ -1,0 +1,231 @@
+\appendix
+
+\firmlists
+
+% \chapter{Installing \LaTeX}
+\chapter{\LaTeX{} 설치하기}
+\label{appx:installation}
+% \begin{intro}
+% Knuth published the source to \TeX{} back in a time when nobody knew
+% about Open Source and/or Free Software. The License that comes with \TeX{}
+% lets you do whatever you want with the source, but you can only call the
+% result of your work \TeX{} if the program passes a set of tests Knuth has
+% also provided. This has lead to a situation where we have free \TeX{}
+% implementations for almost every Operating System under the sun. This chapter
+% will give some hints on what to install on Linux, macOS and Windows, to
+% get a working \TeX{} setup.
+% \end{intro}
+\begin{intro}
+Knuth가 \TeX{} 소스를 공개했을 때는 오픈소스나 자유 소프트웨어에 대해 아무도 알지 못하던 시절이었다.
+\TeX{}에 부과된 라이센스는---Knuth 자신이 제공하는 일련의 테스트를 통과하지 못한다면 
+그것을 \TeX{}이라고 부를 수 없다는 점을 제외하면---그 소스를 가지고 원하는 모든 것을 다 할 수 있게 한 것이었다.
+그것은 지구상의 거의 모든 플랫폼에서 \TeX{}이 구현되어 자유롭게 활용할 수 있게 되는 결과를 가져왔다.
+이 부록에서는 리눅스, 맥 오에스, 윈도우즈에서 \TeX{}을 설치하고 설정하는 문제에 관해 다루고자 한다.
+\end{intro}
+
+
+% \section{What to Install}
+\section{설치해야 할 것}
+
+% To use \LaTeX{} on any computer system, you need several programs.
+\LaTeX 을 운영하고자 한다면 설치해야 할 프로그램이 여럿 있다.
+
+% \begin{enumerate}
+\begin{enumerate}
+
+% \item The \TeX{}/\LaTeX{} program for processing your \LaTeX{} source files
+% into typeset PDF or DVI documents.
+\item 소스 파일을 처리하여 PDF나 DVI로 조판하는 \TeX{}/\LaTeX{} 프로그램
+% \item A text editor for editing your \LaTeX{} source files. Some products even let
+% you start the \LaTeX{} program from within the editor.
+\item \LaTeX{} 소스 파일을 편집하기 위한 텍스트 에디터. 어떤 제품은 에디터 내에서 \LaTeX{} 프로그램을 불러서 구동할 수 있다.
+% \item A PDF/DVI viewer program for previewing and printing your
+% documents.
+\item PDF/DVI 화면보기 프로그램. 문서를 미리보기하고 인쇄할 수 있게 한다.
+% \item A program to handle \PSi{} files and images for inclusion into
+% your documents.
+\item 문서에 포함할 \PSi{}와 이미지 파일을 다루는 프로그램
+% \end{enumerate}
+\end{enumerate}
+
+% For every platforms there are several programs that fit the requirements above.
+% Here we just tell about the ones we know, like and have some experience
+% with.
+모든 플랫폼에 이 요구를 충족하는 프로그램들이 다양하게 존재한다. 여기서는 우리가 잘 알고 좋아하면서 많이 쓰고 있는 것에 대해서만 언급하겠다.
+
+% \section{Cross Platform Editor}
+% \label{sec:texmaker}
+\section{크로스 플랫폼 에디터}
+\label{sec:texmaker}
+% While \TeX{} is available on many different computing platforms, \LaTeX{}
+% editors have long been highly platform specific.
+
+\TeX{} 자체는 여러 다양한 플랫폼에서 운영되고 있지만 \LaTeX{} 에디터는 상당히 오랜 기간 플랫폼 종속적이었다.
+
+% Over the past few years I have come to like Texmaker quite a lot.
+% Apart from being very a useful editor with integrated pdf-preview and syntax
+% high-lighting, it has the advantage of running on Windows, Mac and
+% Unix/Linux equally well.  See \url{http://www.xm1math.net/texmaker} for
+% further information.  There is also a forked version of Texmaker called
+% TeXstudio on \url{http://texstudio.sourceforge.net/}.  It also seems well
+% maintained and is also available for all three major platforms.
+지난 수 년 간 저자는 Texmaker를 즐겨 써왔다. 내장 pdf 프리뷰와 구문 하일라이팅을 갖춘 유용한 에디터이기도 하지만 
+특히 윈도우즈, 맥, 유닉스/리눅스에서 모두 똑같이 잘 실행된다는 장점이 있다.
+자세한 사항은 \url{http://www.xm1math.net/texmaker}를 보라.
+TeXstudio라는 Texmaker의 파생 버전도 있다 (\url{http://texstudio.sourceforge.net/}).
+이 또한 잘 관리되고 있으며 세 가지 주요 운영체제에서 모두 이용가능하다.
+
+
+% You will find some platform specific editor suggestions in the OS sections
+% below.
+아래의 OS관련 절에서 플랫폼에 특정한 에디터에 대해서 언급할 것이다.
+
+% \section{\TeX{} on macOS}
+\section{맥 OS의 \TeX}
+
+% \subsection{\TeX{} Distribution}
+\subsection{\TeX{} 배포판}
+
+% Just download \wi{MacTeX}. It is a
+% pre-compiled \LaTeX{} distribution for macOS. \wi{MacTeX} provides a full \LaTeX{}
+% installation plus a number of additional tools. Get Mac\TeX{} from
+% \url{http://www.tug.org/mactex/}.
+\wi{MacTeX}을 다운받으면 된다. \LaTeX{} 전체 설치 이외에 상당한 추가 도구를 제공한다.
+\url{http://www.tug.org/mactex/}에서 얻을 수 있다.
+
+% \subsection{macOS \TeX{} Editor}
+\subsection{맥 OS \TeX{} 에디터}
+
+% If you are not happy with our cross-platform suggestion Texmaker (section \ref{sec:texmaker}).
+여러 플랫폼에서 운영되는 Texmaker를 제안하는 바(부록 \ref{sec:texmaker}절)지만 만족하지 못하겠다면\hdots\hdots.
+
+% The most popular open source editor for \LaTeX{} on the mac seems to be
+% \TeX{}shop.  Get a copy from \url{http://www.uoregon.edu/~koch/texshop}. It
+% is also contained in the \wi{MacTeX} distribution.
+가장 유명한 맥의 오픈소스 \LaTeX{} 에디터는 \TeX{}shop이다.
+\url{http://www.uoregon.edu/~koch/texshop}에서 얻을 수 있으며 \wi{MacTeX} 배포판에도 포함되어 있다.
+
+% Recent \TeX Live distributions contain the \TeX{}works editor
+% \url{http://texworks.org/} which is a multi-platform editor based on the \TeX{}Shop
+% design. Since \TeX{}works uses the Qt toolkit, it is available on any platform
+% supported by this toolkit (macOS, Windows, Linux).
+최근의 \TeX\,Live는 \TeX{}Shop 디자인을 흉내낸 다중플랫폼 편집기 \TeX{}works 에디터(\url{http://texworks.org})를 
+포함한다. \TeX{}works는 Qt 툴킷을 사용하기 때문에 이를 지원하는 어떤 플랫폼(맥 OS, 윈도우즈, 리눅스)에서도 
+쓸 수 있다.
+
+% \subsection{Treat yourself to \wi{PDFView}}
+\subsection{\wi{PDFView}를 사용해보자}
+
+% Use PDFView for viewing PDF files generated by \LaTeX{}, it integrates tightly
+% with your \LaTeX{} text editor. PDFView is an open-source application, available from the PDFView website on\\
+% \url{http://pdfview.sourceforge.net/}. After installing, open
+% PDFViews preferences dialog and make sure that the \emph{automatically reload
+% documents} option is enabled and that PDFSync support is set appropriately.
+\LaTeX 이 생성한 PDF 파일을 보는 데 PDFView를 사용해보라. 
+\LaTeX{} 텍스트 에디터와 긴밀하게 통합된다. PDFView는 오픈소스 응용 프로그램으로서 \url{http://pdfview.sourceforge.net/}에서 얻을 수 있다.
+설치 후에 환경설정으로 가서 \emph{automatically reload documents}를 활성화하는 것과
+PDFSync 지원이 적절하게 잘 되어 있는지 확인하는 것을 잊지 말자.
+
+% \section{\TeX{} on Windows}
+\section{윈도우즈의 \TeX}
+
+% \subsection{Getting \TeX{}}
+\subsection{\TeX{} 얻기}
+
+% First, get a copy of the excellent MiK\TeX\index{MiKTeX@MiK\TeX} distribution from\\
+% \url{http://www.miktex.org/}. It contains all the basic programs and files
+% required to compile \LaTeX{} documents.  The coolest feature in my eyes, is
+% that MiK\TeX{} will download missing \LaTeX{} packages on the fly and install them
+% magically while compiling a document. Alternatively you can also use
+% the TeXlive distribution which exists for Windows, Unix and Mac OS to
+% get your base setup going \url{http://www.tug.org/texlive/}.
+먼저 \url{http://www.miktex.org}에서 MiKTeX\index{MiKTeX@MiK\TeX}이라는 훌륭한 배포판을 다운로드받는다.
+여기에 \LaTeX{} 문서를 컴파일하는 데 필요한 기본 프로그램과 파일이 전부 들어 있다.
+저자가 보기에 이 배포판의 가장 멋진 점은 문서를 컴파일하는 도중에 필요한 패키지를 즉시 다운로드하여 자동으로 설치해주는 것이다.
+한편 \TeX\,Live 배포판은 윈도우즈, 유닉스, 맥 OS용이 있으므로 이것을 선택해도 좋다. \url{http://www.tug.org/texlive}를 방문해보라.
+
+% \subsection{A \LaTeX{} editor}
+\subsection{\LaTeX{} 에디터}
+
+% If you are not happy with our cross-platform suggestion Texmaker (section \ref{sec:texmaker}).
+여러 플랫폼에서 운영되는 Texmaker를 제안하는 바(부록 \ref{sec:texmaker}절)지만 만족하지 못하겠다면\hdots\hdots.
+
+% \wi{TeXnicCenter} uses many concepts from the programming-world to provide a nice and
+% efficient \LaTeX{} writing environment in Windows. Get your copy from\\
+% \url{http://www.texniccenter.org/}. TeXnicCenter integrates nicely with
+% MiKTeX.
+\wi{TeXnicCenter}는 프로그래밍의 세계에서 가져온 많은 개념을 활용하여 윈도우즈에서 최선의 효율적인 \LaTeX{} 저작 환경을 제공한다.
+\url{http://www.texniccenter.org/}에서 얻을 수 있다. TeXnicCenter는 MiK\TeX 과 잘 어울린다.
+
+% Recent \TeX Live distributions contain the \TeX{}works Editor
+% \url{http://texworks.org/}. It supports Unicode and requires at least Windows XP.
+최근 \TeX\,Live 배포판에 포함되어 있는 \TeX{}works 에디터가 있다. \url{http://texworks.org}.
+유니코드를 지원하며 최소 Windows XP를 요구한다.
+
+% \subsection{Document Preview}
+\subsection{문서 보기 프로그램}
+
+% You will most likely be using Yap for DVI preview as it gets installed with
+% MikTeX. For PDF you may want to look at Sumatra
+% PDF \url{http://blog.kowalczyk.info/software/sumatrapdf/}. I mention Sumatra PDF
+% because it lets you jump from any position in the pdf document back into
+% corresponding position in your source document.
+DVI 문서 프리뷰로서 MiK\TeX 이 설치해주는 Yap을 사용한다.
+PDF 뷰어로는 SumatraPDF \url{http://blog.kowalczyk.info/software/sumatrapdf/}를 추천한다.
+이 뷰어를 사용하면 소스 코드의 특정 위치에 대응하는 PDF상의 위치로 즉시 이동하는 것이 가능하다.
+
+% \subsection{Working with graphics}
+\subsection{그림 관련}
+
+% Working with high quality graphics in \LaTeX{} means that you have to use
+% \EPSi{} (eps) or PDF as your picture format. The program that helps you
+% deal with this is called \wi{GhostScript}. You can get it, together with its
+% own front-end \wi{GhostView}, from \url{http://www.cs.wisc.edu/~ghost/}.
+\LaTeX 에서 고품질 그래픽으로 작업하려면 \EPSi{} (eps)나 PDF를 그림 포맷으로 해야 한다.
+이런 그래픽은 \wi{GhostScript}라는 프로그램의 도움을 받아야 할 경우가 많다.
+자체 프론트엔드인 \wi{GhostView}와 함께 \url{http://www.cs.wisc.edu/~ghost/}에서 얻을 수 있다.
+
+% If you deal with bitmap graphics (photos and scanned material), you may want
+% to have a look at the open source Photoshop alternative \wi{Gimp}, available
+% from \url{http://gimp-win.sourceforge.net/}.
+사진이나 스캔본 같은 비트맵 그래픽이라면 Photoshop 대안인 \wi{Gimp}를 고려해볼 수 있다.
+\url{http://gimp-win.sourceforge.net/}에서 다운로드 가능하다.
+
+% \section{\TeX{} on Linux}
+\section{리눅스의 \TeX}
+
+% If you work with Linux, chances are high that \LaTeX{} is already installed
+% on your system, or at least available on the installation source you used to
+% setup. Use your package manager to install the following packages:
+리눅스에서는 \LaTeX{} 사용 환경이 이미 마련되어 있는 것이나 마찬가지다.
+설치 설정 과정이 자연스럽게 이루어진다.
+패키지 매니저로 설치할 수 있는 패키지가 다음과 같다.
+
+% \begin{itemize}
+\begin{itemize}
+% \item texlive -- the base \TeX{}/\LaTeX{} setup.
+\item texlive -- \TeX/\LaTeX{} 설치
+% \item emacs (with AUCTeX) -- an editor that integrates tightly with \LaTeX{} through the add-on AUCTeX package.
+\item emacs (AUCTeX) -- \LaTeX{}에 특화되어 있는 AUCTeX 패키지를 얹은 에디터
+% \item ghostscript -- a \PSi{} preview program.
+\item ghostscript -- \PSi{} 프로그램
+% \item xpdf and acrobat -- a PDF preview program.
+\item xpdf -- pdf 미리보기 프로그램 
+% \item imagemagick -- a free program for converting bitmap images.
+\item imagemagick -- 비트맵 그림의 변환 도구
+% \item gimp -- a free Photoshop look-a-like.
+\item gimp -- 자유 소프트웨어로서 Photoshop에 대응
+% \item inkscape -- a free illustrator/corel draw look-a-like.
+\item inkscape -- 자유 소프트웨어로서 Illustrator 또는 corel draw에 대응
+% \end{itemize}
+\end{itemize}
+
+% If you are looking for a more windows like graphical editing environment,
+% check out Texmaker. See section \ref{sec:texmaker}.
+윈도우즈에 가까운 GUI 에디터 환경을 원한다면 Texmaker를 고려해보라. \ref{sec:texmaker}절을 볼 것.
+
+% Most Linux distros insist on splitting up their \TeX{} environments into a
+% large number of optional packages, so if something is missing after your
+% first install, go check again.
+대부분의 리눅스 배포판은 \TeX{} 환경을 여러 개의 많은 개별 패키지로 나누어서 원하는 부분만 설치할 수 있게 하고 있다.
+그러므로 만약 뭔가 빠진 것이 있으면 이 부분을 점검해보기 바란다.

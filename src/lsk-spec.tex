@@ -1,0 +1,1355 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Contents: Specialities of the LaTeX system
+% % $Id$
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \chapter{Specialities}
+\chapter{특별한 기능}
+% \begin{intro}
+%   When putting together a large document, \LaTeX{} will help
+%   with some special features like index generation,
+%   bibliography management, and other things.
+%   A much more complete description of specialities and
+%   enhancements possible with \LaTeX{} can be found in the
+%   {\normalfont\manual{}} and {\normalfont \companion}.
+% \end{intro}
+
+\begin{intro}
+큰 규모의 문서를 작성할 때 색인 생성, 문헌 목록 관리와 같은
+특별한 기능이 필요하다. \LaTeX 은 이런 일을 할 수 있도록 해준다.
+훨씬 많은 특별한 기능과 확장된 기능이 있으며 {\normalfont\manual}과 {\normalfont\companion}에
+상세히 설명되어 있다.
+\end{intro}
+
+% \section{Bibliography}
+\section{문헌 목록}
+\nobibintoc
+
+% Produce a \wi{bibliography} with the \ei{thebibliography}
+% environment.  Each entry starts with
+\wi{문헌 목록}[bibliography]은 \ei{thebibliography} 환경으로 만든다.
+각 문헌항목을
+% \begin{lscommand}
+% \ci{bibitem}\verb|[|\emph{label}\verb|]{|\emph{marker}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{bibitem}\verb|[|\emph{label}\verb|]{|\emph{marker}\verb|}|
+\end{lscommand}
+\noindent 명령으로 시작하여 입력한다.
+% The \emph{marker} is then used to cite the book, article or paper
+% within the document.
+\emph{marker}는 문서 내에서 이 도서나 논문 등의 문헌을 인용하는 데 다음과 같이
+사용한다.
+% \begin{lscommand}
+% \ci{cite}\verb|{|\emph{marker}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{cite}\verb|{|\emph{marker}\verb|}|
+\end{lscommand}
+% If you do not use the \emph{label} option, the entries will get enumerated
+% automatically.  The parameter after the \verb|\begin{thebibliography}|
+% command defines how much space to reserve for the number of labels. In the example below,
+% \verb|{99}| tells \LaTeX{} to expect that none of the bibliography item numbers will be wider
+% than the number 99.
+\noindent 선택 인자 \emph{label}을 입력하지 않으면 각 항목은 일련번호가 자동으로 붙게 된다.
+% %\enlargethispage{2cm}
+% {
+% \renewcommand\bibname{Bibliography}
+% \begin{example}
+% Partl~\cite{pa} has
+% proposed that \ldots
+% \begin{thebibliography}{99}
+% \bibitem{pa} H.~Partl:
+% \emph{German \TeX},
+% TUGboat Volume~9, Issue~1 (1988)
+% \end{thebibliography}
+% \end{example}
+% }
+%\enlargethispage{4\onelineskip}
+\begin{figure}[htp]
+{
+\renewcommand\bibname{Bibliography}
+\begin{example}
+Partl~\cite{pa} has
+proposed that \ldots
+\begin{thebibliography}{99}
+\bibitem{pa} H.~Partl:
+\emph{German \TeX},
+TUGboat Volume~9, Issue~1 (1988)
+\end{thebibliography}
+\end{example}
+}
+\end{figure}
+
+숫자 레이블에 얼마 만큼의 
+  공간이 필요한지를
+\verb|\begin{thebibliography}| 명령 뒤에 적어넣는데 다음 페이지의 예제에서 \verb|99|라고 했으므로 항목 수가 99를 넘지 않을 것이라고 예상할 수 있다.
+
+% \chaptermark{Specialities} % w need to fix the damage done by the
+%                            %bibliography example.
+% \thispagestyle{fancyplain}
+\chaptermark{특별한 기능}
+
+% For larger projects, you might want to check out the Bib\TeX{}
+% program. Bib\TeX{} is included with most \TeX{} distributions. It
+% allows you to maintain a bibliographic database and then extract the
+% references relevant to things you cited in your paper. The visual
+% presentation of Bib\TeX{}-generated bibliographies is based on a style-sheets concept that allows you to create bibliographies following
+% a wide range of established designs.
+큰 문서 작업을 하고 있다면 Bib\TeX{} 프로그램의 사용을 고려해볼 수 있다.
+Bib\TeX 은 대부분의 \TeX{} 배포판에 포함되어 있다. 이 프로그램이 하는 일은 
+문헌 목록 데이터베이스를 유지하면서 현재 쓰고 있는 문서에서 인용된 것만을 추려내어 
+참고문헌 목록으로 만들어준다.
+Bib\TeX 에 의하여 생성되는 참고문헌 목록은 자신이 만들고자 하는 문헌목록과 
+인용방식에 의한 스타일시트에 입각하여 모양이 갖추어진다. 여러 학술지나 단행본에서 
+채택하고 있는 문헌목록과 인용방식의 스타일이 제공된다.
+
+% \section{Indexing} \label{sec:indexing}
+\section{색인}
+\label{sec:indexing}
+
+% A very useful feature of many books is their \wi{index}. With \LaTeX{}
+% and the support program \texttt{makeindex},\footnote{On systems not
+%   necessarily supporting
+%   filenames longer than 8~characters, the program may be called
+%   \texttt{makeidx}.} an index can be generated quite easily.  This
+% introduction will only explain the basic index generation commands.
+% For a more in-depth view, please refer to \companion.  \index{makeindex
+%   program} \index{makeidx package}
+책에 있는 \wi{색인}[index](찾아보기)은 매우 유용하다. \LaTeX 에서는 \texttt{makeindex} 프로그램의 도움을 받아 상당히 손쉽게 색인을 만들 수 있다.
+기본적인 색인 생성 명령에 대해서만 소개하겠다. 더 깊은 내용을 알고 싶다면 \companion 을 참고하라.
+\index{makeindex program}\index{makeidx package}
+
+% To enable their indexing feature of \LaTeX{}, the \pai{makeidx} package
+% must be loaded in the preamble with
+색인 생성을 가능하게 하려면 \pai{makeidx} 패키지를 전처리부에 선언하여야 한다.
+% \begin{lscommand}
+% \verb|\usepackage{makeidx}|
+% \end{lscommand}
+\begin{lscommand}
+\verb|\usepackage{makeidx}|
+\end{lscommand}
+% \noindent and the special indexing commands must be enabled by putting
+% the
+\noindent 그리고 색인 생성을 시작하라는 의미의 특별한 색인 명령을 준다.
+% \begin{lscommand}
+%   \ci{makeindex}
+% \end{lscommand}
+\begin{lscommand}
+  \ci{makeindex}
+\end{lscommand}
+% \noindent command in the preamble.
+\noindent 이 명령은 전처리부에 놓인다.
+
+% The content of the index is specified with
+색인으로 들어갈 내용은 다음과 같이 지정한다.
+% \begin{lscommand}
+%   \ci{index}\verb|{|\emph{key}@\emph{formatted\_entry}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+  \ci{index}\verb|{|\emph{key}@\emph{formatted\_entry}\verb|}|
+\end{lscommand}
+% \noindent commands, where \emph{formatted\_entry} will appear in the index
+% and \emph{key} will be used for sorting.  The \emph{formatted\_entry} is
+% optional. If it is missing the \emph{key} will be used. You enter the index
+% commands at the points in the text that you want the final index entries to
+% point to.  Table~\ref{index} explains the syntax with several examples.
+\noindent
+\emph{formatted\_entry}는 실제 색인에 인쇄되어 나타날 표제어의 모양이고 \emph{key}는 정렬을 위해 사용되는 문자열이다. \emph{formatted\_entry}는 생략할 수 있으며 이 때는 \emph{key}가 사용된다.
+색인 목록에서 가리킬 텍스트상의 위치에 index 명령을 적어넣는다. 표~\ref{index}\가 
+이 명령의 사용법을 보여주고 있다.
+
+% \begin{table}[!tp]
+% \caption{Index Key Syntax Examples.}
+% \label{index}
+% \begin{center}
+% \begin{tabular}{@{}lll@{}}
+%   \textbf{Example} &\textbf{Index Entry} &\textbf{Comment}\\\hline
+%   \rule{0pt}{1.05em}\verb|\index{hello}| &hello, 1 &Plain entry\\
+% \verb|\index{hello!Peter}|   &\hspace*{2ex}Peter, 3 &Subentry under `hello'\\
+% \verb|\index{Sam@\textsl{Sam}}|     &\textsl{Sam}, 2& Formatted entry\\
+% \verb|\index{Lin@\textbf{Lin}}|     &\textbf{Lin}, 7& Formatted entry\\
+% \verb|\index{Kaese@K\"ase}|     &\textbf{K\"ase}, 33& Formatted entry\\
+% \verb.\index{ecole@\'ecole}.     &\'ecole, 4& Formatted entry\\
+% \verb.\index{Jenny|textbf}.     &Jenny, \textbf{3}& Formatted page number\\
+% \verb.\index{Joe|textit}.     &Joe, \textit{5}& Formatted page number
+% \end{tabular}
+% \end{center}
+% \end{table}
+\begin{table}[!tp]
+\caption[index 명령의 사용법]{\cs{index} 명령의 사용법}
+\label{index}
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+  \textbf{Example} &\textbf{Index Entry} &\textbf{Comment}\\\hline
+  \rule{0pt}{1.05em}\verb|\index{hello}| &hello, 1 &Plain entry\\
+\verb|\index{hello!Peter}|   &\hspace*{2ex}Peter, 3 &Subentry under `hello'\\
+\verb|\index{Sam@\textsl{Sam}}|     &\textsl{Sam}, 2& Formatted entry\\
+\verb|\index{Lin@\textbf{Lin}}|     &\textbf{Lin}, 7& Formatted entry\\
+\verb|\index{Kaese@K\"ase}|     &\textbf{K\"ase}, 33& Formatted entry\\
+\verb.\index{ecole@\'ecole}.     &\'ecole, 4& Formatted entry\\
+\verb.\index{Jenny|textbf}.     &Jenny, \textbf{3}& Formatted page number\\
+\verb.\index{Joe|textit}.     &Joe, \textit{5}& Formatted page number
+\end{tabular}
+\end{center}
+\end{table}
+
+% When the input file is processed with \LaTeX{}, each \verb|\index|
+% command writes an appropriate index entry, together with the current
+% page number, to a special file. The file has the same name as the
+% \LaTeX{} input file, but a different extension (\verb|.idx|). This
+% \eei{.idx} file can then be processed with the \texttt{makeindex}
+% program:
+입력 파일을 \LaTeX 이 처리하는 과정에서 \verb|\index| 명령을 만나면 색인에 들어갈 항목표제와 현재 페이지의 번호를 특별한 파일에 기록해둔다.
+입력 파일과 이름이 같고 확장자가 \verb|.idx|인 파일이 생성된다. \texttt{makeindex} 프로그램을 \eei{.idx} 파일에 대하여 실행할 수 있다.
+
+% \begin{lscommand}
+%   \texttt{makeindex} \emph{filename}
+% \end{lscommand}
+% The \texttt{makeindex} program generates a sorted index with the same base
+% file name, but this time with the extension \eei{.ind}. If now the
+% \LaTeX{} input file is processed again, this sorted index gets
+% included into the document at the point where \LaTeX{} finds
+% \begin{lscommand}
+%   \ci{printindex}
+% \end{lscommand}
+\begin{lscommand}
+  \texttt{makeindex} \emph{filename}
+\end{lscommand}
+\texttt{makeindex} 프로그램은 색인을 정렬하여 같은 이름에 확장자가 \eei{.ind}인 파일을 만든다. \LaTeX 이 다시 입력 파일을 처리할 때 색인 인쇄 명령을 만나면 이 정렬된 색인을 문서 안으로 불러들인다. 색인 인쇄 명령은 다음과 같다.
+\begin{lscommand}
+  \ci{printindex}
+\end{lscommand}
+
+
+% The \pai{showidx} package that comes with \LaTeXe{} prints out all
+% index entries in the left margin of the text. This is quite useful for
+% proofreading a document and verifying the index.
+\pai{showidx} 패키지는 모든 색인 항목을 문서의 왼쪽 여백에 표시해준다.
+문서를 교열할 때 색인 점검에 유용하다.
+
+% Note that the \ci{index} command can affect your layout if not used carefully.
+\ci{index} 명령은 주의깊게 사용하지 않으면 문서의 레이아웃에 영향을 미칠 수 있다는 사실을 알아두자. \ci{index} 명령 주변에 의도하지 않은 공백이 들어가지 않도록 하는 것이 중요하다.
+
+% \begin{example}
+% My Word \index{Word}. As opposed
+% to Word\index{Word}. Note the
+% position of the full stop.
+% \end{example}
+\begin{example}
+My Word \index{Word}. As opposed
+to Word\index{Word}. Note the
+position of the full stop.
+\end{example}
+
+% \texttt{makeindex} has no clue about characters outside the ASCII range. To
+% get the sorting correct, use the \verb|@| character as shown in the K\"ase
+% and \'ecole examples above.
+\texttt{makeindex}는 아스키 범위를 넘어서는 문자를 처리하지 못한다. 그러므로 정렬이 제대로 되게 하려면 앞서 보인 예에서 K\"ase나 \'ecole을 처리할 때처럼 \verb|@|로 정렬 위치를 잘 알려주는 것이 필요하다.
+
+\medskip
+
+\noindent [역자의 보충]
+한국어 문서의 색인 작성을 위해서 \texttt{makeindex}를 그대로 쓰면 만족스러운 결과를 얻기 어렵다. \koTeX 은 이를 위하여 \texttt{komkindex}\index{komkindex}라는 프로그램을 제공한다. \koTeX 과 함께 배포되므로 이미 설치되어 있을 것이다. 이 프로그램은 한 가지 유용한 옵션을 가지고 있는데, 라틴 문자보다 한글이 색인에서 먼저 나타나게 하고 싶으면 \verb|-k| 옵션을 줄 수 있다는 것이다.
+이밖에 최근 유니코드 문자를 처리할 수 있는 색인 유틸리티가 발전하는 중이다. \texttt{xindy}, \texttt{xindex} 등이 그 예이다.
+
+
+% \section{Fancy Headers}
+% \label{sec:fancy}
+\section{면주 장식}
+\label{sec:fancy}
+
+% The \pai{fancyhdr} package,\footnote{Available from
+%   \CTAN|macros/latex/contrib/supported/fancyhdr|.} written by
+% Piet van Oostrum, provides a few simple commands that allow you to
+% customize the header and footer lines of your document.  Look
+% at the top of this page, for an application of this
+% package.
+문서의 면주\index{면주}%
+\trfnote{``면주(面柱)''란 책의 본문 외곽에 편장절의 표제 등을 적어넣은 것을 가리키는 조판 용어이다. \emph{header}와 \emph{footer}를 이용하여 만드는 \emph{page style}을 가리키는 의미로 사용하였다. 편의상 header를 상단면주, footer를 하단면주라고 하였다.}%
+를 사용자가 만들 수 있도록 하는 명령을 제공하는 패키지가 있다. Piet van Oostrum이 작성한 \pai{fancyhdr}이다.\footnote{\CTAN|macros/latex/contrib/supported/fancyhdr|.}
+영문판 lshort 문서의 \wi{페이지 스타일}이 이 패키지를 이용하여 만들어진 것이다.%
+\trfnote{한국어판은 영문판 페이지 스타일을 비슷하게 흉내내었지만 조금 다른 방법으로 만들었다.}
+
+% \begin{figure}[!htbp]
+% \begin{lined}{\textwidth}
+% \begin{verbatim}
+% \documentclass{book}
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% % with this we ensure that the chapter and section
+% % headings are in lowercase.
+% \renewcommand{\chaptermark}[1]{%
+%         \markboth{#1}{}}
+% \renewcommand{\sectionmark}[1]{%
+%         \markright{\thesection\ #1}}
+% \fancyhf{}  % delete current header and footer
+% \fancyhead[LE,RO]{\bfseries\thepage}
+% \fancyhead[LO]{\bfseries\rightmark}
+% \fancyhead[RE]{\bfseries\leftmark}
+% \renewcommand{\headrulewidth}{0.5pt}
+% \renewcommand{\footrulewidth}{0pt}
+% \addtolength{\headheight}{0.5pt} % space for the rule
+% \fancypagestyle{plain}{%
+%    \fancyhead{} % get rid of headers on plain pages
+%    \renewcommand{\headrulewidth}{0pt} % and the line
+% }
+% \end{verbatim}
+% \end{lined}
+% \caption{Example \pai{fancyhdr} Setup.} \label{fancyhdr}
+% \end{figure}
+\begin{figure}[!htbp]
+\begin{lined}{\textwidth}
+\begin{verbatim}
+\documentclass{book}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% with this we ensure that the chapter and section
+% headings are in lowercase.
+\renewcommand{\chaptermark}[1]{%
+        \markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{%
+        \markright{\thesection\ #1}}
+\fancyhf{}  % delete current header and footer
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark}
+\fancyhead[RE]{\bfseries\leftmark}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{0.5pt} % space for the rule
+\fancypagestyle{plain}{%
+   \fancyhead{} % get rid of headers on plain pages
+   \renewcommand{\headrulewidth}{0pt} % and the line
+}
+\end{verbatim}
+\end{lined}
+\caption{\pai{fancyhdr} 설정 예제} \label{fancyhdr}
+\end{figure}
+
+% The tricky problem when customising headers and footers is to get
+% things like running section and chapter names in there. \LaTeX{}
+% accomplishes this with a two-stage approach. In the header and footer
+% definition, you use the commands \ci{rightmark} and \ci{leftmark} to
+% represent the current section and chapter heading, respectively.
+% The values of these two commands are overwritten whenever a chapter or
+% section command is processed.
+상하단 면주를 입맛대로 고치려 할 때 까다로운 점은 현재 장표제나 절표제를%
+\trfnote{``running heading(s)''이라고 한다.}
+거기에 넣는 것이다. \LaTeX 에서 이 작업은 두 단계로 이루어진다. 상하단의 면주 정의에는 \ci{rightmark}와 \ci{leftmark} 명령을 이용하여 현재의 절표제와 장표제를 각각 가리키게 해둔다.
+그리고 장이 바뀌거나 새로운 절이 시작될 때마다(즉 \cs{chapter} 명령이나 \cs{section} 명령이 불릴 때마다) 이 명령에 할당된 값을 새로운 것으로 대체하게 하는 것이다.
+
+% For ultimate flexibility, the \verb|\chapter| command and its friends
+% do not redefine \ci{rightmark} and \ci{leftmark} themselves. They call
+% yet another command (\ci{chaptermark}, \ci{sectionmark}, or
+% \ci{subsectionmark}) that is responsible for redefining \ci{rightmark}
+% and \ci{leftmark}.
+유연성을 확보하고 충돌을 방지하기 위해서 \verb|\chapter|나 \verb|\section| 명령이 \ci{rightmark}와 \ci{leftmark} 명령을 직접 수정하지는 않는다. 그 대신 \ci{chaptermark}, \ci{sectionmark}, \ci{subsectionmark} 같은 다른 명령을 호출하는데 이 명령들이 \ci{rightmark}와 \ci{leftmark}를 정의하는 역할을 맡고 있다.
+
+% If you want to change the look of the chapter
+% name in the header line, you need only ``renew'' the \ci{chaptermark}
+% command. \cih{sectionmark}\cih{subsectionmark}
+면주의 장표제 모양을 바꾸고 싶으면 \ci{chaptermark}를 재정의(renewcommand)하면 된다.
+
+% Figure~\ref{fancyhdr} shows a possible setup for the \pai{fancyhdr}
+% package that makes the headers look about the same as they look in
+% this booklet. In any case, I suggest you fetch the documentation for
+% the package at the address mentioned in the footnote.
+그림~\ref{fancyhdr}에 영문판 lshort의 면주 모양과 똑같이 페이지 스타일을 정의한 예를 보였다. 아무튼 이 패키지의 사용설명서를 읽어보기를 권한다.
+
+% \section{The Verbatim Package}
+\section{Verbatim 패키지}
+
+% Earlier in this book, you got to know the \ei{verbatim}
+% \emph{environment}.  In this section, you are going to learn about the
+% \pai{verbatim} \emph{package}. The \pai{verbatim} package is basically
+% a re-implementation of the \ei{verbatim} environment that works around
+% some of the limitations of the original \ei{verbatim} environment.
+% This by itself is not spectacular, but the implementation of the
+% \pai{verbatim} package added new functionality, which is
+% why I am mentioning the package here. The \pai{verbatim}
+% package provides the
+\ei{verbatim} \emph{환경}에 대해서는 이 책의 앞부분에서 이미 보았다.
+여기서는 \pai{verbatim} \emph{패키지}에 대해 배워보려 한다.
+\pai{verbatim} 패키지는 기본적으로 원래의 \ei{verbatim} 환경이 가지고 있는 한계를 보충하기 위해서 \ei{verbatim} 환경을 재구현한 것이다. 그 자체로 엄청난 것은 아니지만 새로운 기능을 추가한 것이 있고 그 때문에 여기서 이 패키지를 다루는 것이다.
+\pai{verbatim} 패키지는 다음과 같은 명령을 제공한다.
+% \begin{lscommand}
+% \ci{verbatiminput}\verb|{|\emph{filename}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{verbatiminput}\verb|{|\emph{filename}\verb|}|
+\end{lscommand}
+
+% \noindent command, which allows you to include raw ASCII text into your
+% document as if it were inside a \ei{verbatim} environment.
+\noindent 이 명령은 외부 텍스트 파일의 내용을 \ei{verbatim} 환경 안에 넣으면서 불러들이도록 한다.
+
+% As the \pai{verbatim} package is part of the `tools' bundle, you
+% should find it pre-installed on most systems. If you want to know more
+% about this package, make sure to read \cite{verbatim}.
+이 패키지에 대해 더 알고 싶으면 사용설명서 \cite{verbatim}\를 읽어보라.
+
+% \section{Installing Extra Packages}\label{sec:Packages}
+\section{패키지의 추가 설치}
+\label{sec:Packages}
+
+% Most \LaTeX{} installations come with a large set of pre-installed
+% style packages, but many more are available on the net. The main
+% place to look for style packages on the Internet is CTAN (\url{http://www.ctan.org/}).
+대부분의 \LaTeX{} 설치배포판은 엄청나게 많은 스타일 패키지를 미리 설치해준다. 
+그렇지만 인터넷에서 구할 수 있는 패키지도 많다. 스타일 패키지에 대하여 우선 방문해보아야 할 곳은 CTAN (\url{http://www.ctan.org})이다.
+
+% Packages such as \pai{geometry}, \pai{hyphenat}, and many
+% others are typically made up of two files: a file with the extension
+% \texttt{.ins} and another with the extension \texttt{.dtx}. There
+% will often be a \texttt{readme.txt} with a brief description of the
+% package. You should of course read this file first.
+\pai{geometry}, \pai{hyphenat} 등 많은 패키지들은 두 개의 파일로 배포된다.
+하나는 \texttt{.ins} 파일아고 다른 하나는 \texttt{.dtx} 파일이다.
+\texttt{readme.txt}가 있어서 패키지에 대해 간략히 설명하고 있을 수 있다.
+당연히 이 파일을 제일 먼저 읽어야 한다.
+
+% In any event, once you have copied the package files onto your
+% machine, you still have to process them in a way that (a) tells your
+% \TeX\ distribution about the new style package and (b) gives you
+% the documentation.  Here's how you do the first part:
+어떤 경우든 패키지 파일을 내려받았다면 이것을 다음과 같이 처리하여야 한다.
+(a) 자신의 \TeX{} 시스템에게 스타일 파일에 대해 알려주는 것.
+(b) 패키지 문서를 얻는 것.
+
+먼저 (a)에 해당하는 작업을 해보자.
+
+% \begin{enumerate}
+\begin{enumerate}  
+% \item Run \LaTeX{} on the \texttt{.ins} file. This will
+%   extract a \eei{.sty} file.
+\item \LaTeX 을 \texttt{.ins} 파일에 대하여 실행한다. 그렇게 하면 \eei{.sty} 파일이 풀려나온다.
+% \item Move the \eei{.sty} file to a place where your distribution
+%   can find it. Usually this is in your \texttt{\ldots/\emph{localtexmf}/tex/latex}
+%   subdirectory (Windows or OS/2 users should feel free to change the
+%   direction of the slashes).
+\item \eei{.sty} 파일을 \TeX{} 시스템의 적절한 위치로 옮긴다. 일반적으로 \\
+ \texttt{\ldots/\emph{localtexmf}/tex/latex}이라는 폴더 아래에 설치한다.
+% \item Refresh your distribution's file-name database. The command
+%   depends on the \LaTeX distribution you use:
+%   \TeX{}live -- \texttt{texhash}; web2c -- \texttt{maktexlsr};
+%   MiK\TeX{} -- \texttt{initexmf -{}-update-fndb} or use the GUI.
+\item \TeX{} 시스템의 파일네임 데이터베이스를 갱신한다. 배포판에 따라서 이것을 하는 명령이 조금씩 다르다. \TeX{}\,Live는 \texttt{texhash} 또는 \texttt{mktexlsr}, web2c는 \texttt{mktexlsr}, MiK\TeX 은 \texttt{initexmf -{}-update-fndb} 등이며 편리하게 쓰는 GUI를 이용할 수도 있다.
+% \end{enumerate}
+\end{enumerate}
+
+% \noindent Now extract the documentation from the
+% \texttt{.dtx} file:
+\noindent 그 다음으로 문서를 얻는 방법을 알아본다.
+
+% \begin{enumerate}
+\begin{enumerate}
+% \item Run \hologo{XeLaTeX} on the \texttt{.dtx} file.  This will generate a
+%   \texttt{.pdf} file. Note that you may have to run \hologo{XeLaTeX}
+%   several times before it gets the cross-references right.
+\item \hologo{XeLaTeX}을 \texttt{.dtx} 파일에 대하여 실행한다. 그러면 \texttt{.pdf} 파일이 만들어진다. 교차참조가 바르게 나타나게 하려면 \XeLaTeX 을 몇 번 실행해야 할 것이다.
+% \item Check to see if \LaTeX\ has produced a \texttt{.idx} file
+%   among the various files you now have.
+%   If you do not see this file, then the documentation has no index. Continue
+%   with step~\ref{step:final}.
+\item \XeLaTeX 의 실행 과정에서 \texttt{.idx} 파일이 생성되었는지 확인한다. 만약 이 파일이 생겨나지 않았으면 설명 문서에 색인이 없는 것이므로 \ref{step:final}단계로 진행한다.
+% \item In order to generate the index, type the following:\\
+%         \fbox{\texttt{makeindex -s gind.ist \textit{name}}}\\
+%         (where \textit{name} stands for the main-file name without any
+%     extension).
+\item 색인을 생성해야 한다면 다음 명령을 실행한다. \\
+        \fbox{\texttt{makeindex -s gind.ist \textit{name}}}\\
+        (여기서 \emph{name}은 파일 이름을 확장자 없이 써넣는다는 뜻이다.)
+%  \item Run \LaTeX\ on the \texttt{.dtx} file once again. \label{step:next}
+\item \XeLaTeX 을 \texttt{.dtx}에 대해 한 번 더 실행한다. \label{step:next}
+% \item Last but not least, make a \texttt{.ps} or \texttt{.pdf}
+%   file to increase your reading pleasure.\label{step:final}
+\item 마지막으로 만들어진 \texttt{.pdf} 문서를 즐겁게 읽어보면 된다. \label{step:final}
+% \end{enumerate}
+\end{enumerate}
+
+% Sometimes you will see that a \texttt{.glo}
+% (glossary) file has been produced. Run the following
+% command between
+% step~\ref{step:next} and~\ref{step:final}:
+가끔 \texttt{.glo} (glossary) 파일이 생겨나 있을 때가 있다.
+이것은 용어집을 만들기 위한 파일인데 다음 명령을 \ref{step:next}\와 
+\ref{step:final}단계 사이에 실행하여야 한다.
+
+% \noindent\texttt{makeindex -s gglo.ist -o \textit{name}.gls \textit{name}.glo}
+\noindent\texttt{makeindex -s gglo.ist -o \textit{name}.gls \textit{name}.glo}
+
+% \noindent Be sure to run \LaTeX\ on the \texttt{.dtx} one last
+% time before moving on to step~\ref{step:final}.
+\noindent \ref{step:final}단계로 넘어가기 전에 \XeLaTeX 을 마지막에 한 번 실행해야 한다는 것을 기억하자.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Contents: Chapter on pdfLaTeX
+% % French original by Daniel Flipo 14/07/2004
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{\LaTeX{} and PDF}\label{sec:pdftex}\index{PDF}
+\section{\LaTeX 과 PDF}
+\label{sec:pdftex}\index{PDF}
+% \secby{Daniel Flipo}{Daniel.Flipo@univ-lille1.fr}%
+\secby{Daniel Flipo}{Daniel.Flipo@univ-lille1.fr}%
+% PDF is a portable \wi{hypertext} document format. Much as in a web page,
+% some words in the document are marked as hyperlinks. They link to other
+% places in the document or even to other documents. If you click
+% on such a hyperlink you get transported to the destination of the
+% link. In the context of \LaTeX{}, this means that all occurrences of
+% \ci{ref} and \ci{pageref} become hyperlinks. Additionally, the table
+% of contents, the index and all the other similar structures become
+% collections of hyperlinks.
+PDF (Portable Document Format)는 흔하게 볼 수 있는 강력한 \wi{하이퍼텍스트}[hypertext] 문서 형식이다. 하이퍼텍스트란 웹페이지에서 볼 수 있는 바와 같이 특정 어구에 하이퍼링크를 달아서 동일 문서 내 또는 다른 문서로 클릭하여 이동하거나 참조할 수 있게 하는 장치이다. \LaTeX 으로 말하자면 \ci{ref}와 \ci{pageref}, \ci{cite}가 모두 하이퍼링크로 이루어지게 할 수 있으며 목차나 색인 등도 하이퍼링크를 갖춘 구조로서 조판되게 할 수 있다.
+
+% Most web pages you find today are written in HTML \emph{(HyperText
+%   Markup Language)}. This format has two significant disadvantages
+% when writing scientific documents:
+% \begin{enumerate}
+% \item Including mathematical formulae into HTML documents is not
+%   generally supported. While there is a standard for it, most browsers
+%   used today do not support it, or lack the required fonts.
+% \item Printing HTML documents is possible, but the results vary widely
+%   between platforms and browsers. The results are miles removed from
+%   the quality we have come to expect in the \LaTeX{} world.
+% \end{enumerate}
+오늘날 많은 웹페이지가 HTML (Hypertext Markup Language)로 작성된다.
+이 형식은 과학 문헌을 작성하는 경우에 중요한 결점 두 가지가 있다.
+\begin{enumerate}
+\item HTML 자체만으로는 수학식을 포함하기 어렵다. 이를 위한 표준이 있기는 하지만 지원하는 브라우저가 많지 않거나 필요한 폰트가 없을 때가 많다.%
+\trfnote{%
+  여기서 `표준'이라 한 것은 아마 MathML을 지칭하는 듯하다. 한편 요즘 웹상에서 수학식을 표현하는 방법이 개발되어 이전의 어려움을 대부분 극복한 것은 사실이다. 특히 MathJax가 유명하다. \url{https://www.mathjax.org/}. MathJax는 \LaTeX{} 형식으로 입력되는 수식을 잘 표현한다.
+}
+\item HTML 문서를 인쇄할 수 있기는 하나 결과는 플랫폼과 브라우저에 따라 천차만별이다. 그 결과물은 \LaTeX 으로 만든 문서와 비교할 때 품질 면에서 너무나 현격한 차이가 있다.
+\end{enumerate}
+
+% There have been many attempts to create translators from \LaTeX{} to
+% HTML. Some were even quite successful in the sense that they are able
+% to produce legible web pages from a standard \LaTeX{} input file. But
+% all of them cut corners left and right to get the job done. As soon as
+% you start using more complex \LaTeX{} features and external packages
+% things tend to fall apart. Authors wishing to preserve the unique
+% typographic quality of their documents even when publishing on the web
+% turn to PDF \emph{(Portable Document Format)}, which preserves the
+% layout of the document and permits hypertext
+% navigation. Most modern browsers come with plugins that allow the
+% direct display of PDF documents.
+\LaTeX 을 HTML으로 변환하는 다양한 시도가 있었다. 그 가운데 일부는 표준 \LaTeX{} 입력 파일로부터 읽을 만한 웹 페이지를 만들어낼 수 있다는 의미에서 그럭저럭 성공적인 것도 있다. 그러나 이렇게 하기 위해서는 너무나 많은 것을 희생해야 한다. 다양한 패키지를 활용한 복잡한 \LaTeX{} 문서가 되면 당장 제대로 되지 않는 것들이 나타나기 시작한다. 자신이 작성한 문서의 타이포그래피적 품위를 유지하면서도 웹을 통하여 출판하고자 한다면 PDF를 고려해보는 것이 좋다. 이 포맷은 문서의 레이아웃을 그대로 유지하면서 하이퍼텍스트를 포함하기 때문이다.
+현대의 브라우저들은 PDF 문서를 브라우저 내에서 바로 보여주는 부가기능을 대부분 가지고 있다.
+
+% All modern \TeX{} engines can generate PDF files out of the box. If you worked through this introduction until here you will already be familiar with the process.
+현재의 모든 \TeX{} 엔진은 PDF를 즉시 생성할 수 있다. 이 입문서를 잘 따라왔다면 
+PDF 만들기도 이미 익숙해진 방법으로 할 수 있다.
+
+% \subsection{Hypertext Links}
+% \label{ssec:pdfhyperref}
+\subsection{하이퍼텍스트 링크}
+\label{ssec:pdfhyperref}
+
+% The \pai{hyperref} adds two cool features to your \LaTeX{} PDF files:
+\pai{hyperref} 패키지는 \LaTeX{} PDF 파일에 멋진 기능을 추가해준다.
+
+% \begin{enumerate}
+\begin{enumerate} \firmlist
+% \item The paper size is set according to your specification in the document class call.
+\item 용지 크기는 문서 클래스에 선언한 것에 맞추어진다.
+% \item All references in your your document turn into hyperlinks.
+\item 문서상의 모든 참조는 하이퍼링크로 만들어진다.
+% \end{enumerate}
+\end{enumerate}
+
+% Just add \verb+\usepackage{hyperref}+ as the \emph{last} command into
+% the preamble of your document.
+\verb+\usepackage{hyperref}+ 문장을 전처리부에 \emph{마지막} 문장으로 적어넣는다.
+
+% Many options are available to customize the behaviour of the
+% \pai{hyperref} package:
+% \begin{itemize}
+% \item either as a comma separated list after the pdftex option\\
+%   \verb+\usepackage{hyperref}+
+% \item or on individual lines with the command
+%   \verb+\hypersetup{+\emph{options}\verb+}+.
+% \end{itemize}
+\pai{hyperref} 패키지의 동작을 지정하기 위해 여러 가지 옵션을 사용할 수 있다.
+\begin{itemize} \firmlist
+\item \verb|\usepackage[|\emph{options}\verb|]{hyperref}|와 같이 옵션을 쉼표로 분리하여 나열하거나
+\item \verb|\hypersetup{|\emph{options}\verb|}|라는 별도의 명령으로 옵션을 설정할 수 있다.
+\end{itemize}
+
+% In the following
+% list the default values are written in an upright font.
+사용가능한 옵션을 몇 가지 보이겠다. 로만 폰트로 적힌 것이 기본값(default)이다.
+
+% \begin{flushleft}
+% \begin{description}
+\begin{description}
+%   \item [\texttt{bookmarks (=true,\textit{false})}] show or hide the
+%     bookmarks bar when displaying the document
+\item [\texttt{bookmarks (=true, \textit{false})}] 문서의 pdf 책갈피(bookmarks)를 보이거나 보이지 않게 한다.
+%   \item [\texttt{unicode (=false,\textit{true})}] allows the use of
+%     characters of non-Latin based languages in Acrobat's bookmarks
+\item [\texttt{unicode (=false,\textit{true})}] Acrobat의 책갈피에 비라틴문자를 허용할 것인지의 여부이다.
+%   \item [\texttt{pdftoolbar (=true,\textit{false})}] show or hide
+%     Acrobat's toolbar
+\item [\texttt{pdftoolbar (=true,\textit{false})}] Acrobat의 툴바를 보이거나 보이지 않게 한다.
+%   \item [\texttt{pdfmenubar (=true,\textit{false})}] show or hide
+%     Acrobat's menu
+\item [\texttt{pdfmenubar (=true,\textit{false})}] Acrobat 메뉴를 보이거나 숨긴다.
+%   \item [\texttt{pdffitwindow (=false,\textit{true})}] adjust the
+%     initial magnification of the PDF when displayed
+\item [\texttt{pdffitwindow (=false,\textit{true})}] PDF를 열었을 때 전체 창에 맞추어 확대할 것인지 여부이다.
+%   \item [\texttt{pdftitle (=\{text\})}] define the title that gets
+%     displayed in the \texttt{Document Info} window of Acrobat
+\item [\texttt{pdftitle (=\{text\})}] Acrobat의 \texttt{문서 정보}에 표시될 문서 제목을 정한다.
+%   \item [\texttt{pdfauthor (=\{text\})}] the name of the PDF's author
+\item [\texttt{pdfauthor (=\{text\})}] \texttt{문서 정보}에 나타날 저자명을 정한다.
+%   \item [\texttt{pdfnewwindow (=false,\textit{true})}] define whether a new
+%     window should be opened when a link leads out of the current
+%     document
+\item [\texttt{pdfnewwindow (=false,\textit{true})}] 문서의 링크를 눌러서 다른 문서로 이동할 때 새 창을 열 것인가의 여부.
+%   \item [\texttt{colorlinks (=false,\textit{true})}] surround the
+%     links by colour frames (\texttt{false}) or colour the text of the links
+%     (\texttt{true}). The colour of these links can be configured
+%     using the following options (default colours are shown):
+\item [\texttt{colorlinks (=false,\textit{true})}] 하이퍼링크가 걸린 텍스트를 색상 프레임으로 둘러쌀 것인지(\texttt{false}) 아니면 색을 입힐 것인지(\texttt{true})를 나타낸다. 각 링크 종류에 따라 색상이 다르게 나타나는데 해당 옵션은 다음과 같다(표시된 색상은 기본값이다).
+%     \begin{description}
+  \begin{description}
+%     \item [\texttt{linkcolor (=red)}] colour of internal
+%       links (sections, pages, etc.)
+    \item [\texttt{linkcolor (=red)}] 내부 링크 (section, 페이지 등)
+%     \item [\texttt{citecolor (=green)}] colour of
+%       citation links (bibliography)
+    \item [\texttt{citecolor (=green)}] 인용 링크 (참고문헌)
+%     \item [\texttt{filecolor (=magenta)}] colour of file
+%       links
+    \item [\texttt{filecolor (=magenta)}] 파일로의 링크
+%     \item [\texttt{urlcolor (=cyan)}] colour of URL
+%       links (mail, web)
+    \item [\texttt{urlcolor (=cyan)}] URL 링크 (메일, 웹)
+%     \end{description}
+  \end{description}
+% \end{description}
+\end{description}
+% \end{flushleft}
+
+
+% If you are happy with the defaults, use
+기본값으로 충분하다면
+% \begin{code}
+% \begin{verbatim}
+% \usepackage{hyperref}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\usepackage{hyperref}
+\end{verbatim}
+\end{code}
+
+\noindent 책갈피를 열고 링크를 색상 텍스트로 나타내려면 (\texttt{=true}는 생략가능)
+% To have the bookmark list open and links in colour
+% (the \texttt{=true} values are optional):
+% \begin{code}
+% \begin{verbatim}
+% \usepackage[bookmarks,colorlinks]{hyperref}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\usepackage[bookmarks,colorlinks]{hyperref}
+\end{verbatim}
+\end{code}
+\noindent 위와 같이 설정한다.
+
+\pagebreak[3]
+
+% When creating PDFs destined for printing, coloured links are not a
+%   good thing as they end up in gray in the final output, making it
+%   difficult to read. Use colour frames, which are not printed:
+PDF를 인쇄용으로 만드는 경우에 색상 링크는 좋은 방법이 아니다. 흑백 프린터로 인쇄하면 회색으로 나오기 때문에 읽기 어려워진다. 반면 프레임은 화면으로만 보이고 인쇄되지 않는다.
+% \begin{code}
+% \begin{verbatim}
+% \usepackage{hyperref}
+% \hypersetup{colorlinks=false}
+% \end{verbatim}
+% \end{code}
+% \noindent or make links black:
+% \begin{code}
+% \begin{verbatim}
+% \usepackage{hyperref}
+% \hypersetup{colorlinks,%
+%             citecolor=black,%
+%             filecolor=black,%
+%             linkcolor=black,%
+%             urlcolor=black,%
+%             pdftex}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+\end{verbatim}
+\end{code}
+\noindent 또는 링크 색상을 모두 black으로 하려면
+\begin{code}
+\begin{verbatim}
+\usepackage{hyperref}
+\hypersetup{colorlinks,%
+            citecolor=black,%
+            filecolor=black,%
+            linkcolor=black,%
+            urlcolor=black,%
+            pdftex}
+\end{verbatim}
+\end{code}
+
+% When you just want to provide information for the
+%   \texttt{Document Info} section of the PDF file:
+% \begin{code}
+% \begin{verbatim}
+% \usepackage[pdfauthor={Pierre Desproges},%
+%             pdftitle={Des femmes qui tombent},%
+%             pdftex]{hyperref}
+% \end{verbatim}
+% \end{code}
+PDF 파일의 \texttt{문서 정보}에 들어갈 내용을 다음과 같이 설정한다.
+\begin{code}
+\begin{verbatim}
+\usepackage[pdfauthor={Pierre Desproges},%
+            pdftitle={Des femmes qui tombent},%
+            pdftex]{hyperref}
+\end{verbatim}
+\end{code}
+
+% \vspace{\baselineskip}
+
+% In addition to the automatic hyperlinks for cross references, it is
+% possible to embed explicit links using
+% \begin{lscommand}
+% \ci{href}\verb|{|\emph{url}\verb|}{|\emph{text}\verb|}|
+% \end{lscommand}
+자동 하이퍼링크 말고, 특정의 링크를 임의로 주기 위해서는 다음 명령을 쓴다.
+\begin{lscommand}
+\ci{href}\verb|{|\emph{url}\verb|}{|\emph{text}\verb|}|
+\end{lscommand}
+
+% The code
+% \begin{code}
+% \begin{verbatim}
+% The \href{http://www.ctan.org}{CTAN} website.
+% \end{verbatim}
+% \end{code}
+% produces the output ``\href{http://www.ctan.org}{CTAN}'';
+% a click on the word ``\textcolor{magenta}{CTAN}''
+% will take you to the CTAN website.
+아래와 같이 하면
+\begin{code}
+\begin{verbatim}
+\href{http://www.ctan.org}{CTAN} 웹사이트.
+\end{verbatim}
+\end{code}
+이 코드는 ``\href{http://www.ctan.org}{CTAN}''이라는 링크를 만들어낸다.
+``\textcolor{magenta}{CTAN}'' 부분을 누르면 CTAN 웹사이트로 이동할 것이다.
+
+% If the destination of the link is not a URL but a local file,
+%   use the \ci{href} command without the 'http://' bit:
+% \begin{verbatim}
+%   The complete document is \href{manual.pdf}{here}
+% \end{verbatim}
+% which produces the text ``The complete document is \textcolor{cyan}{here}''.
+% A click on the word
+% ``\textcolor{cyan}{here}''
+% will open the file \texttt{manual.pdf}. (The filename is relative to
+% the location of the current document).
+링크가 가리키는 목적지가 URL이 아니라 파일인 경우에 \ci{href} 명령에 `http://' 부분을 제외하고 쓴다.
+\begin{verbatim}
+  전체 문서는 \href{manual.pdf}{여기}를 보시오.
+\end{verbatim}
+이렇게 하면 ``전체 문서는 \href{manual.pdf}{여기}를 보시오''라는 텍스트가 생성된다. ``여기''라고 되어 있는 부분을 클릭하면 (\verb|manual.pdf|라는 파일이 읽고 있는 문서와 같은 폴더에 있을 때) 파일이 열릴 것이다.
+
+% The author of an article might want her readers to easily send
+%   email messages by using the \ci{href} command inside the \ci{author}
+%   command on the title page of the document:
+전자우편 주소에 하이퍼링크를 걸어두면 문서를 읽던 독자가 즉시 이메일을 보낼 수 있다. 
+% \begin{code}
+% \begin{verbatim}
+% \author{Mary Oetiker $<$\href{mailto:mary@oetiker.ch}%
+%        {mary@oetiker.ch}$>$
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\author{Mary Oetiker $<$\href{mailto:mary@oetiker.ch}%
+       {mary@oetiker.ch}$>$
+\end{verbatim}
+\end{code}
+% Note that I have put the link so that my email address appears not only
+% in the link but also on the page itself. I did this because the
+% link\\
+% \verb+\href{mailto:mary@oetiker.ch}{Mary Oetiker}+\\
+% would
+% work well within Acrobat, but once the page is printed the email address
+% would not be visible anymore.
+위의 예에서 저자의 이름에 이메일 주소 하이퍼링크를 걸지 않고 이메일 주소를 쓰면서 거기에 다시 링크를 걸었는데 이렇게 한 이유는 저자 이름에만 이메일 주소 링크를 \\
+\verb+\href{mailto:mary@oetiker.ch}{Mary Oetiker}+\\
+이런 식으로 걸어둔 경우에 PDF를 화면으로 읽고 있다면 문제없이 동작하지만 인쇄했을 때 이메일 주소가 사라져서 보이지 않게 되기 때문이다.
+
+% \subsection{Problems with Links}
+\subsection{링크 관련 문제}
+
+% Messages like the following:
+% \begin{verbatim}
+% ! pdfTeX warning (ext4): destination with the same
+%   identifier (name{page.1}) has been already used,
+%   duplicate ignored
+% \end{verbatim}
+pdf\TeX{}의 경고 메시지로 이런 것이 있다.
+\begin{verbatim}
+  ! pdfTeX warning (ext4): destination with the same
+    identifier (name{page.1}) has been already used,
+    duplicate ignored
+\end{verbatim}
+% appear when a counter gets reinitialized, for example by using
+% the command \ci{mainmatter} provided by the \texttt{book} document class. It
+% resets the page number counter to~1 prior to the first chapter of the
+% book. But as the preface of the book also has a page number~1 all
+% links to ``page 1'' would not be unique anymore, hence the notice
+% that ``\verb+duplicate+ has been \verb+ignored+.''
+이것은 카운터가 재설정되었을 때 나타난다. 예를 들면 \texttt{book} 클래스의 \ci{mainmatter} 명령을 주면 페이지 번호 카운터를 1로 재설정하여 제1장의 페이지 번호가 1이 되는데 ``서문''의 페이지 번호도 인쇄시에는 i로 나타나 있어서 구별되지만 내부적으로는 똑같이 1이기 때문에 ``1페이지''를 가리키는 링크는 더이상 한 군데를 가리키지 않아서 혼선을 빚게 된다. 그래서 경고 메시지에서 \verb|duplicate|가 \verb|ignore|되었다고 하는 것이다.
+
+% The counter measure consists of putting \texttt{plainpages=false} into
+% the hyperref options. This unfortunately only helps with the page
+% counter.
+% An even more radical solution is to use the option\\
+% \texttt{hypertexnames=false}, but this will cause the page links in
+% the index to stop working.
+\texttt{plainpages=false} 옵션을 두면 카운터 재설정 문제는 해결되는데 문제는 이것이 오직 페이지 카운터에만 해당한다는 점이다. 극단적으로 \texttt{hypertexnames=false}로 해버리는 방법이 있지만 이렇게 하면 색인에서 페이지 링크가 더이상 먹지 않는다.
+
+% \subsection{Problems with Bookmarks}
+\subsection{북마크 관련 문제}
+
+% The text displayed by bookmarks does not always look like you expect
+% it to look. Because bookmarks are ``just text,'' fewer
+% characters are available for bookmarks than for normal \LaTeX{} text.
+% Hyperref will normally notice such problems and put up a warning:
+pdf 북마크는 편리한 장치지만 거기에 나타나는 모양이 항상 예상대로인 것이 아니다. 왜냐하면 북마크는 ``단순히 텍스트''일 뿐이라서 보통 \LaTeX 으로 표현되는 텍스트 가운데 사용할 수 없는 문자가 많다. hyperref은 이런 문제를 만나면 그저 무시하면서 경고를 보여준다.
+% \begin{code}
+% \begin{verbatim}
+% Package hyperref Warning:
+% Token not allowed in a PDFDocEncoded string:
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+Package hyperref Warning:
+Token not allowed in a PDFDocEncoded string:
+\end{verbatim}
+\end{code}
+% Work around this problem by providing a text string for
+% the bookmarks, which replaces the offending text:
+이 문제를 피해가려면 북마크용 텍스트를 별도로 제공해주면 된다. 
+% \begin{lscommand}
+% \ci{texorpdfstring}\verb|{|\emph{\TeX{} text}\verb|}{|\emph{Bookmark Text}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{texorpdfstring}\verb|{|\emph{\TeX{} text}\verb|}{|\emph{Bookmark Text}\verb|}|
+\end{lscommand}
+
+% Math expressions are a prime candidate for this kind of problem:
+수학식이 북마크에 들어가는 경우에 흔히 발생하는 일이다.
+% \begin{code}
+% \begin{verbatim}
+% \section{\texorpdfstring{$E=mc^2$}%
+%         {E = mc ** 2}}
+% \end{verbatim}
+% \end{code}
+% which turns \verb+\section{$E=mc^2$}+ to ``E = mc ** 2'' in the bookmark area.
+\begin{code}
+\begin{verbatim}
+\section{\texorpdfstring{$E=mc^2$}%
+        {E = mc ** 2}}
+\end{verbatim}
+\end{code}
+$E=mc^2$을 절표제로 사용하면서 북마크에는 ``E = mc ** 2''을 넣으라고 지시하는 것이다.
+
+% If you write your document in Unicode and use the \verb+unicode+ option for
+% the \pai{hyperref} package to use Unicode characters in bookmarks, this
+% will give you a much larger selection of characters to pick from when
+% when using \ci{texorpdfstring}.
+유니코드 문서를 작성하고 있다면 \pai{hyperref} 패키지에 \verb+unicode+ 옵션을 부여하면 북마크에 유니코드 문자를 사용할 수 있다. \ci{texorpdfstring}하는 경우에 허용할 수 있는 문자 범위가 넓어진다.
+
+% \section{Working with \hologo{XeLaTeX} and PDF}
+\section{\hologo{XeLaTeX}과 PDF}
+% \label{sec:xetex}\index{PDF}\index{XeTeX@\hologo{XeTeX}}\index{XeLaTeX@\hologo{XeLaTeX}}
+\label{sec:xetex}\index{PDF}\index{XeTeX@\hologo{XeTeX}}\index{XeLaTeX@\hologo{XeLaTeX}}
+
+% \secby{Axel Kielhorn}{A.Kielhorn@web.de}%
+\secby{Axel Kielhorn}{A.Kielhorn@web.de}%
+% Most of the things said in the previous section are valid for \hologo{XeLaTeX} as well.
+앞 절에서 논의한 내용 대부분이 \XeLaTeX 에도 적용된다.
+
+% There is a Wiki at \url{http://wiki.xelatex.org/doku.php} that collects
+% information relevant to \hologo{XeTeX} and \hologo{XeLaTeX}.
+\XeTeX 과 \XeLaTeX{} 관련 정보가 \url{http://wiki.xelatex.org/docu.php}의 위키 사이트에 있다.
+
+% \subsection{The Fonts}
+\subsection{폰트}
+
+% In addition to the normal \texttt{tfm} based fonts, \hologo{XeLaTeX} is able
+% to use any font known to the operating system. If you have the \texttt{Linux
+% Libertine} fonts installed, you can simply say
+전통(레거시) 텍 엔진의 \texttt{tfm} 기반 폰트 이외에, \XeLaTeX 은 운영체제에 등록된 어떤 폰트라도 사용할 수 있다. \texttt{Linux Libertine} 폰트가 설치되어 있다면 간단히 
+% \begin{code}
+% \begin{verbatim}
+% \usepackage{fontspec}
+% \setmainfont[Ligatures=TeX]{Linux Libertine}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Linux Libertine}
+\end{verbatim}
+\end{code}
+이와 같이 전처리부에 선언하는 것으로 문서에 이 폰트를 사용할 수 있다.
+% %
+% in the preamble. This will normally detect the italic and bold versions as
+% well, so \verb|\textit| and \verb|\textbf| will work as usual. When the
+% font is using OpenType technology you have access to many features which
+% required switching to a separate font or using virtual fonts in the past.
+% The main feature is the extended character set; a font may contain Latin,
+% Greek and Cyrillic characters and the corresponding ligatures.
+같은 글꼴 가족에 해당하는 이탤릭 글꼴과 볼드 글꼴을 대개 찾아내기 때문에 
+\verb|\textit|이나 \verb|\textbf| 명령도 잘 작동한다.
+예전에 가상 폰트나 별도의 폰트를 통해서 하던 폰트 변형, 확장, 대체 기능이 오늘날은 
+오픈타입(OpenType) 기술에 의한 font feature로 구현되어 있는데 이를 활성화할 수도 있다. 문자 집합이 확장되어서 하나의 폰트가 라틴 문자, 그리스 문자, 키릴 문자와 대응 합자(ligature)들을 모두 갖추고 있게 되었다.
+
+% Many fonts contain at least two kinds of numerals, the normal lining
+% numerals and so called old style (or lower case) numerals, which partly
+% extend below the baseline. They may contain proportional numerals (the ``1''
+% takes less space than the ``0'') or monospaced numerals which are suitable
+% for tables.
+최소 두 종류의 숫자 모양을 갖춘 폰트가 많다. old style 숫자라 불리는 것과 라이닝 숫자라 불리는 것인데, old style 숫자는 베이스라인 아래로 내려가는 모양으로 되어 있다. 그리고 가변폭(proportional) 숫자(``1''과 ``0''이 서로 다른 너비를 가진다)와 고정폭(monospaced) 숫자를 가지고 있을 수도 있는데 고정폭은 표 작성에 알맞다.
+
+% \begin{code}
+% \begin{verbatim}
+% \newfontfamily\LLln[Numbers=Lining]{(font)}
+% \newfontfamily\LLos[Numbers=OldStyle]{(font)}
+% \newfontfamily\LLlnm[Numbers=Lining,Numbers=Monospaced]{(font)}
+% \newfontfamily\LLosm[Numbers=OldStyle,Numbers=Monospaced]{(font)}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\newfontfamily\LLln[Numbers=Lining]{(font)}
+\newfontfamily\LLos[Numbers=OldStyle]{(font)}
+\newfontfamily\LLlnm[Numbers=Lining,Numbers=Monospaced]{(font)}
+\newfontfamily\LLosm[Numbers=OldStyle,Numbers=Monospaced]{(font)}
+\end{verbatim}
+\end{code}
+
+% Almost all OpenType fonts contain the standard ligatures (fl fi ffi) but
+% there are also some rare or historical ligatures like st, ct and tz. You may
+% not want to use them in a technical report but they are fine for a novel. To
+% enable these ligatures use either of the following lines:
+대부분의 오픈타입 폰트에 표준 합자(fl fi ffi)가 들어 있는데 st, ct, tz 같은 희귀한 합자나 역사적 합자를 가진 것도 있다. 이런 것을 과학적 문서에 쓸 수는 없지만 소설 등이라면 괜찮을 것이다. 합자 사용을 지정하는 방법을 다음 예제에서 나타내었다.
+
+% \begin{code}
+% \begin{verbatim}
+% \setmainfont[Ligatures=Rare]{(font)}
+% \setmainfont[Ligatures=Historic]{(font)}
+% \setmainfont[Ligatures=Historic,Ligatures=Rare]{(font)}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\setmainfont[Ligatures=Rare]{(font)}
+\setmainfont[Ligatures=Historic]{(font)}
+\setmainfont[Ligatures=Historic,Ligatures=Rare]{(font)}
+\end{verbatim}
+\end{code}
+
+% Not every font contains both sets of ligature, consult the font
+% documentation or just try it out. Sometimes these ligatures are language
+% dependent; for example a ligature used in Polish (fk) is not used in English. You have
+% to add
+모든 폰트가 합자들을 다 갖추고 있는 것은 아니므로 폰트 견본을 보거나 직접 시험해보라.
+어떤 합자는 언어의존적이다. 예컨대 폴란드어의 (fk) 합자는 영어에서는 사용되지 않는 것이다. 폴란드어 특유의 합자를 활성화하려면 다음과 같이 한다.
+% \begin{code}
+% \begin{verbatim}
+% \setmainfont[Language=Polish]{(font)}
+% \end{verbatim}
+% \end{code}
+% to enable the Polish ligatures.
+\begin{code}
+\begin{verbatim}
+\setmainfont[Language=Polish]{(font)}
+\end{verbatim}
+\end{code}
+
+% Some fonts (like the commercial Adobe Garamond Premier Pro) contain
+% alternative glyphs that are activated by default in \hologo{XeLaTeX}
+% distributed with \TeX Live~2010\footnote{The behavior has changed with this
+% version, it was off by default in earlier releases.}. The result is a stylish
+% ``Q'' with a descender reaching below the following ``u''. To disable this
+% feature you have to define the font with disabled contextuals:
+어떤 폰트(예컨대 상업용 폰트인 Adobe Garamond Premier Pro)에 포함된 대체 글리프를 \TeX\,Live 2010 이후 버전에서 \XeLaTeX 이 기본적으로 활성화한다.\footnote{그 이전 버전에서는 되지 않았으나 이 버전 이후 변경된 사항이다.}
+그 결과 특유의 ``Q'' 문자 꼬리가 그 다음에 오는 ``u'' 아래까지 닿는 모양으로 인쇄된다. 이 기능을 억제하려면
+
+% \begin{code}
+% \begin{verbatim}
+% \setmainfont[Contextuals=NoAlternate]{(font)}
+% \end{verbatim}
+% \end{code}
+\begin{code}
+\begin{verbatim}
+\setmainfont[Contextuals=NoAlternate]{(font)}
+\end{verbatim}
+\end{code}
+이와 같이 지정한다.
+
+% To learn about fonts in \hologo{XeLaTeX} read the \pai{fontspec} manual.
+\XeLaTeX 의 폰트 사용법에 대해 더 자세한 사항은 \pai{fontspec} 패키지 설명서를 읽어보면 된다.
+
+% \subsubsection{Where do I get OpenType fonts?}
+\subsubsection{오픈타입 폰트를 얻을 수 있는 곳}
+
+% If you have \texttt{TeXLive} installed, you already have some at
+% \url{.../texmf-dist/fonts/opentype}, just install them in your operating
+% system. This collection does not include \texttt{DejaVu}, which is available
+% at \url{http://dejavu-fonts.org/}.
+\TeX\,Live를 설치하여 사용하고 있다면 \url{.../texmf-dist/fonts/opentype} 폴더를 열어보면 상당히 많은 오픈타입 폰트가 있음을 알 수 있다. \LaTeX{} 작업을 위해서는 이대로 사용가능하며 시스템 전체적으로 활용하고 싶다면 운영체제에 설치하여 써도 된다.
+%여기에 \texttt{DejaVu} 폰트는 포함되어 있지 않다. \url{http://dejavu-fonts.org/}를 보라. %% TeX Live 현재 버전에 dejavu가 있으므로 이 행을 삭제
+
+% Make sure that each font is only installed \emph{once}, otherwise
+% interesting results may happen.
+각 폰트는 \emph{한 번}만 설치한다. 그렇지 않으면 이상한 결과를 얻을 수 있다.
+
+% You can use every font installed on your computer, but remember that other
+% users may not have these fonts. The Zapfino font used in the \pai{fontspec}
+% manual is included in Mac OSX, but is not available on Windows
+% computers.\footnote{A commercial version of the font called Zapfino Extra is
+% available.}
+자신의 컴퓨터에는 있는 폰트라도 다른 사람은 그 폰트를 가지고 있지 않을 수 있다는 사실을 기억하자. Zapfino 폰트는 \pai{fontspec} 설명서에도 나와 있는 것인데 Mac OS X에 포함되어 있지만 윈도우즈 컴퓨터에는 없을 수 있다.\footnote{Zapfino Extra라는 상업용 폰트가 있다.}
+
+% \subsubsection{Entering Unicode Characters}
+\subsubsection{유니코드 입력}
+
+% The number of characters in a font has grown but the number of keys on a
+% regular keyboard has not. So, how do I enter non-ASCII characters?
+폰트에 포함되는 글자들은 많아졌는데 키보드의 키 숫자는 늘어나지 않았다. 아스키 문자 이외의 글자들을 어떻게 입력할까?
+
+% If you write a large amount of text in a foreign language, you can install a
+% keyboard for that language and print out the character positions. (Most
+% operatings system have some sort of virtual keyboard, just make a
+% screenshot.)
+특정 외국어의 입력 분량이 상당하다면 그 언어에 맞는 키보드를 설치하여 키 배열을 인쇄해서 보면서 입력할 수 있겠다. (대부분의 운영체제에는 가상 키보드 기능이 있으므로 그것을 잘 활용해보라.)
+
+% If you rarely need an exotic character, you can simply pick it in the
+% character palette.
+입력할 문자가 몇 개 안 되는 경우라면 문자표에서 선택하여 붙여넣는 방법이 있다.
+
+% Some environments (e.\,g. the X Window System) offer many methods to enter
+% non-ASCII characters. Some editors (e.\,g. Vim and Emacs) offer ways to
+% enter these characters. Read the manual for the tools you are using.
+X 윈도우 시스템처럼 비아스키 문자 입력에 여러 방법을 제공하는 환경도 있으며 
+vim이나 Emacs와 같이 특수 문자 입력 방법을 제공하는 에디터도 있다.
+사용할 수 있는 도구의 설명서를 읽어보도록 하자.
+
+\subsection{한국어 폰트}
+\label{kofonts}
+\index{한글 폰트}
+
+\secbynomail{한국어판을 위하여 추가}%
+한국어 문서를 작성하기 위해서는 적어도 세 종류의 폰트가 필요하다. 하나는 라틴 문자를 위한 것이고 다른 하나는 한글 폰트이며 마지막으로 한자를 식자할 폰트가 있어야 한다. 
+한글과 한자를 같은 폰트로 식자할 수 있다면(즉 폰트에 한글과 한자가 모두 갖추어져 있다면) 라틴 문자용 폰트와 한글/한자용 폰트 두 종류가 있으면 된다. 조금 복잡한 상태인 까닭은 근본적으로 한글 한자 등 우리 문서 작성에 필요한 모든 자면(글리프)을 다 갖춘 신뢰할 만한 폰트가 존재하지 않기 때문이다.
+
+\XeLaTeX{} 지원 \koTeX 은 폰트에 대하여 다른 설정이 없으면 라틴 문자에 대해서는 Latin Modern 폰트를, 한글과 한자에 대해서는 나눔글꼴을 기본 폰트로 적용한다.
+
+\koTeX 의 \XeLaTeX{} 지원 패키지는 \pai{fontspec}을 기본적으로 로드하여 활성화하기 때문에, 라틴 문자 영역에 대한 것은 앞선 절에서 소개한 내용을 그대로 적용할 수 있다. 
+
+한글 폰트는 main/sans/mono 폰트(각각 rm, sf, tt에 해당)를 다음과 같은 명령으로 설정한다. 이 명령은 전처리부의 \verb|\usepackage{kotex}| 이후에 두면 된다.
+\begin{lscommand}
+\verb|\setmainhangulfont{|\emph{fontname}\verb|}[|\emph{options}\verb|]|
+\end{lscommand}
+\noindent \emph{fontname}은 해당 폰트의 이름이다. 
+
+\emph{options}를 활용하는 한 예시는 다음과 같다.
+\begin{verbatim}
+  \setmainhangulfont{UnBatang}[BoldFont=UnBatang-Bold,AutoFakeSlant]
+\end{verbatim}
+여기서 \verb|BoldFont|는 \cs{bfseries}로 식자할 폰트 이름을 적어주는 것이고%
+\trfnote{UnBatang의 경우에는 BoldFont를 별달리 지정하지 않아도 찾아낼 것이지만 어떤 폰트들은 BoldFont를 명시해야 할 때가 있다.} 
+\verb|AutoFakeSlant|\allowbreak 는 이탤릭체를 써야 할 상황에서 기울어진 글꼴을 사용하라는 의미이다. 우사체(fakeslant)
+사용은 권장하지 않는 바이지만 구태여 하려 한다면 이렇게 할 수 있다는 것이다.
+%한글 폰트는 이탤릭이 없으므로 우사체를 쓰려면 이렇게 할 수 있다.
+
+폰트 설정 방법과 옵션에 관하여서는 \texttt{xetexko} 매뉴얼\cite{xetexko}을 꼭 참조해 보아야 한다.
+
+한글 오픈타입 또는 트루타입 폰트는 대부분 \XeLaTeX 에서 사용가능하다.
+손쉽게 사용할 수 있는 한글 폰트는 은 글꼴, 
+\href{https://hangeul.naver.com}{나눔글꼴}, 
+\href{http://wiki.ktug.org/wiki/wiki.php/%ED%95%A8%EC%B4%88%EB%A1%AC%EC%B2%B4LVT}{함초롬LVT} 폰트,
+\href{https://www.google.com/get/noto/}{Noto CJK Fonts} 등이 있다.
+은 글꼴 트루타입은 \TeX\,Live로 배포되므로 별도로 설치할 필요가 없지만 다른 글꼴은 \emph{스스로 운영체제에 설치해야} 사용가능하다.
+
+한글 폰트의 이름을 알아내기 위해서는 \texttt{otfinfo}라는 프로그램(\TeX\,Live에 포함되어 있는 유틸리티 프로그램)을 사용하는 것이 좋다. 예를 들어 
+나눔명조 폰트 파일
+\texttt{C:\bs Windows\bs Fonts\bs NanumMyeongjo.ttf}\allowbreak 에 대하여 이 명령을 
+\begin{verbatim}
+  otfinfo -i "C:\Windows\Fonts\NanumMyeongjo.ttf"
+\end{verbatim}
+적용하면 ``Full Name''을 알려준다. 되도록 여기에 표시되는 이름을 사용하여야 한다.
+
+필요하다면 라틴 문자와 문장부호에 대해서 한글 폰트를 함께 적용하는 방법도 있다. 가장 쉬운 방법은 
+라틴 문자를 설정하는 \verb|\setmainfont| 명령에도 한글 폰트 이름을 똑같이 지정하는 것이다. 
+
+% \subsection{Compatibility Between \hologo{XeLaTeX} and \hologo{pdfLaTeX}}
+\subsection{\XeLaTeX 과 \hologo{pdfLaTeX}의 호환성}
+
+% There are a few things that are different between \hologo{XeLaTeX} and \hologo{pdfLaTeX}.
+\XeLaTeX 과 \hologo{pdfLaTeX} 사이에 몇 가지 차이점이 있다.
+
+% \begin{itemize}
+\begin{itemize}
+% 	\item A \hologo{XeLaTeX} document has to be written in
+% 	Unicode (UTF-8) while \hologo{pdfLaTeX} may use different input encodings.
+\item \XeLaTeX{} 문서는 유니코드(UTF-8)로 입력한다. 반면 \hologo{pdfLaTeX}은
+입력 인코딩이 다양해서 주의를 기울여야 한다.%
+\trfnote{pdf\LaTeX 도 utf-8 입력을 (어떻게든) 처리할 수는 있다. 
+그러나 pdf\LaTeX 은 엔진 자체가 유니코드를 이해하고 처리한다고 말할 수는 
+없다는 차이점이 있다.
+\koTeX 의 pdf\LaTeX{} 대응 버전은 utf-8 입력을 기본으로 하고 있었다.}
+% \item The \pai{microtype} packages does not work with \hologo{XeLaTeX} yet,
+% 	support for character protrusion is already under development.
+\item \pai{microtype} 패키지가 \hologo{XeLaTeX}에는 아직 적용되지 않는다. 그렇지만 pdf\TeX 의 미세타이포그래피 기능 중의 여백돌출(character protrusion)에 대한 지원은 이미 개발이 시작되었다.
+% \item Everything font related has to be reviewed. (Unless you want to stick
+% 	to Latin Modern.)
+\item 폰트에 관련된 기능은 완전히 새로워졌다. (Latin Modern 폰트로 만족한다면 큰 차이를 느끼지 못하겠지만.)
+% \end{itemize}
+\end{itemize}
+
+% \section{Creating Presentations}
+\section{발표자료 만들기}
+% \label{sec:beamer}
+\label{sec:beamer}
+% \secby{Daniel Flipo}{Daniel.Flipo@univ-lille1.fr}
+\secby{Daniel Flipo}{Daniel.Flipo@univ-lille1.fr}
+% You can present the results of your scientific work on a blackboard,
+% with transparencies, or directly from your laptop using some
+% presentation software.
+자신의 과학적 연구성과를 발표할 때, 칠판을 이용하거나 투명 필름 슬라이드를 이용하거나 아니면 노트북 컴퓨터에서 프레젠테이션 소프트웨어를 사용하여 직접 시현하거나 한다.
+\index{발표자료}\index{프레젠테이션}\index{presentation}
+
+% \wi{pdf\LaTeX} combined with the \pai{beamer} class allows you to
+% create presentations in PDF, looking much like something you might be
+% able to generate with LibreOffice or PowerPoint if you had a very good day, but much
+% more portable because PDF readers are available on many more
+% systems.
+\pai{beamer} 클래스를 이용하면 한때 잘 쓰던 PowerPoint나 LibreOffice로 만든 것 같은 멋진 발표자료를 PDF로 만들 수 있다. PDF는 리더만 있으면 어떤 컴퓨터에서나 볼 수 있으므로 편리성이 훨씬 높다.
+
+% The \pai{beamer} class uses \pai{graphicx}, \pai{color} and
+% \pai{hyperref} with options adapted to screen presentations.
+% %La figure~\ref{fig:pdfscr} contient un exemple de fichier minimal
+% %compiler avec \wi{pdf\LaTeX} et le
+% %rsultat produit.
+\pai{beamer} 클래스는 \pai{graphicx}, \pai{color}, \pai{hyperref} 패키지의 옵션을 활용하여 화면 프레젠테이션에 적합한 결과를 만들어낸다.
+
+% % cran captur par ImageMagick (man ImageMagick) fonction  import
+% % et convertie en jpg toujours par ImageMagick.
+
+% \begin{figure}[htbp]
+% \begin{verbatim}
+% \documentclass[10pt]{beamer}
+% \mode<beamer>{%
+%   \usetheme[hideothersubsections,
+%             right,width=22mm]{Goettingen}
+% }
+
+% \title{Simple Presentation}
+% \author[D. Flipo]{Daniel Flipo}
+% \institute{U.S.T.L. \& GUTenberg}
+% \titlegraphic{\includegraphics[width=20mm]{USTL}}
+% \date{2005}
+
+% \begin{document}
+
+% \begin{frame}<handout:0>
+%   \titlepage
+% \end{frame}
+
+% \section{An Example}
+
+% \begin{frame}
+%   \frametitle{Things to do on a Sunday Afternoon}
+%   \begin{block}{One could \ldots}
+%     \begin{itemize}
+%       \item walk the dog\dots \pause
+%       \item read a book\pause
+%       \item confuse a cat\pause
+%     \end{itemize}
+%   \end{block}
+%   and many other things
+% \end{frame}
+% \end{document}
+% \end{verbatim}
+%   \caption{Sample code for the \pai{beamer} class}
+%   \label{fig:code-beamer}
+% \end{figure}
+
+\begin{figure}[htbp]
+\begin{verbatim}
+\documentclass[10pt]{beamer}
+\mode<beamer>{%
+  \usetheme[hideothersubsections,
+            right,width=22mm]{Goettingen}
+}
+
+\title{Simple Presentation}
+\author[D. Flipo]{Daniel Flipo}
+\institute{U.S.T.L. \& GUTenberg}
+\titlegraphic{\includegraphics[width=20mm]{USTL}}
+\date{2005}
+
+\begin{document}
+
+\begin{frame}<handout:0>
+  \titlepage
+\end{frame}
+
+\section{An Example}
+
+\begin{frame}
+  \frametitle{Things to do on a Sunday Afternoon}
+  \begin{block}{One could \ldots}
+    \begin{itemize}
+      \item walk the dog\dots \pause
+      \item read a book\pause
+      \item confuse a cat\pause
+    \end{itemize}
+  \end{block}
+  and many other things
+\end{frame}
+\end{document}
+\end{verbatim}
+  \caption{\pai{beamer} 클래스 샘플 코드}
+  \label{fig:code-beamer}
+\end{figure}
+
+% When you compile the code presented in figure~\ref{fig:code-beamer}
+% with \wi{pdf\LaTeX} you get a PDF file with a title page and a second page
+% showing several items that will be revealed one at a time as you step
+% though your presentation.
+그림~\ref{fig:code-beamer}에 있는 코드를 pdf\LaTeX 이나 \XeLaTeX 으로 컴파일하면 PDF 파일을 얻는다. 첫 페이지는 표제면이고 두 번째 페이지는 
+항목들이 발표를 진행함에 따라 단계별로 표시되는 것을 보여준다.
+
+% One of the advantages of the beamer class is that it produces a PDF
+% file that is directly usable without first going through a \PSi{}
+% stage like \pai{prosper} or requiring additional post processing like
+% presentations created with the \pai{ppower4} package.
+\pai{beamer} 클래스의 장점 중 하나는 다른 조작 없이 PDF를 바로 얻을 수 있다는 것이다. \pai{prosper}는 \PSi{} 단계를 거쳐야 했고 \pai{ppower4}는 추가적인 후처리가 필요했다.
+
+% With the \pai{beamer} class you can produce several versions (modes) of your
+% document from the same input file. The input file may contain special
+% instructions for the different modes in angular brackets. The
+% following modes are available:
+\pai{beamer} 클래스를 쓰면 동일한 입력 파일에서 서로 다른 버전의 (`모드(mode)'에 따라 달라지는) 결과물을 얻어낼 수 있다. 각 모드에 특정한 지시사항은 홑화살괄호(\verb|<>|) 안에 넣어서 전달한다. 다음과 같은 모드가 있다.
+% \begin{description}
+% \item[beamer] for the presentation PDF
+%   discussed above.
+% \item[trans] for transparencies.
+% \item[handout] for the printed version.
+% \end{description}
+\begin{description} \firmlist
+\item[beamer] 화면용 발표자료. 앞서 언급한 것이다.
+\item[trans] 투명 필름 작성용.
+\item[handout] 인쇄용 문서.
+\end{description}
+% The default mode is \texttt{beamer}, change it by setting a
+% different mode as a global option, like
+% \verb|\documentclass[10pt,handout]{beamer}| to print the handouts for
+% example.
+기본 모드는 \texttt{beamer}이다. 전역 옵션으로 다른 모드를 지정한다. \\
+\verb|\documentclass[10pt,handout]{beamer}|\allowbreak 라고 하는 것은 핸드아웃용으로 조판하라는 것이다.
+
+% The look of the screen presentation depends on the theme you choose. Pick one of the themes shipped with the beamer class or
+% create your own. See the beamer class documentation in
+% \texttt{beameruserguide.pdf} for more information on this.
+발표자료는 테마에 따라 그 모양이 달라진다. beamer 클래스가 함께 제공하는 테마 중에서 하나를 골라도 되고 직접 작성할 수도 있다. 
+더 자세한 정보는 사용설명서 \texttt{beameruserguide.pdf}를 보라.
+
+% Let's have a closer look at the code in figure~\ref{fig:code-beamer}.
+그림~\ref{fig:code-beamer}에 보인 코드를 자세히 살펴보자.
+
+% For the screen version of the presentation \verb|\mode<beamer>| we
+% have chosen the \emph{Goettingen} theme to show a navigation panel
+% integrated into the table of contents. The options allow us to choose the
+% size of the panel (22~mm in this case) and its position (on the right
+% side of the body text). The option \emph{hideothersubsections}, shows
+% the chapter titles, but only the subsections of the present
+% chapter. There are no special settings for \verb|\mode<trans>| and
+% \verb|\mode<handout>|. They appear in their standard layout.
+화면용 프레젠테이션에 해당하는 사항으로 \verb|\mode<beamer>|에서 \emph{Goettingen} 테마를 선택하였다.
+이 테마는 목차로부터 만들어진 내비게이션 패널을 보여준다. 
+지시된 옵션 사항은 내비게이션 패널의 사이즈(이 경우 22mm), 위치(본문의 오른쪽)를 설정한다. \emph{hideothersubsections}라는 옵션은 chapter와 현재 소절(subsection)의 타이틀만을 표시하게 하는 것이다.
+\verb|\mode<trans>|와 \verb|\mode<handout>|에 대해서 특별한 설정이 주어지지 않았기 때문에 이 모드에는 표준 레이아웃이 적용된다.
+
+% The commands \verb|\title{}|, \verb|\author{}|, \verb|\institute{}|,
+% and\\ \verb|\titlegraphic{}| set the content of the title page. The
+% optional arguments of \verb|\title[]{}| and \verb|\author[]{}|
+% let you specify a special version of the title and the author
+% name to be displayed on the panel of the \emph{Goettingen} theme.
+\verb|\title{}|, \verb|\author{}|, \verb|\institute{}|, \verb|\titlegraphic{}| 명령은 표제지의 내용을 설정하는 것이다. 
+\verb|\title[]{}|과 \verb|\author[]{}|의 선택 인자는 \emph{Goettingen} 테마의 패널에 표시될 제목과 저자명을 지정해준다.
+
+% The titles and subtitles in the panel are created with normal
+% \verb|\section{}| and \verb|\subsection{}| commands that you place
+% \emph{outside} the \ei{frame} environment.
+패널에 나타나는 표제와 부속표제는 일반적인 \verb|\section{}|과 \verb|\subsection{}| 명령으로 만든다. 이 명령은 \ei{frame} 환경의 \emph{바깥에} 둔다.
+
+% The tiny navigation icons at the bottom of the screen also allow to
+% navigate the document. Their presence is not dependent on the theme
+% you choose.
+화면 바닥에 있는 작은 내비게이션 아이콘으로 문서를 이동할 수 있다. 이것은 테마와는 무관하다.
+
+% The contents of each slide or screen has to be placed inside a
+% \ei{frame} environment. There is an optional argument in angular
+% brackets (\verb|<| and \verb|>|), it allows us to suppress a particular
+% frame in one of the versions of the presentation. In the example the
+% first page would not be shown in the handout version due to the
+% \verb|<handout:0>| argument.
+각 슬라이드 즉 한 화면은 \ei{frame} 환경 안에 입력한다. 홑화살괄호로 주는 옵션 인자는 발표자료의 버전에 따라 특정 프레임을 생략하려 할 때 쓸 수 있다.
+이 예제에서 첫 페이지가 핸드아웃에 나타나지 않도록 \verb|<handout:0>|\allowbreak 을 설정했다.
+
+% It is highly recommended to set a title for each slide apart from the
+% title slide. This is done with the command \verb|\frametitle{}|. If a
+% subtitle is necessary use the \ei{block} environment as shown
+% in the example. Note that the sectioning commands \verb|\section{}|
+% and \verb|\subsection{}| do not produce output on the slide proper.
+발표 자료 전체 제목과 무관하게 슬라이드 제목을 다는 것이 필요하다. 
+\verb|\frametitle{}| 명령이 이 일을 한다. 부제목이 필요하다면 예제에 있는 대로 \ei{block} 명령을 사용한다. 
+\verb|\section|과 \verb|\subsection|같은 장절명령은 슬라이드 제목으로 나타나지 않는다.
+
+% The command \verb|\pause| in the itemize environment lets you reveal
+% the items one by one. For other presentation effects check out the
+% commands \verb|\only|, \verb|\uncover|, \verb|\alt| and
+% \verb|\temporal|. In many place it is possible to use angular brackets to
+% further customize the presentation.
+\verb|\pause| 명령을 쓰면 항목들이 하나씩 차례로 나타나게 할 수 있다.
+\verb|\only|, \verb|\uncover|, \verb|\alt|, \verb|\temporal| 같은 명령을 활용하여 프레젠테이션에 효과를 줄 수 있으므로 사용법을 확인해보라.
+프레젠테이션에 원하는 효과를 주기 위해서 홑화살괄호를 사용하는 경우가 많다.
+
+% In any case make sure to read through the beamer class documentation
+% \texttt{beameruserguide.pdf} to get a complete picture of what is in
+% store for you. This package is being actively developed, check out their website
+% to get the latest information. (\href{http://latex-beamer.sourceforge.net/}{http://latex-beamer.sourceforge.net/})
+beamer로 무엇을 할 수 있는지 알기 위해서 사용설명서를 반드시 읽어보도록 하라. 
+이 패키지는 활발하게 개발이 진행 중이므로 최신 정보를 얻기 위해 웹사이트를 방문하는 것도 좋다.
+(\href{http://latex-beamer.sourceforge.net/}{\ttfamily http://latex-beamer.sourceforge.net/})
+
+% % Local Variables:
+% % TeX-master: "lshort2e"
+% % mode: latex
+% % mode: flyspell
+% % End:

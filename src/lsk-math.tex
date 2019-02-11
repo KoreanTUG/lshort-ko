@@ -1,0 +1,2241 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Contents: Math typesetting with LaTeX
+% % $Id$
+% %
+% % Changes by Stefan M. Moser: 2008/10/22
+% %
+% % -Section 2: "Single Equations": added comment about preference of
+% %  equation* over \[
+% % -Replaced (almost) all examples with \[ by equation*
+% % -New section 4: "Single Equations that are Too Long: multline"
+% % -New section 5: "Multiple Equations"
+% % -Section 6: "Arrays and Matrices": made a full section and added
+% %  some material
+% % -Section 9: "Theorems, Lemmas, ...": added a subsection about proofs
+% %  with new material
+% %
+% % Other Changes:
+% % -in lshort.sty: 
+% %    *example environment adapted: changed in three places
+% %     \textwidth by \linewidth. This is necessary for
+% %     example-environment within a itemize-list.
+% %    *added \RequirePackage[retainorgcmds]{IEEEtrantools}
+% %
+% % THINGS TO DO:
+% % -adapt typesetting of new sections to rest of lshort, including all
+% %  the usual commands used so far. In particular, I guess we have to
+% %  get rid of the \verb-commands everywhere
+% % -include index-commands
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+% \chapter{Typesetting Mathematical Formulae}
+\chapter{수학식 조판}
+
+% \begin{intro}
+%   Now you are ready! In this chapter, we will attack the main strength
+%   of \TeX{}: mathematical typesetting. But be warned, this chapter
+%   only scratches the surface. While the things explained here are
+%   sufficient for many people, don't despair if you can't find a
+%   solution to your mathematical typesetting needs here. It is highly likely
+%   that your problem is addressed in \AmS-\LaTeX{}.
+% \end{intro}
+\begin{intro}
+  이제 준비가 됐다! 이 장에서는 \TeX 의 가장 중요한 장점에 해당하는 수학식 조판을 공략해볼 것이다.
+  그렇지만 여기서 다루는 것은 수박겉핥기에 불과하다. 여기 설명하는 내용이 대부분 충분하다고 보지만
+  혹시 원하는 수학식 조판의 해법을 발견하지 못했다고 해서 실망할 필요는 없다. 
+  \AmS-\LaTeX 에서 그 문제에 대한 해결책을 제공하고 있을 가능성이 높다.
+\end{intro}
+
+
+% \section{The \texorpdfstring{\AmS}{AMS}-\LaTeX{} bundle}
+\section{\texorpdfstring{\AmS}{AmS}-\LaTeX{}}
+
+% If you want to typeset (advanced) \wi{mathematics}, you should
+% use \AmS-\LaTeX{}. The \AmS-\LaTeX{} bundle is a collection of packages and classes for
+% mathematical typesetting. We will mostly deal with the \pai{amsmath} package
+% which is a part of the bundle. \AmS-\LaTeX{} is produced by The \emph{\wi{American Mathematical Society}} 
+% and it is used extensively for mathematical typesetting. \LaTeX{} itself does provide
+% some basic features and environments for mathematics, but they are limited (or
+% maybe it's the other way around: \AmS-\LaTeX{} is \emph{unlimited}!) and
+% in some cases inconsistent. 
+(고급) \wi{수학}[mathematics]식을 조판하려면 \AmS-\LaTeX 을 이용해야 한다.
+\AmS-\LaTeX{}은 수학식 조판을 위한 클래스와 패키지의 모음이다. 그 가운데서도 \pai{amsmath} 패키지를 
+주로 검토할 것이다. \AmS-\LaTeX 은 \wi{미국수학회}[American Mathematical Society]가 만든 것으로 
+수학식 조판에 널리 쓰이고 있다.
+\LaTeX{} 자체가 어느 정도 수학식 조판 기능과 환경을 제공하고 있기는 하지만 한계가 있고(달리 말하자면 \AmS-\LaTeX 에는 한계가 없다는 말이다)
+일관성이 결여된 경우도 있다.
+
+% \AmS-\LaTeX{} is a part of the required distribution and is provided
+% with all recent \LaTeX{} distributions.\footnote{If yours is missing it, go to
+%   \CTAN|pkg/amslatex|.} In this chapter, we assume
+%   \pai{amsmath} is loaded in the preamble; \verb|\usepackage{amsmath}|.
+\AmS-\LaTeX 은 필수 배포판의 일부이며 모든 \LaTeX{} 배포판에 포함되어 있다.\footnote{%
+  자신의 시스템에 이게 설치되어 있지 않다면 \CTAN|pkg/amslatex|으로 가보라.
+}
+이 장에서 논의하는 사항은 전처리부에 \pai{amsmath}가 당연히 \verb|\usepackage{amsmath}|와 같이 
+로드되어 있다는 것을 전제로 한다.
+
+% \section{Single Equations}
+\section{수식 기초}
+
+% A mathematical formula can be typeset in-line within a paragraph (\emph{\wi{text style}}), or the paragraph can be broken and the formula typeset separately
+% (\emph{\wi{display style}}). Mathematical \wi{equation}s 
+% \emph{within} a paragraph are entered \index{$@\texttt{\$}} %$
+% between \texttt{\$} and \texttt{\$}:
+% \begin{example}
+% Add $a$ squared and $b$ squared
+% to get $c$ squared. Or, using 
+% a more mathematical approach:
+% $a^2 + b^2 = c^2$
+% \end{example}
+% \begin{example}
+% \TeX{} is pronounced as 
+% $\tau\epsilon\chi$\\[5pt]
+% 100~m$^{3}$ of water\\[5pt]
+% This comes from my $\heartsuit$
+% \end{example}
+\wi{수식}[equation]은 문단 가운데 문장의 일부로 식자되거나(\emph{text style}) 별도의 문단으로 구분되어 식자되거나(\emph{display style}) 한다. 
+앞의 것을 행중수식(in-line), 뒤의 것을 별행수식(display)이라 한다.
+행중수식은 \texttt{\$}와 \texttt{\$} 사이에 입력한다.\index{행중수식}\index{별행수식}\index{text style}\index{display style}
+
+\begin{example}
+Add $a$ squared and $b$ squared
+to get $c$ squared. Or, using 
+a more mathematical approach:
+$a^2 + b^2 = c^2$
+\end{example}
+
+\vspace{-.5\onelineskip}
+
+\begin{example}
+\TeX{} is pronounced as 
+$\tau\epsilon\chi$\\[5pt]
+100~m$^{3}$ of water\\[5pt]
+This comes from my $\heartsuit$
+\end{example}
+
+
+% If you want your larger equations to be set apart
+% from the rest of the paragraph, it is preferable to \emph{display} them
+% rather than to break the paragraph apart.
+좀 큰 수식을 문단과 구분하여 별행으로 식자하고자 한다면 텍스트 문단을 나누어서 입력할 것이 아니라 
+별행수식으로 하는 것이 좋다.
+% To do this, you enclose them between \verb|\begin{|\ei{equation}\verb|}| and
+% \verb|\end{equation}|.\footnote{This is an \textsf{amsmath} command. If you don't
+% have access to the package for some obscure reason, you can use \LaTeX's own
+% \ei{displaymath} environment instead.} You can then \ci{label} an equation number and refer to
+% it somewhere else in the text by using the \ci{eqref} command. If you want to
+% name the equation something specific, you \ci{tag} it instead.
+한 줄 수식을 별행으로 식자하려면 \verb|\begin{|\ei{equation}\verb|}|과 \verb|\end{equation}|으로 둘러싼다.\footnote{%
+  이 환경은 \textsf{amsmath} 명령이므로 어떤 이유에선가 이 패키지를 로드하지 못했다면
+  \LaTeX 의 별행수식 환경인 \ei{displaymath}를 쓸 수 있다.
+}
+\ci{label}을 붙여서 수식의 번호를 표시하고 다른 곳에서 이 수식번호를 \ci{eqref} 명령으로 참조할 수 있다. 
+수식 이름을 별도로 특정하려 한다면 \ci{tag} 명령을 쓴다.
+% \begin{example}
+% Add $a$ squared and $b$ squared
+% to get $c$ squared. Or, using
+% a more mathematical approach
+%  \begin{equation}
+%    a^2 + b^2 = c^2
+%  \end{equation}
+% Einstein says
+%  \begin{equation}
+%    E = mc^2 \label{clever}
+%  \end{equation}
+% He didn't say
+%  \begin{equation}
+%   1 + 1 = 3 \tag{dumb}
+%  \end{equation}
+% This is a reference to 
+% \eqref{clever}. 
+% \end{example}
+\begin{example}
+Add $a$ squared and $b$ squared
+to get $c$ squared. Or, using
+a more mathematical approach
+ \begin{equation}
+   a^2 + b^2 = c^2
+ \end{equation}
+Einstein says
+ \begin{equation}
+   E = mc^2 \label{clever}
+ \end{equation}
+He didn't say
+ \begin{equation}
+  1 + 1 = 3 \tag{dumb}
+ \end{equation}
+This is a reference to 
+\eqref{clever}. 
+\end{example}
+
+
+
+% If you don't want \LaTeX{} to number the equations, use the starred
+% version of \texttt{equation} using an asterisk, \ei{equation*}, or even easier, enclose the
+% equation in \ci{[} and \ci{]}:\footnote{\index{equation!\textsf{amsmath}}
+%   \index{equation!\LaTeX{}}This is again from \textsf{amsmath}. Standard \LaTeX{}'s has only the \texttt{equation} environment without the star.}
+수식 번호가 붙지 않게 하려면 별표붙은 \ei{equation*} 환경을 쓰거나 훨씬 간단한 \ci{[}, \ci{]}로 둘러싸거나 한다.\footnote{%
+  이것 역시 \textsf{amsmath} 방식이다. 표준 \LaTeX 에는 별표붙은 \texttt{equation} 환경이 없다.
+}
+% \begin{example}
+% Add $a$ squared and $b$ squared
+% to get $c$ squared. Or, using
+% a more mathematical approach
+%  \begin{equation*}
+%    a^2 + b^2 = c^2
+%  \end{equation*}
+% or you can type less for the
+% same effect:
+%  \[ a^2 + b^2 = c^2 \]
+% \end{example}
+% While \ci{[} is short and sweet, it does not allow switching between numbered and not numbered style as easily as
+% \ei{equation} and \ei{equation*}.
+\begin{example}
+Add $a$ squared and $b$ squared
+to get $c$ squared. Or, using
+a more mathematical approach
+ \begin{equation*}
+   a^2 + b^2 = c^2
+ \end{equation*}
+or you can type less for the
+same effect:
+ \[ a^2 + b^2 = c^2 \]
+\end{example}
+\ci{[}가 짧고 좋기는 해도 \ei{equation}과 \ei{equation*}처럼 간단히 번호를 붙이거나 붙이지 않거나 하는 것은 할 수 없다.
+
+% Note the difference in typesetting style between \wi{text style} and \wi{display style}
+% equations: 
+행중수식의 \wi{text style}과 별행수식의 \wi{display style}의 조판 스타일 차이가 무엇인지 확인하자.
+% \begin{example}
+% This is text style: 
+% $\lim_{n \to \infty} 
+%  \sum_{k=1}^n \frac{1}{k^2} 
+%  = \frac{\pi^2}{6}$.
+% And this is display style:
+%  \begin{equation}
+%   \lim_{n \to \infty} 
+%   \sum_{k=1}^n \frac{1}{k^2} 
+%   = \frac{\pi^2}{6}
+%  \end{equation}
+% \end{example}
+\begin{example}
+This is text style: 
+$\lim_{n \to \infty} 
+ \sum_{k=1}^n \frac{1}{k^2} 
+ = \frac{\pi^2}{6}$.
+And this is display style:
+ \begin{equation}
+  \lim_{n \to \infty} 
+  \sum_{k=1}^n \frac{1}{k^2} 
+  = \frac{\pi^2}{6}
+ \end{equation}
+\end{example}
+
+% In text style, enclose tall or deep math expressions or sub
+% expressions in \ci{smash}. This makes \LaTeX{} ignore the height of
+% these expressions. This keeps the line spacing even.
+텍스트 스타일에서 위나 아래로 튀어나오는 수식 부분을 횡으로 늘어놓거나 첨자를 \ci{smash}하거나
+큰 수식기호를 조금 작은 것으로 사용하여
+수식 표현의 높이를 행 높이에 맞춤으로써 행 사이의 간격을 가지런하게 
+유지하려 한다.\trfnote{%
+  \LaTeX{} 처음사용자가 부딪치는 문제 가운데 하나로 텍스트 스타일로 문단 중에 놓인 수식이 
+  ``어색해보인다''는 것이 있다. 수학교과서와 같이 조판상의 규칙을 지키는 것보다 수식 자체를 명료하게 
+  전달하는 것이 더 중요한 책이 눈에 익어 있기 때문에 느끼는 것일 수 있다. 원한다면 행중에서도 
+  displaystyle의 수식을 쓰도록 할 수 있으나 이 선택은 전적으로 북 디자이너의 전문적 식견에 
+  맡겨야 하는 일일 것이다.
+}
+% \begin{example}
+% A $d_{e_{e_p}}$ mathematical
+% expression  followed by a
+% $h^{i^{g^h}}$ expression. As
+% opposed to a smashed 
+% \smash{$d_{e_{e_p}}$} expression 
+% followed by a
+% \smash{$h^{i^{g^h}}$} expression.
+% \end{example}
+\begin{example}
+A $d_{e_{e_p}}$ mathematical
+expression  followed by a
+$h^{i^{g^h}}$ expression. As
+opposed to a smashed 
+\smash{$d_{e_{e_p}}$} expression 
+followed by a
+\smash{$h^{i^{g^h}}$} expression.
+\end{example}
+
+% \subsection{Math Mode}
+\subsection{수식 모드}
+
+% There are also differences between \emph{\wi{math mode}} and \emph{text mode}. For
+% example, in \emph{math mode}: 
+\wi{수식 모드}[math mode]는 \wi{텍스트 모드}[text mode]와 차이가 있다. 예를 들면 \emph{수식 모드}에서는
+
+% \begin{enumerate}
+\begin{enumerate}
+
+% \item \index{spacing!math mode} Most spaces and line breaks do not have any significance, as all spaces
+% are either derived logically from the mathematical expressions, or
+% have to be specified with special commands such as \ci{,}, \ci{quad} or
+% \ci{qquad} (we'll get back to that later, see section~\ref{sec:math-spacing}).
+\item \index{spacing!math mode}\index{수식 모드에서의 간격} 빈 칸(스페이스)이나 줄바꿈을 입력해도 아무런 의미가 없다.
+수식에서 간격은 수학식 표현의 논리상 자동적으로 설정되는 것이 아니면 \ci{,}, \ci{quad}, \ci{qquad} 같은 
+특별한 간격 명령으로 지정해야 한다.
+
+% \item Empty lines are not allowed. Only one paragraph per formula.
+\item 빈 줄은 허용하지 않는다. 모든 수학식은 수식 하나가 한 단락이다.
+
+% \item Each letter is considered to be the name of a variable and will be
+% typeset as such. If you want to typeset normal text within a formula
+% (normal upright font and normal spacing) then you have to enter the
+% text using the \verb|\text{...}| command (see also section \ref{sec:fontsz} on
+% page \pageref{sec:fontsz}).
+\item 입력한 글자는 변수 이름으로 간주되어 변수로서 조판될 것이다. 수식 안에 일반 텍스트를 
+(곧게 선 폰트로 띄어쓰기를 하여서) 식자하려면 \verb|\text{...}| 명령을 사용하여 입력하여야 한다. (\pageref{sec:fontsize} 페이지의 
+\ref{sec:fontsize}절도 참고하라.)
+
+% \end{enumerate}
+% \begin{example}
+% $\forall x \in \mathbf{R}:
+%  \qquad x^{2} \geq 0$
+% \end{example}
+% \begin{example}
+% $x^{2} \geq 0\qquad
+%  \text{for all }x\in\mathbf{R}$
+% \end{example}
+\end{enumerate}
+\begin{example}
+$\forall x \in \mathbf{R}:
+ \qquad x^{2} \geq 0$
+\end{example}
+\vspace{-.5\onelineskip}
+\begin{example}
+$x^{2} \geq 0\qquad
+ \text{for all }x\in\mathbf{R}$
+\end{example}
+
+
+% Mathematicians can be very fussy about which symbols are used:
+% it would be conventional here to use the `\wi{blackboard bold}' font,
+% \index{bold symbols} which is obtained using \ci{mathbb} from the
+% package \pai{amssymb}.\footnote{\pai{amssymb} is not a part
+%   of the \AmS-\LaTeX{} bundle, but it is perhaps still a part of your \LaTeX{}
+%   distribution. Check your distribution
+%   or go to \texttt{CTAN:/fonts/amsfonts/latex/} to obtain it.}
+수학자들은 기호 사용에 대해 매우 까다롭다. 위의 예에서 $\mathbf{R}$이라고 한 것을 `\wi{블랙보드 볼드}[blackboard bold]'체로 
+쓰는 것을 좋아할 수도 있는데 이 기호는 \pai{amssymb} 패키지의 \ci{mathbb} 명령으로 식자할 수 있다.
+그러면 위의 예제는 다음과 같이 된다.
+% \ifx\mathbb\undefined\else
+% The last example becomes
+% \begin{example}
+% $x^{2} \geq 0\qquad
+%  \text{for all } x 
+%  \in \mathbb{R}$
+% \end{example}
+% \fi
+% See Table~\ref{mathalpha} on page~\pageref{mathalpha} and
+% Table~\ref{mathfonts} on page~\pageref{mathfonts} for more math fonts.
+\begin{example}
+$x^{2} \geq 0\qquad
+ \text{for all } x 
+ \in \mathbb{R}$
+\end{example}
+더 많은 수학 글꼴에 대해서 \pageref{mathalpha}페이지의 표~\ref{mathalpha}\를 참고하라.
+
+
+% \section{Building Blocks of a Mathematical Formula}
+\section{수식 구성하기}
+
+% In this section, we describe the most important commands used in mathematical
+% typesetting. Most of the commands in this section will not require
+% \textsf{amsmath} (if they do, it will be stated clearly), but load it anyway.
+이 절에서 수식 조판 명령 중 가장 요긴한 것을 서술한다. 여기서 언급하는 명령은 대부분 \textsf{amsmath}를 
+필요로 하지 않는다. (만약 필요하다면 명시적으로 밝히겠다.) 그렇지만 로드해두는 것이 좋다.
+
+% \textbf{Lowercase \wi{Greek letters}} are entered as \verb|\alpha|,
+%  \verb|\beta|, \verb|\gamma|, \ldots, uppercase letters
+% are entered as \verb|\Gamma|, \verb|\Delta|, \ldots\footnote{There is no
+%   uppercase Alpha, Beta etc. defined in \LaTeXe{} because it looks the same as a
+%   normal roman A, B\ldots{}} 
+\emphmathterm{그리스 문자}\index{Greek letters}의 소문자는 \verb|\alpha|, \verb|\beta|, \verb|\gamma|, \ldots 와 같이,
+대문자는 \verb|\Gamma|, \verb|\Delta|, \ldots 등과 같이 입력한다.\footnote{대문자 알파, 대문자 베타 등에 해당하는 명령은 따로 없다. 이 글자들은 로마자 A, B와 같은 모양이어서 별도의 명령을 만들지 않았다.}
+그리스 알파벳 목록은 \pageref{greekletters}페이지의 표 \ref{greekletters}\를 보라.
+
+% Take a look at Table~\ref{greekletters} on page~\pageref{greekletters} for a
+% list of Greek letters.
+% \begin{example}
+% $\lambda,\xi,\pi,\theta,
+%  \mu,\Phi,\Omega,\Delta$
+% \end{example}
+\begin{example}
+$\lambda,\xi,\pi,\theta,
+ \mu,\Phi,\Omega,\Delta$
+\end{example}
+
+% \textbf{Exponents, Superscripts and Subscripts} can be specified using\index{exponent}\index{subscript}\index{superscript}
+% the \verb|^|\index{^@\verb"|^"|} and the \verb|_|\index{_@\verb"|_"|} characters.
+% Most math mode commands act only on the next character, so if you
+% want a command to affect several characters, you have to group them
+% together using curly braces: \verb|{...}|.
+\emphmathterm{지수, 위첨자, 아래첨자}\index{exponent}\index{subscript}\index{superscript}\index{지수}\index{위첨자}\index{아래첨자}%
+는 \verb|^|와 \verb|_| 부호로써 표시한다.
+수식 명령은 대부분 직후 문자에만 효력을 가진다. 그러므로 어떤 명령이 여러 문자에 영향을 주도록 하려면 
+중괄호 \verb|{...}|를 이용하여 그룹으로 묶어주어야 한다.
+
+% Table~\ref{binaryrel} on page \pageref{binaryrel} lists a lot of binary
+% relations like $\subseteq$ and $\perp$.
+
+% \begin{example}
+% $p^3_{ij} \qquad 
+%  m_\text{Knuth}\qquad
+% \sum_{k=1}^3 k \\[5pt]
+%  a^x+y \neq a^{x+y}\qquad 
+%  e^{x^2} \neq {e^x}^2$
+% \end{example}
+\begin{example}
+$p^3_{ij} \qquad 
+ m_\text{Knuth}\qquad
+\sum_{k=1}^3 k \\[5pt]
+ a^x+y \neq a^{x+y}\qquad 
+ e^{x^2} \neq {e^x}^2$
+\end{example}
+\noindent 예제에 나오는 $\neq$와 같은 이항관계연산부호 명령을 
+\pageref{binaryrel}페이지 표~\ref{binaryrel}에서 $\subseteq$, $\perp$ 등 여러 가지 볼 수 있다.
+
+
+% The \textbf{\wi{square root}} is entered as \ci{sqrt}; the
+% $n^\text{th}$ root is generated with \verb|\sqrt[|$n$\verb|]|. The size of
+% the root sign is determined automatically by \LaTeX. If just the sign
+% is needed, use \verb|\surd|.
+\emphmathterm{제곱근}은 \ci{sqrt}로 입력한다.\index{제곱근}\index{square root}
+$n$제곱근을 표시하려면 \verb|\sqrt[|$n$\verb|]|으로 쓴다. 제곱근 부호의 크기는 자동으로 결정된다.
+근호의 앞머리만 필요하다면 \verb|\surd| 명령이 있다.
+
+% See various kinds of arrows like $\hookrightarrow$ and $\rightleftharpoons$ on
+% Table~\ref{tab:arrows} on page \pageref{tab:arrows}. 
+% \begin{example}
+% $\sqrt{x} \Leftrightarrow x^{1/2}
+%  \quad \sqrt[3]{2}
+%  \quad \sqrt{x^{2} + \sqrt{y}}
+%  \quad \surd[x^2 + y^2]$
+% \end{example}
+\noindent 예제에 나오는 $\Leftrightarrow$와 같은 화살표를 \pageref{tab:arrows}페이지의 표 \ref{tab:arrows}에서 $\hookrightarrow$, $\rightleftharpoons$ 등 여러 종류 볼 수 있다.
+\begin{example}
+$\sqrt{x} \Leftrightarrow x^{1/2}
+ \quad \sqrt[3]{2}
+ \quad \sqrt{x^{2} + \sqrt{y}}
+ \quad \surd[x^2 + y^2]$
+\end{example}
+
+% \index{dots!three}
+% \index{vertical!dots}
+% \index{horizontal!dots}
+\index{dots!three}
+\index{vertical!dots}
+\index{horizontal!dots}
+% While the \textbf{\wi{dot}} sign to indicate
+% the multiplication operation is normally left out, it is sometimes written
+% to help the eye in grouping a formula.
+곱셈을 나타내는 점은 보통 표시하지 않는 편이 식을 한눈에 알아보기 쉬울 때가 있다.
+% Use \ci{cdot} to typeset a single centered dot. \ci{cdots} is
+% three centered \textbf{\wi{dots}} while \ci{ldots} sets the dots low (on the
+% baseline). Besides that, there are \ci{vdots} for 
+% vertical and \ci{ddots} for \wi{diagonal dots}. There are more examples in 
+% section~\ref{sec:arraymat}.
+가운뎃\emphmathterm{점} 하나를 찍으려면 \ci{cdot}을 쓴다. \ci{cdots}는 가운데 위치에 점을 세 개 찍고 
+\ci{ldots}는 베이스라인에 찍는다.
+그밖에 \ci{vdots}는 세로로, \ci{ddots}는 대각선 방향으로 점 세 개를 놓는다. \ref{sec:arraymat}절에 더 많은 예제가 있다.
+% \begin{example}
+% $\Psi = v_1 \cdot v_2
+%  \cdot \ldots \qquad 
+%  n! = 1 \cdot 2 
+%  \cdots (n-1) \cdot n$
+% \end{example}
+\begin{example}
+$\Psi = v_1 \cdot v_2
+ \cdot \ldots \qquad 
+ n! = 1 \cdot 2 
+ \cdots (n-1) \cdot n$
+\end{example}
+
+% The commands \ci{overline} and \ci{underline} create
+% \textbf{horizontal lines} directly over or under an expression:
+% \index{horizontal!line} \index{line!horizontal}
+% \begin{example}
+% $0.\overline{3} = 
+%  \underline{\underline{1/3}}$
+% \end{example}
+\ci{overline}과 \ci{underline}은 식의 위나 아래에 \emphmathterm{가로선}을 긋는다.
+\index{선!가로선}
+\index{horizontal!line} \index{line!horizontal}
+\begin{example}
+$0.\overline{3} = 
+ \underline{\underline{1/3}}$
+\end{example}
+
+% The commands \ci{overbrace} and \ci{underbrace} create
+% long \textbf{horizontal braces} over or under an expression:
+% \index{horizontal!brace} \index{brace!horizontal} 
+% \begin{example}
+% $\underbrace{\overbrace{a+b+c}^6 
+%  \cdot \overbrace{d+e+f}^7}
+%  _\text{meaning of life} = 42$
+% \end{example}
+\ci{overbrace}와 \ci{underbrace}는 
+식의 위나 아래에 길게 \emphmathterm{누운 괄호}를 그린다.
+\index{horizontal!brace} \index{brace!horizontal} 
+\begin{example}
+$\underbrace{\overbrace{a+b+c}^6 
+ \cdot \overbrace{d+e+f}^7}
+ _\text{meaning of life} = 42$
+\end{example}
+
+%  \index{mathematical!accents} 
+\index{mathematical!accents} 
+% To add mathematical accents such as \textbf{small
+% arrows} or \textbf{\wi{tilde}} signs to variables, the commands
+% given in Table~\ref{mathacc} on page~\pageref{mathacc} might be useful.  Wide hats and
+% tildes covering several characters are generated with \ci{widetilde}
+% and \ci{widehat}. Notice the difference between \ci{hat} and \ci{widehat} and the placement of
+% \ci{bar} for a variable with subscript. The \wi{apostrophe} mark
+% \verb|'|\index{'@\verb"|'"|} gives a \wi{prime}:
+변수에 \emphmathterm{작은 화살표}나 \emphmathterm{틸데}와 같은 수학 액센트 부호를 
+붙이려면 \pageref{mathacc}페이지의 표~\ref{mathacc}\가 도움이 될 것이다. 
+여러 글자에 걸치는 넓은 hat이나 틸데는 \ci{widetilde}, \ci{widehat}으로 만들 수 있다.
+다음 보기에서 \ci{hat}과 \ci{widehat}의 차이점 그리고 아래첨자가 있는 변수에서 \ci{bar}의 위치에 주의하라.
+`프라임'을 표시하려면 아포스트로피 \verb|'|를 붙인다.
+% % a dash is --
+% \begin{example}
+% $f(x) = x^2 \qquad f'(x) 
+%  = 2x \qquad f''(x) = 2\\[5pt]
+%  \hat{XY} \quad \widehat{XY}
+%  \quad \bar{x_0} \quad \bar{x}_0$
+% \end{example}
+\begin{example}
+$f(x) = x^2 \qquad f'(x) 
+ = 2x \qquad f''(x) = 2\\[5pt]
+ \hat{XY} \quad \widehat{XY}
+ \quad \bar{x_0} \quad \bar{x}_0$
+\end{example}
+
+
+% \textbf{Vectors}\index{vectors} are often specified by adding small
+% \wi{arrow symbols} on the tops of variables. This is done with the
+% \ci{vec} command. The two commands \ci{overrightarrow} and
+% \ci{overleftarrow} are useful to denote the vector from $A$ to $B$:
+% \begin{example}
+% $\vec{a} \qquad
+%  \vec{AB} \qquad
+%  \overrightarrow{AB}$
+% \end{example}
+\emphmathterm{벡터}\index{벡터}\index{vectors}를 표현하기 위해 변수 위에 작은 화살표 기호를 
+붙이는 경우가 있다. \ci{vec} 명령을 쓴다. \ci{overrightarrow}와 \ci{overleftarrow} 명령은
+$A$에서 $B$로 가는 벡터를 표시할 때 사용할 수 있다.
+\begin{example}
+$\vec{a} \qquad
+ \vec{AB} \qquad
+ \overrightarrow{AB}$
+\end{example}
+
+% Names of functions are often typeset in an upright
+% font, and not in italics as variables are, so \LaTeX{} supplies the
+% following commands to typeset the most common function names:
+% \index{mathematical!functions}
+이탤릭으로 식자하는 변수 이름과 달리 함수 이름은 바로 선(upright) 글자체로 식자한다. \LaTeX 은
+대부분의 함수 이름을 식자할 수 있도록 다음과 같은 명령을 제공한다.
+\index{mathematical!functions}\index{수식!함수명 명령}
+% \begin{tabular}{llllll}
+% \ci{arccos} &  \ci{cos}  &  \ci{csc} &  \ci{exp} &  \ci{ker}    & \ci{limsup} \\
+% \ci{arcsin} &  \ci{cosh} &  \ci{deg} &  \ci{gcd} &  \ci{lg}     & \ci{ln}     \\
+% \ci{arctan} &  \ci{cot}  &  \ci{det} &  \ci{hom} &  \ci{lim}    & \ci{log}    \\
+% \ci{arg}    &  \ci{coth} &  \ci{dim} &  \ci{inf} &  \ci{liminf} & \ci{max}    \\
+% \ci{sinh}   & \ci{sup}   &  \ci{tan}  & \ci{tanh}&  \ci{min}    & \ci{Pr}     \\
+% \ci{sec}    & \ci{sin} \\
+% \end{tabular}
+
+\smallskip
+
+\begin{tabular}{llllll}
+\ci{arccos} &  \ci{cos}  &  \ci{csc} &  \ci{exp} &  \ci{ker}    & \ci{limsup} \\
+\ci{arcsin} &  \ci{cosh} &  \ci{deg} &  \ci{gcd} &  \ci{lg}     & \ci{ln}     \\
+\ci{arctan} &  \ci{cot}  &  \ci{det} &  \ci{hom} &  \ci{lim}    & \ci{log}    \\
+\ci{arg}    &  \ci{coth} &  \ci{dim} &  \ci{inf} &  \ci{liminf} & \ci{max}    \\
+\ci{sinh}   & \ci{sup}   &  \ci{tan}  & \ci{tanh}&  \ci{min}    & \ci{Pr}     \\
+\ci{sec}    & \ci{sin} \\
+\end{tabular}
+
+% \begin{example}
+% \begin{equation*}
+%   \lim_{x \rightarrow 0}
+%   \frac{\sin x}{x}=1
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+  \lim_{x \rightarrow 0}
+  \frac{\sin x}{x}=1
+\end{equation*}
+\end{example}
+
+% For functions missing from the list, use the \ci{DeclareMathOperator}
+% command. There is even a starred version for functions with limits.
+% This command works only in the preamble so the commented lines in the
+% example below must be put into the preamble.
+위의 목록에 나오지 않는 함수 이름을 쓰려면 \ci{DeclareMathOperator} 명령을 정의할 수 있다.
+별표 붙은 명령으로 limit형 함수\trfnote{$\lim \limits _{x\to0}$과 같이 디스플레이 스타일에서 첨자가 아래 위로 붙는 함수} 이름을 정의한다.
+이 명령은 전처리부에만 둘 수 있기 때문에 다음 예에서는 주석문으로 처리했는데 이 두 줄이 전처리부에 
+들어 있어야 한다.
+
+% \begin{example}
+% %\DeclareMathOperator{\argh}{argh}
+% %\DeclareMathOperator*{\nut}{Nut}
+% \begin{equation*}
+%   3\argh = 2\nut_{x=1}    
+% \end{equation*}
+% \end{example}
+\begin{example}
+%\DeclareMathOperator{\argh}{argh}
+%\DeclareMathOperator*{\nut}{Nut}
+\begin{equation*}
+  3\argh = 2\nut_{x=1}    
+\end{equation*}
+\end{example}
+
+
+% For the \wi{modulo function}, there are two commands: \ci{bmod} for the
+% binary operator ``$a \bmod b$'' and \ci{pmod}
+% for expressions
+% such as ``$x\equiv a \pmod{b}$:''
+잉여연산(모듈로)에 두 가지 명령이 있다. \ci{bmod}는 ``$a \bmod b$''처럼 쓰는 이항연산자이고 
+\ci{pmod}는 ``$x\equiv a \pmod{b}$''와 같이 표현할 때에 쓰는 것이다.\index{잉여연산}\index{modulo operation}
+% \begin{example}
+% $a\bmod b \\
+%  x\equiv a \pmod{b}$
+% \end{example}
+\begin{example}
+$a\bmod b \\
+ x\equiv a \pmod{b}$
+\end{example}
+
+% A built-up \textbf{\wi{fraction}} is typeset with the
+% \ci{frac}\verb|{...}{...}| command. In in-line equations, the fraction is shrunk to
+% fit the line. This style is obtainable in display style with \ci{tfrac}. The
+% reverse, i.e.\ display style fraction in text, is made with \ci{dfrac}.
+% Often the slashed form $1/2$ is preferable, because it looks better
+% for small amounts of `fraction material:'
+\emphmathterm{분수}는 \ci{frac}\verb|{...}{...}| 명령으로 표시한다.
+행중수식에서 분수는 행 높이에 맞추어 크기가 줄어둔다. 항상 디스플레이 스타일에서도 이 모양이 유지되게 하려면 \ci{tfrac}을 쓴다.
+반대로 텍스트 스타일에서도 디스플레이 스타일로 식자되게 하려면 \ci{dfrac} 명령을 사용한다.\trfnote{%
+  앞서 ``행중수식''과 ``별행수식''에 대하여 언급하였다. 행중수식을 조판하는 스타일을 ``텍스트 스타일(text style)''이라 하고 
+  별행수식을 조판하는 스타일을 ``디스플레이 스타일(display style)''이라고 한다. 이 용어는 수식모드에 적용되는 것으로 
+  ``텍스트 스타일''이라고 한 것은 ``수식의 텍스트 스타일''이라는 의미이다.
+}
+$1/2$처럼 빗금으로 분수를 표시할 수도 있는데 소량의 분할분을 나타내는 작은 분수라면 이것이 나을 때도 있다.
+% \begin{example}
+% In display style:
+% \begin{equation*}
+%   3/8 \qquad \frac{3}{8} 
+%   \qquad \tfrac{3}{8}
+% \end{equation*}
+% \end{example}
+\begin{example}
+In display style:
+\begin{equation*}
+  3/8 \qquad \frac{3}{8} 
+  \qquad \tfrac{3}{8}
+\end{equation*}
+\end{example}
+
+\vspace{-.5\onelineskip}
+
+% \begin{example}
+% In text style:
+% $1\frac{1}{2}$~hours \qquad
+% $1\dfrac{1}{2}$~hours
+% \end{example}
+\begin{example}
+In text style:
+$1\frac{1}{2}$~hours \qquad
+$1\dfrac{1}{2}$~hours
+\end{example}
+
+% Here the \ci{partial} command for \wi{partial derivative}s is used:
+\wi{편미분}[partial derivative]을 나타내기 위한 \ci{partial} 명령이 있다.
+% \begin{example}
+% \begin{equation*} 
+%   \sqrt{\frac{x^2}{k+1}}\qquad
+%   x^\frac{2}{k+1}\qquad
+%   \frac{\partial^2f}
+%   {\partial x^2} 
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*} 
+  \sqrt{\frac{x^2}{k+1}}\qquad
+  x^\frac{2}{k+1}\qquad
+  \frac{\partial^2f}
+  {\partial x^2} 
+\end{equation*}
+\end{example}
+
+% To typeset \wi{binomial coefficient}s or similar structures, use
+% the command \ci{binom} from \pai{amsmath}:
+\wi{이항 계수}[binomial coefficient](조합) 그리고 그와 유사한 구조를 식자하려면 \pai{amsmath}의 \ci{binom} 명령을 사용한다.
+% \begin{example}
+% Pascal's rule is
+% \begin{equation*}
+%  \binom{n}{k} =\binom{n-1}{k}
+%  + \binom{n-1}{k-1}
+% \end{equation*}
+% \end{example}
+\begin{example}
+Pascal's rule is
+\begin{equation*}
+ \binom{n}{k} =\binom{n-1}{k}
+ + \binom{n-1}{k-1}
+\end{equation*}
+\end{example}
+
+% For \wi{binary relations} it may be useful to stack symbols over each other.
+% \ci{stackrel}\verb|{#1}{#2}| puts the symbol given
+% in \verb|#1| in superscript-like size over \verb|#2| which
+% is set in its usual position.
+\wi{이항 관계연산자}[binary relations]는 서로 겹쳐 표현해야 할 때가 있다.
+\ci{stackrel}\verb|{#1}{#2}|는 \verb|#2|를 정상적인 위치에 놓고 그 위에 위첨자 크기로 \verb|#1|을 얹은 기호를 만들어준다.
+% \begin{example}
+% \begin{equation*}
+%  f_n(x) \stackrel{*}{\approx} 1
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+ f_n(x) \stackrel{*}{\approx} 1
+\end{equation*}
+\end{example}
+
+% The \textbf{\wi{integral operator}} is generated with \ci{int}, the
+% \textbf{\wi{sum operator}} with \ci{sum}, and the \textbf{\wi{product operator}}
+% with \ci{prod}. The upper and lower limits are specified with~\verb|^|
+% and~\verb|_| like superscripts and subscripts:
+\emphmathterm{적분기호}\index{적분기호}\index{integral operator}는 \ci{int} 명령으로 만든다.
+\emphmathterm{합기호}\index{합기호}\index{sum operator}는 \ci{sum},
+\emphmathterm{곱기호}\index{곱기호}\index{product operator}는 \ci{prod}이다.
+아래 위의 리미트는 첨자의 경우와 마찬가지로 \verb|^|와 \verb|_|로 지시한다.
+% \begin{example}
+% \begin{equation*}
+% \sum_{i=1}^n \qquad
+% \int_0^{\frac{\pi}{2}} \qquad
+% \prod_\epsilon
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+\sum_{i=1}^n \qquad
+\int_0^{\frac{\pi}{2}} \qquad
+\prod_\epsilon
+\end{equation*}
+\end{example}
+
+% To get more control over the placement of indices in complex
+% expressions, \pai{amsmath} provides the \ci{substack} command:
+복잡한 표현식에서 인덱스의 위치를 잘 위치짓기 위해 \pai{amsmath} 패키지의 \ci{substacks} 명령을 쓸 수 있다.
+% \begin{example}
+% \begin{equation*}
+% \sum^n_{\substack{0<i<n \\ 
+%         j\subseteq i}}
+%    P(i,j) = Q(i,j)
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+\sum^n_{\substack{0<i<n \\ 
+        j\subseteq i}}
+   P(i,j) = Q(i,j)
+\end{equation*}
+\end{example}
+
+
+
+% \LaTeX{} provides all sorts of symbols for \textbf{\wi{bracketing}} and other
+% \textbf{\wi{delimiters}} (e.g.~$[\;\langle\;\|\;\updownarrow$).
+% Round and square brackets can be entered with the corresponding keys and
+% curly braces with \verb|\{|, but all other delimiters are generated with
+% special commands (e.g.~\verb|\updownarrow|).
+\emphmathterm{괄호}\index{괄호}\index{bracking}와 그밖에 온갖 유형의 \emphmathterm{여닫는 부호}(delimiters)\index{여닫는 부호}\index{delimiters} (예: $[\;\langle\;\|\;\updownarrow$)를 \LaTeX 이 제공한다.
+둥근 괄호와 각진 괄호는 키보드의 해당 키로 입력할 수 있다. 활 괄호는 \verb|\{|로 입력한다.
+그밖의 여닫는 부호는 특정 명령으로 (예: \verb|\updownarrow|) 입력한다. 다음 보기는 \verb|{...}| 입력과 \verb|\{...\}|의
+차이를 보여준다.
+% \begin{example}
+% \begin{equation*}
+% {a,b,c} \neq \{a,b,c\}
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+{a,b,c} \neq \{a,b,c\}
+\end{equation*}
+\end{example}
+
+% If you put \ci{left} in front of an opening delimiter and
+% \ci{right} in front of a closing delimiter, \LaTeX{} will automatically
+% determine the correct size of the delimiter. Note that you must close
+% every \ci{left} with a corresponding \ci{right}. If you
+% don't want anything on the right, use the invisible ``\ci{right.}'':
+여닫는 부호의 여는 부호 앞에 \ci{left}를 붙이고 닫는 부호에 \ci{right}를 붙이면 
+\LaTeX은 크기를 자동으로 조절한다. \ci{left}를 썼으면 반드시 그에 대응하는 \ci{right}가 
+있어야 한다는 사실에 유의하라. 여는 부호만 두고 닫는 부호를 쓰지 않을 적에라도 꼭 ``\ci{right.}''로
+짝을 맞추어주어야 한다. 닫는 부호만 있다면 \ci{left.}을 먼저 적고 \ci{right}와 닫는 부호를 입력한다.
+% \begin{example}
+% \begin{equation*}
+% 1 + \left(\frac{1}{1-x^{2}}
+%     \right)^3 \qquad 
+% \left. \ddagger \frac{~}{~}\right)
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+1 + \left(\frac{1}{1-x^{2}}
+    \right)^3 \qquad 
+\left. \ddagger \frac{~}{~}\right)
+\end{equation*}
+\end{example}
+
+% In some cases it is necessary to specify the correct size of a
+% mathematical delimiter\index{mathematical!delimiter} by hand,
+% which can be done using the commands \ci{big}, \ci{Big}, \ci{bigg} and
+% \ci{Bigg} as prefixes to most delimiter commands:
+여닫는 부호의 크기를 자동으로 조절하도록 하지 않고 직접 크기를 지정하는 것이 필요할 때가 있다.
+이럴 때는 \ci{big}, \ci{Big}, \ci{bigg}, \ci{Bigg} 명령을 여닫는 부호의 앞에 붙이면 된다.
+% \begin{example}
+% $\Big((x+1)(x-1)\Big)^{2}$\\
+% $\big( \Big( \bigg( \Bigg( \quad
+% \big\} \Big\} \bigg\} \Bigg\} \quad
+% \big\| \Big\| \bigg\| \Bigg\| \quad
+% \big\Downarrow \Big\Downarrow 
+% \bigg\Downarrow \Bigg\Downarrow$
+% \end{example}
+
+\begin{example}
+$\Big((x+1)(x-1)\Big)^{2}$\\
+$\big( \Big( \bigg( \Bigg( \quad
+\big\} \Big\} \bigg\} \Bigg\} \quad
+\big\| \Big\| \bigg\| \Bigg\| \quad
+\big\Downarrow \Big\Downarrow 
+\bigg\Downarrow \Bigg\Downarrow$
+\end{example}
+
+%  For a list of all delimiters available, see Table~\ref{tab:delimiters} on page
+% \pageref{tab:delimiters}. 
+사용가능한 여닫는 부호의 목록을 \pageref{tab:delimiters}페이지의 표 \ref{tab:delimiters}에서 볼 수 있다.
+
+% \section{Single Equations that are Too Long: multline}
+\section{긴 수식: multline}
+% \index{long equations}
+% \label{sec:multline}
+\index{long equations}
+\label{sec:multline}
+
+% If an equation is too long, we have to wrap it somehow. Unfortunately,
+% wrapped equations are usually less easy to read than not wrapped
+% ones. To improve the readability, there are certain rules on how to do
+% the wrapping:
+어떤 식이 너무 길어서 행을 나누어
+표시해야 할 때가 있다. 그러나 행을 나눈 수식은 그렇지 않은 것에 비해 
+읽고 이해하기 어렵다. 가독성을 향상하기 위해 행을 나눌 때 적용하는 규칙이 있다.
+% \begin{enumerate}
+\begin{enumerate}
+  % \item In general one should always wrap an equation \textbf{before} an
+%   equality sign or an operator.
+\item 일반적으로 수식은 등호나 연산자 부호 \emph{앞에서} 행을 나눈다.
+% \item A wrap before an equality sign is preferable to a wrap before
+%   any operator.
+\item 다른 부호보다 등호 앞에서 나누는 것이 좋다.
+% \item A wrap before a plus- or minus-operator is preferable to a wrap
+%   before a multiplication-operator.
+\item 곱셉 부호보다는 덧셈이나 뺄셈 부호 앞에서 행을 나누는 것이 좋다.
+% \item Any other type of wrap should be avoided if at all possible.
+\item 이 이외의 곳에서는 가능하면 행을 나누지 않는다.
+% \end{enumerate}
+\end{enumerate}
+% The easiest way to achieve such a wrapping is the use of the
+% \ei{multline} en\-vi\-ron\-ment:\footnote{The
+%   \texttt{multline}-environment is from \texttt{amsmath}.}
+\ei{multline} 환경을 이용하는 것이 가장 쉬운 방법이다.\footnote{%
+  \texttt{multline} 환경은 \texttt{amsmath}에 정의된 것이다.
+}
+% \begin{example}
+% \begin{multline}
+%   a + b + c + d + e + f 
+%   + g + h + i  
+%   \\
+%   = j + k + l + m + n 
+% \end{multline}
+% \end{example}
+\begin{examplek}
+\begin{multline}
+  a + b + c + d + e + f 
+  + g + h + i  
+  \\
+  = j + k + l + m + n 
+\end{multline}
+\end{examplek}
+% \noindent
+% The difference from the \ei{equation} environment is that an arbitrary
+% line-break (or also multiple line-breaks) can be introduced. This is
+% done by putting a \verb+\\+ on those places where the equation needs
+% to be wrapped. Similarly to \ei{equation*} there also exists a
+% \ei{multline*} version for preventing an equation number.
+\noindent \ei{equation} 환경과 비교해보면 수식을 여러 줄로 나누어서 표현할 수 있다는 것이다.
+\verb|\\|를 행이 나누어질 위치에 적어넣는다. \ei{equation}에 별표 붙인 \ei{equation*}이 있듯이 
+\ei{multline*} 환경이 있어서 수식 번호를 붙이지 않게 한다.
+
+% Often the
+% \ei{IEEEeqnarray} environment (see section~\ref{sec:IEEEeqnarray})
+% will yield better results.  Consider the following
+% situation:
+\ei{IEEEeqnarray} 환경(\ref{sec:IEEEeqnarray}절 참조)이 
+더 나은 결과를 보여줄 때가 있다. 다음과 같은 경우를 생각해보자.
+% \begin{example}
+% \begin{equation}
+%   a = b + c + d + e + f 
+%   + g + h + i + j 
+%   + k + l + m + n + o + p  
+%   \label{eq:equation_too_long}
+% \end{equation}
+% \end{example}
+\begin{examplek}
+\begin{equation}
+  a = b + c + d + e + f 
+  + g + h + i + j 
+  + k + l + m + n + o + p  
+  \label{eq:equation_too_long}
+\end{equation}
+\end{examplek}
+% \noindent
+% Here it is actually the RHS that is too long to fit on one line. The
+% \ei{multline} environment creates the following output:
+\noindent 이 식의 우변은 너무 길고 한 줄에 다 들어가지 않는다. \ei{multline} 환경으로는 다음과 같은
+결과를 얻는다.
+% \begin{example}
+% \begin{multline}
+%   a = b + c + d + e + f 
+%   + g + h + i + j \\
+%   + k + l + m + n + o + p
+% \end{multline}
+% \end{example}
+
+\begin{examplek}
+\begin{multline}
+  a = b + c + d + e + f 
+  + g + h + i + j \\
+  + k + l + m + n + o + p
+\end{multline}
+\end{examplek}
+
+% This is better than \eqref{eq:equation_too_long}, but
+% it has the disadvantage that the equality sign loses its natural
+% greater importance with respect to the plus operator in front of
+% $k$. The better solution is provided by the
+% \ei{IEEEeqnarray} environment that will be discussed in detail in
+% Section~\ref{sec:IEEEeqnarray}.
+\noindent 이것이 식 \eqref{eq:equation_too_long}보다 낫다. 그러나 $k$ 앞의 
+덧셈 기호가 두드러지게 되어 그보다 훨씬 큰 등호의 중요성이 사라져버렸다.
+\ei{IEEEeqnarray} 환경이 더 나은 결과를 제공한다. 이 문제에 대한 자세한 토론은 이어지는 \ref{sec:IEEEeqnarray}절에서 
+하기로 한다.
+
+% \section{Multiple Equations}
+\section{여러 줄 수식}
+% \index{equation!multiple}
+% \label{sec:IEEEeqnarray}
+\index{equation!multiple}
+\label{sec:IEEEeqnarray}
+
+% In the most general situation we have a sequence of several
+% equalities that do not fit onto one line. Here we need to work with
+% vertical alignment in order to keep the array of equations in a nice
+% and readable structure.
+일련의 등식이 이어질 때 한 줄에 딱 들어맞지 않는 상황을 자주 접한다.
+이 절에서는 여러 개의 식을 읽기 쉽고 아름답게 수직으로 정렬하는 방법에 대해서 알아보겠다.
+
+% Before we offer our suggestions on how to do this, we start with a few
+% bad examples that show the biggest drawbacks of some common solutions.
+방법을 알아보기 전에 먼저 일반적 방법의 큰 결점을 보여주는 좋지 않은 예들을 살펴보려 한다.
+
+% \subsection{Problems with Traditional Commands}
+% \label{sec:problems_traditional}
+\subsection{전통적 방법의 문제점}
+\label{sec:problems_traditional}
+
+% To group multiple equations the
+% \ei{align} environment\footnote{The \texttt{align}-environment can
+%   also be used to group several blocks of equations beside each other.
+%   Another excellent use case for the
+%   \ei{IEEEeqnarray} environment. Try an argument like
+%   \texttt{\{rCl+rCl\}}.} could be used:
+여러 줄 수식을 \ei{align} 환경으로 다음과 같이 사용할 수 있다.\footnote{%
+  \texttt{align} 환경은 여러 수식군을 서로 나란히 놓는 데도 사용할 수 있다.
+  \ei{IEEEeqnarray} 환경에서 \texttt{\{rCl+rCl\}} 인자를 주어서 이것을 멋지게 처리할 수 있다.
+}
+% \begin{example}
+% \begin{align}
+%   a & = b + c \\
+%   & = d + e
+% \end{align}
+% \end{example}
+\begin{examplek}
+\begin{align}
+  a & = b + c \\
+  & = d + e
+\end{align}
+\end{examplek}
+
+% this approach fails once a single line is too long:
+그런데 한 줄이 유달리 길다면 좋은 결과를 얻기 힘들다.
+% \begin{example}
+% \begin{align}
+%   a & = b + c \\
+%   & = d + e + f + g + h + i 
+%   + j + k + l \nonumber \\
+%   & + m + n + o \\
+%   & = p + q + r + s
+% \end{align}
+% \end{example}
+\begin{examplek}
+\begin{align}
+  a & = b + c \\
+  & = d + e + f + g + h + i 
+  + j + k + l \nonumber \\
+  & + m + n + o \\
+  & = p + q + r + s
+\end{align}
+\end{examplek}
+% \noindent
+% Here $+\:m$ should be below $d$ and not below the equality sign. A
+% \TeX{}pert will point out that \verb+\mathrel{\phantom{=}} \negmedspace {}+,
+% would add the necessary space in front of \verb|+m+n+o|, but since most users
+% lack that kind of imagination, a simpler solution would be nice.
+\noindent 여기서 $+\:m$은 등호 아래가 아니라 $d$ 밑에 와야 맞다. 
+\TeX{} 전문가(\TeX{}pert)라면 \verb+\mathrel{\phantom{=}} \negmedspace {}+ 명령을
+\verb|+m+n+o| 앞에 두면 필요한 공간을 확보할 수 있지 않느냐고 할지 모르겠지만 대부분의 사용자들은 
+그렇게까지 상상력이 미치지 않는다. 더 간단한 해결방법이 있다면 좋을 것이다.
+
+% This is the moment where the \ei{eqnarray} environment bursts onto the scene:
+\ei{eqnarray} 환경은 어떨지 시도해본다.
+% \begin{example}
+% \begin{eqnarray}
+%   a & = & b + c \\
+%   & = & d + e + f + g + h + i 
+%   + j + k + l \nonumber \\
+%   && +\: m + n + o \\
+%   & = & p + q + r + s
+% \end{eqnarray}
+% \end{example}
+\begin{examplek}
+\begin{eqnarray}
+  a & = & b + c \\
+  & = & d + e + f + g + h + i 
+  + j + k + l \nonumber \\
+  && +\: m + n + o \\
+  & = & p + q + r + s
+\end{eqnarray}
+\end{examplek}
+
+% It is better but still not optimal. The spaces around the equality signs are too big.
+% Particularly, they are \textbf{not} the same as in the
+% \ei{multline} and \ei{equation} environments:
+앞서 말한 문제는 좀 나아졌지만 여전히 문제가 있다. 등호 좌우의 공백이 너무 크다.
+\ei{multline}과 \ei{equation} 환경에서는 그렇지 않았던 문제이다.
+% \begin{example}
+% \begin{eqnarray}
+%   a & = & a = a
+% \end{eqnarray}
+% \end{example}
+\begin{examplek}
+\begin{eqnarray}
+  a & = & a = a
+\end{eqnarray}
+\end{examplek}
+
+% \noindent \ldots and the expression sometimes overlaps with the equation number even
+%   though there would be enough room on the left:
+\noindent \hdots\hdots{} 그리고 이 방법은 이따금 여유 공간이 없을 때 수식 번호가 겹쳐나타나기도 한다.
+% \begin{example}
+% \begin{eqnarray}
+%   a & = & b + c 
+%   \\
+%   & = & d + e + f + g + h^2 
+%   + i^2 + j 
+%   \label{eq:faultyeqnarray}
+% \end{eqnarray}
+% \end{example}
+\begin{examplek}
+\begin{eqnarray}
+  a & = & b + c 
+  \\
+  & = & d + e + f + g + h^2 
+  + i^2 + j + k
+  \label{eq:faultyeqnarray}
+\end{eqnarray}
+\end{examplek}
+
+% \noindent While the environment offers a command \ci{lefteqn} that can
+%   be used when the LHS is too long:
+\noindent 좌변이 너무 길 때 \ci{lefteqn} 명령을 쓸 수 있다.
+% \begin{example}
+% \begin{eqnarray}
+%   \lefteqn{a + b + c + d 
+%     + e + f + g + h}\nonumber\\
+%   & = & i + j + k + l + m 
+%   \\
+%   & = & n + o + p + q + r + s
+% \end{eqnarray}
+% \end{example}
+\begin{examplek}
+\begin{eqnarray}
+  \lefteqn{a + b + c + d 
+    + e + f + g + h}\nonumber\\
+  & = & i + j + k + l + m 
+  \\
+  & = & n + o + p + q + r + s
+\end{eqnarray}
+\end{examplek}
+% \noindent This is not optimal either as the RHS is too short and the array is
+% not properly centered:
+\noindent 그런데 우변이 너무 짧으면 문제가 생겨서 수식의 가운데 정렬이 실패한다.
+% \begin{example}
+% \begin{eqnarray}
+%   \lefteqn{a + b + c + d 
+%     + e + f + g + h} 
+%   \nonumber \\
+%   & = & i + j 
+% \end{eqnarray}
+% \end{example}
+\begin{examplek}
+\begin{eqnarray}
+  \lefteqn{a + b + c + d 
+    + e + f + g + h} 
+  \nonumber \\
+  & = & i + j 
+\end{eqnarray}
+\end{examplek}
+
+% \noindent Having badmouthed the competition sufficiently, I can now steer you gently towards the glorious \ldots
+\noindent 뭐가 문제인지 설명하는 것은 이쯤하고 이제 본격적으로 제대로 된 해결책을 모색해보자.
+
+% \subsection{IEEEeqnarray Environment}
+% \label{sec:IEEEeqnarray_intro}
+\subsection{IEEEeqnarray 환경}
+\label{sec:IEEEeqnarray_intro}
+
+% The \ei{IEEEeqnarray} environment is a very powerful command with
+% many options. Here, we will only introduce its basic
+% functionalities. For more information please refer to the
+% manual.\footnote{The official manual is called
+%   \CTAN|macros/latex/contrib/IEEEtran/IEEEtran_HOWTO.pdf|. The part about \texttt{IEEEeqnarray}
+%   can be found in Appendix~F.}
+\ei{IEEEeqnarray} 환경은 여러 옵션을 갖춘 매우 강력한 명령이다. 여기서는 기본적 기능만을 소개할 것이다.
+더 자세한 사항은 사용설명서를 참고하라.\footnote{%
+  공식 사용설명서는 \CTAN|macros/latex/contrib/IEEEtran/IEEEtran_HOWTO.pdf|이다. 
+  부록~F에 \texttt{IEEEeqnarray}에 대한 부분이 있다.
+}
+
+% First of all, in order to be able to use the
+% \ei{IEEEeqnarray} environment one needs to load the
+% package\footnote{The \pai{IEEEtrantools} package may not be included in your setup, it can be found on CTAN.}
+% \pai{IEEEtrantools}. Include the following line in the header of
+% your document: \small
+% \begin{verbatim}
+% \usepackage{IEEEtrantools}
+% \end{verbatim}
+% \normalsize
+\ei{IEEEeqnarray} 환경을 사용하려면 \pai{IEEEtrantools} 패키지를 로드하여야 한다.
+%\footnote{%
+%   \pai{IEEEtrantools} 패키지가 설치되어 있지 않다면 CTAN에서 내려받는다.
+% }
+그리고 문서의 전처리부에 다음과 같이 써넣는다.
+\begin{verbatim}
+  \usepackage{IEEEtrantools}
+\end{verbatim}
+
+% The strength of \ei{IEEEeqnarray} is the ability to specify
+% the number of \emph{columns} in the equation array. Usually, this
+% specification will be \verb+{rCl}+, \emph{i.e.}, three columns, the
+% first column right-justified, the middle one centered with a little
+% more space around it (therefore we specify capital \texttt{C} instead of
+% lower-case \texttt{c}) and the third column left-justified:
+\ei{IEEEeqnarray}의 장점은 식의 여러 컬럼에 대하여 각각 정렬 방식을 지정할 수 있다는 것이다.
+보통 적용하는 정렬은 \verb|{rCL}|이다. 즉 세 컬럼에 대하여 첫 컬럼은 왼쪽정렬, 두 번째는 가운데정렬하면서
+좌우에 조금 여백을 주고(그래서 소문자 \texttt{c}가 아니라 대문자 \texttt{C}를 쓴 것이다),
+세 번째 컬럼은 왼쪽정렬하라는 뜻이다.
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   a & = & b + c 
+%   \\
+%   & = & d + e + f + g + h 
+%   + i + j + k \nonumber\\
+%   && \negmedspace {} + l + m + n + o 
+%   \\
+%   & = & p + q + r + s
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  a & = & b + c 
+  \\
+  & = & d + e + f + g + h 
+  + i + j + k \nonumber\\
+  && \negmedspace {} + l + m + n + o 
+  \\
+  & = & p + q + r + s
+\end{IEEEeqnarray}
+\end{examplek}
+
+% Any number of columns can be specified:
+% \verb+{c}+ will give only one column with all entries centered, or
+% \verb+{rCll}+ would add a fourth, left-justified column to use
+% for comments. Moreover, beside \texttt{l}, \texttt{c}, \texttt{r}, \texttt{L},
+% \texttt{C}, \texttt{R} for math mode entries there are also \texttt{s},
+% \texttt{t}, \texttt{u} for left, centered, and right text mode entries.
+% Additional space can be added with \texttt{.} and
+% \texttt{/} and \texttt{?} in increasing order.\footnote{For more spacing
+%   types refer to Section~\ref{sec:putting-qed-right}.}
+% Note the spaces around the equality signs in contrast to the space produced
+% by the \texttt{eqnarray} environment.
+컬럼 수의 제한은 없다. \verb|{c}| 하나만을 쓴다면 모든 수식을 가운데정렬한다.
+\verb|{rCll}|이라고 하면 왼쪽 정렬되는 네 번째 컬럼을 추가하는 것으로서 주석이나 설명을 위하여 쓸 수 있다.
+수식 모드로 식자되는 \texttt{l}, \texttt{c}, \texttt{r}, \texttt{L}, \texttt{C}, \texttt{R} 이외에
+\texttt{s}, \texttt{t}, \texttt{u}가 있어 각각 왼쪽, 가운데, 오른쪽에 오는 텍스트 모드로 지정할 수 있다.
+추가 여백을 크기순으로 \texttt{.}, \texttt{/}, \texttt{?} 부호로 나타낸다.\footnote{%
+  \ref{sec:putting-qed-right}절에 공백 유형에 대한 언급이 더 있다.
+}
+
+\texttt{eqnarray}를 썼을 때와 비교하여 등호 주변의 공백 크기가 어떻게 달라졌는지 주의깊게 보라.
+
+% \subsection{Common Usage}
+% \label{sec:common-usage}
+\subsection{일반적 사용법}
+\label{sec:common-usage}
+
+% In the following we will describe how we use \texttt{IEEEeqnarray} to
+% solve the most common problems.
+흔하게 만나는 문제를 해결하기 위해 \texttt{IEEEeqnarray}를 사용하는 방법에 대해 알아보자.
+
+% If a line overlaps with the equation number as in
+%   \eqref{eq:faultyeqnarray}, the command 
+수식 번호가 겹쳐나타나는 식~\eqref{eq:faultyeqnarray}의 수식 번호 겹침 문제는
+% \small
+% \begin{verbatim}
+% \IEEEeqnarraynumspace
+% \end{verbatim} 
+% \normalsize
+%   can be used: it has to be added in the corresponding line and makes
+%   sure that the whole equation array is shifted by the size of the
+%   equation numbers (the shift depends on the size of the number!):
+%   instead of
+\begin{verbatim}
+\IEEEeqnarraynumspace
+\end{verbatim} 
+이 명령으로 해결할 수 있다. 수식 번호 있는 행에 추가하면 수식 번호가 식자되는 크기를 계산하여 
+필요한 만큼 전체 수식을 왼쪽으로 옮긴다. 옮겨지는 크기는 수식 번호의 크기에 따라 결정된다.
+즉 다음과 같은 좋지 않은 결과를
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   a & = & b + c 
+%   \\
+%   & = & d + e + f + g + h 
+%   + i + j + k 
+%   \\
+%   & = & l + m + n
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  a & = & b + c \\
+  & = & d + e + f + g + h 
+  + i + j + k  + l\\
+  & = & l + m + n
+\end{IEEEeqnarray}
+\end{examplek}
+이렇게 수정할 수 있다.
+%   we get
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   a & = & b + c 
+%   \\
+%   & = & d + e + f + g + h 
+%   + i + j + k 
+%   \IEEEeqnarraynumspace\\
+%   & = & l + m + n.
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  a & = & b + c \\
+  & = & d + e + f + g + h 
+  + i + j + k + l
+  \IEEEeqnarraynumspace\\
+  & = & l + m + n.
+\end{IEEEeqnarray}
+\end{examplek}
+
+% If the LHS is too long, as a replacement for the faulty
+%   \ci{lefteqn} command, \texttt{IEEEeqnarray} offers the
+%   \ci{IEEEeqnarraymulticol} command which works in all situations:
+좌변이 너무 길 경우에 좋지 않은 \ci{lefteqn} 명령을 쓰지 말고 \texttt{IEEEeqnarray}의
+\ci{IEEEeqnarraymulticol} 명령을 쓰는 것이 좋다. 모든 상황에서 잘 작동한다.
+
+
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   \IEEEeqnarraymulticol{3}{l}{
+%     a + b + c + d + e + f 
+%     + g + h
+%   }\nonumber\\ \quad
+%   & = & i + j 
+%   \\
+%   & = & k + l + m
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  \IEEEeqnarraymulticol{3}{l}{
+    a + b + c + d + e + f 
+    + g + h
+  }\nonumber\\ \quad
+  & = & i + j 
+  \\
+  & = & k + l + m
+\end{IEEEeqnarray}
+\end{examplek}
+
+% The usage is identical to the \ci{multicolumns} command in the
+% \texttt{tabular}-en\-vi\-ron\-ment. The first argument \verb+{3}+
+% specifies that three columns shall be combined into one which will be
+% left-justified \verb+{l}+.
+이 명령은 \texttt{tubular} 환경의 \ci{multicolumns} 명령과 완전히 같다.
+첫 번째 인자 \verb|3|은 세 개의 컬럼을 합칠 것이라는 의미이고 \verb|l|은 합쳐진 컬럼을 
+왼쪽 정렬한다는 뜻이다.
+
+% Note that by inserting \ci{quad} commands one can easily adapt
+% the depth of the equation signs,\footnote{I think that one quad is the
+%   distance that looks good for most cases.} \emph{e.g.},
+등호의 위치를 맞추려면 \ci{quad} 명령을 넣어서 쉽게 할 수 있다.\footnote{quad 한 개가 대부분의 경우에 적절할 거라고 생각한다.}
+예를 들어본다.
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   \IEEEeqnarraymulticol{3}{l}{
+%     a + b + c + d + e + f 
+%     + g + h
+%   }\nonumber\\ \qquad\qquad
+%   & = & i + j
+%   \\
+%   & = & k + l + m
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  \IEEEeqnarraymulticol{3}{l}{
+    a + b + c + d + e + f 
+    + g + h
+  }\nonumber\\ \qquad\qquad
+  & = & i + j
+  \\
+  & = & k + l + m
+\end{IEEEeqnarray}
+\end{examplek}
+
+% If an equation is split into two or more lines, \LaTeX\
+%   interprets the first $+$ or $-$ as a sign instead of operator.
+%   Therefore, it is necessary to add an empty group \verb|{}| before the operator: instead of
+식이 둘 이상의 줄로 나누어지는 때 \LaTeX 은 줄 처음에 나오는 $+$나 $-$를 이항연산 부호로 보지 않고 
+양수 음수 부호처럼 취급한다. 따라서 이 연산부호 앞에 빈 항 \verb|{}|를 넣어야 한다.
+다음은 잘못된 예이다.
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   a & = & b + c 
+%   \\
+%   & = & d + e + f + g + h 
+%   + i + j + k \nonumber\\
+%   && + l + m + n + o 
+%   \\
+%   & = & p + q + r + s
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  a & = & b + c 
+  \\
+  & = & d + e + f + g + h 
+  + i + j + k \nonumber\\
+  && + l + m + n + o 
+  \\
+  & = & p + q + r + s
+\end{IEEEeqnarray}
+\end{examplek}
+%   we should write
+다음과 같이 해야 올바르다.
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   a & = & b + c 
+%   \\
+%   & = & d + e + f + g + h 
+%   + i + j + k \nonumber\\
+%   && \negmedspace {} + l + m + n + o 
+%   \\
+%   & = & p + q + r + s
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  a & = & b + c 
+  \\
+  & = & d + e + f + g + h 
+  + i + j + k \nonumber\\
+  && \negmedspace {} + l + m + n + o 
+  \\
+  & = & p + q + r + s
+\end{IEEEeqnarray}
+\end{examplek}
+
+% \noindent Note the space difference between $+$ and $l$!
+% The construction \verb|{} + l| forces the \verb|+|-sign to be an operator rather
+% than just a sign, and the unwanted ensuing space between
+% \verb|{}| and \verb|+| is compensated by a negative medium space
+% \ci{negmedspace}.
+\noindent $+$과 $l$ 사이의 간격이 달라졌음이 보이는가.
+빈 항을 넣어서 \verb|{} + l|라고 하는 것은 $+$가 양수 부호가 아니라 항 사이의 덧셈을 나타내는 부호임을 강제하는 방법이다.
+또한 \verb|{}|와 \verb|+| 사이에 생겨나는 미세한 간격은 \ci{negmidspace} (negative medium space) 명령으로
+없앴다.
+
+% If a particular line should not have an equation number, the
+%   number can be suppressed using \ci{nonumber} (or
+%   \ci{IEEEnonumber}). If on such a line a label
+%   \verb+\label{eq:...}+ is defined, then this label is passed on
+%   to the next equation number that is not suppressed. Place the labels right before the line-break
+%   \verb+\\+ or the next to the equation it belongs to. Apart from
+%   improving the readability of the source code this prevents a
+%   compilation error when a \ci{IEEEmulticol} command
+%   follows the label-definition.
+수식 번호를 붙이지 않을 행에는 \ci{nonumber}를 적어주면 번호가 붙지 않는다. 만약 이 행에 
+\verb+\label{eq:...}+가 정의되어 있다면 이 label은 다음 번 수식 번호를 가리키게 된다.
+레이블은 행 나눔 명령 \verb|\\| 직전에 두거나 그 레이블을 달 수식 뒤에 붙이도록 하라.
+소스 코드를 읽기 쉬워지는 것과 더불어 \ci{IEEEmulticol} 명령이 라벨 정의 뒤에 잇달아 나올 때 발생할 수 있는 
+컴파일 오류를 방지한다.
+  
+% There also exists a *-version where all equation numbers are
+%   suppressed. In this case an equation number can be made to appear
+%   using the command \ci{IEEEyesnumber}:
+별표붙은 환경을 사용하면 수식 번호가 아무 데도 붙지 않는다. 이럴 경우에 수식 번호를 나타내어야 할 필요가 있으면
+\ci{IEEEyesnumber} 명령을 이용한다.
+% \begin{example}
+% \begin{IEEEeqnarray*}{rCl}
+%   a & = & b + c \\
+%   & = & d + e \IEEEyesnumber\\
+%   & = & f + g
+% \end{IEEEeqnarray*}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray*}{rCl}
+  a & = & b + c \\
+  & = & d + e \IEEEyesnumber\\
+  & = & f + g
+\end{IEEEeqnarray*}
+\end{examplek}
+
+% Sub-numbers are also easily possible using 
+%   \ci{IEEEyessubnumber}:
+\ci{IEEEyessubnumber}를 통해 하위 번호도 손쉽게 붙일 수 있다.
+% \begin{example}
+% \begin{IEEEeqnarray}{rCl}
+%   a & = & b + c 
+%   \IEEEyessubnumber\\
+%   & = & d + e 
+%   \nonumber\\
+%   & = & f + g 
+%   \IEEEyessubnumber  
+% \end{IEEEeqnarray}
+% \end{example}
+\begin{examplek}
+\begin{IEEEeqnarray}{rCl}
+  a & = & b + c 
+  \IEEEyessubnumber\\
+  & = & d + e 
+  \nonumber\\
+  & = & f + g 
+  \IEEEyessubnumber  
+\end{IEEEeqnarray}
+\end{examplek}
+
+% \section{Arrays and Matrices} \label{sec:arraymat}
+\section{배열과 행렬}
+\label{sec:arraymat}
+
+% To typeset \textbf{arrays}, use the \ei{array} environment. It works
+% in a similar way to the \texttt{tabular} environment. The \verb|\\| command is
+% used to break the lines:
+\emphmathterm{배열}을 식자하려면 \ei{array} 환경을 쓴다.
+\texttt{tabular} 환경과 비슷하다. 
+열 분리에 \verb|&| 행 분리에 \verb|\\| 명령을 사용한다.
+% \begin{example}
+%   \begin{equation*}
+%     \mathbf{X} = \left( 
+%       \begin{array}{ccc}
+%         x_1 & x_2 & \ldots \\
+%         x_3 & x_4 & \ldots \\
+%         \vdots & \vdots & \ddots
+%       \end{array} \right)
+%   \end{equation*}
+% \end{example}
+\begin{example}
+  \begin{equation*}
+    \mathbf{X} = \left( 
+      \begin{array}{ccc}
+        x_1 & x_2 & \ldots \\
+        x_3 & x_4 & \ldots \\
+        \vdots & \vdots & \ddots
+      \end{array} \right)
+  \end{equation*}
+\end{example}
+
+% The \ei{array} environment can also be used to typeset \wi{piecewise function}s by
+% using a ``\verb|.|'' as an invisible \ci{right} delimiter:
+\ei{array} 환경은 \wi{조각적으로 정의된 함수}[piecewise functon]를 표현하는 데도 사용할 수 있다. 이 때는 오른쪽 닫는 괄호 위치에 \verb|\right.|를
+표시해야 한다.
+% \begin{example}
+% \begin{equation*}
+%   |x| = \left\{
+%     \begin{array}{rl}
+%       -x & \text{if } x < 0,\\
+%       0 & \text{if } x = 0,\\
+%       x & \text{if } x > 0.
+%     \end{array} \right.
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+  |x| = \left\{
+    \begin{array}{rl}
+      -x & \text{if } x < 0,\\
+      0 & \text{if } x = 0,\\
+      x & \text{if } x > 0.
+    \end{array} \right.
+\end{equation*}
+\end{example}
+% The \ei{cases} environment from \textsf{amsmath} simplifies
+% the syntax, so it is worth a look:
+\pai{amsmath}의 \ei{cases} 환경은 이것을 좀더 간편하게 쓸 수 있게 한다.
+다음과 같다.
+% \begin{example}
+%   \begin{equation*}
+%     |x| = 
+%     \begin{cases}
+%       -x & \text{if } x < 0,\\
+%       0 & \text{if } x = 0,\\
+%       x & \text{if } x > 0.
+%     \end{cases} 
+% \end{equation*}
+% \end{example}
+\begin{example}
+  \begin{equation*}
+    |x| = 
+    \begin{cases}
+      -x & \text{if } x < 0,\\
+      0 & \text{if } x = 0,\\
+      x & \text{if } x > 0.
+    \end{cases} 
+\end{equation*}
+\end{example}
+
+
+% Matrices\index{matrix} can be typeset by \ei{array}, but
+% \pai{amsmath} provides a better solution using the different \ei{matrix}
+% environments. There are six versions with different delimiters: \ei{matrix}
+% (none), \ei{pmatrix} $($, \ei{bmatrix} $[$, \ei{Bmatrix} $\{$, \ei{vmatrix} $\vert$ and
+% \ei{Vmatrix} $\Vert$. You don't have to specify the number of columns as with
+% \ei{array}. The maximum number is 10, but it is customisable (though it is not
+% very often you need 10 columns!):
+\emphmathterm{행렬}\index{행렬}\index{matrix}을 \ei{array}로 조판할 수 있다.
+그러나 \pai{amsmath} 패키지가 다양한 \ei{matrix} 환경을 제공하므로 이를 이용하는 것이 더 좋다.
+여닫는 부호에 따라 여섯 가지가 있다. \ei{matrix}(여닫는 부호 없음), \ei{pmatrix}(둥근 괄호 ()), 
+\ei{bmatrix}(각진 괄호 []), \ei{Bmatrix}(활 괄호 \{\}), \ei{vmatrix}(세로선 $\vert$),
+\ei{Vmatrix}(겹세로선 $\Vert$).
+이 환경에서는 \ei{array}에서처럼 열의 수를 미리 지정하지 않아도 된다. 최대 10개까지인데 조절할 수 있다. (그런데 
+열이 10개나 되는 행렬을 표기할 일이 흔할까?)
+% \begin{example}
+% \begin{equation*}
+%   \begin{matrix} 
+%     1 & 2 \\
+%     3 & 4 
+%   \end{matrix} \qquad
+%   \begin{bmatrix} 
+%     p_{11} & p_{12} & \ldots 
+%     & p_{1n} \\
+%     p_{21} & p_{22} & \ldots 
+%     & p_{2n} \\
+%     \vdots & \vdots & \ddots 
+%     & \vdots \\
+%     p_{m1} & p_{m2} & \ldots 
+%     & p_{mn} 
+%   \end{bmatrix}
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+  \begin{matrix} 
+    1 & 2 \\
+    3 & 4 
+  \end{matrix} \qquad
+  \begin{bmatrix} 
+    p_{11} & p_{12} & \ldots 
+    & p_{1n} \\
+    p_{21} & p_{22} & \ldots 
+    & p_{2n} \\
+    \vdots & \vdots & \ddots 
+    & \vdots \\
+    p_{m1} & p_{m2} & \ldots 
+    & p_{mn} 
+  \end{bmatrix}
+\end{equation*}
+\end{example}
+
+
+
+% \section{Spacing in Math Mode} \label{sec:math-spacing}
+\section{수식 모드에서의 간격}
+\label{sec:math-spacing}
+
+% \index{math spacing} 
+\index{math spacing} 
+% If the spacing within formulae chosen by \LaTeX{}
+% is not satisfactory, it can be adjusted by inserting special spacing
+% commands: \ci{,} for $\frac{3}{18}\:\textrm{quad}$
+% (\demowidth{0.166em}), \ci{:} for $\frac{4}{18}\: \textrm{quad}$
+% (\demowidth{0.222em}) and \ci{;} for $\frac{5}{18}\: \textrm{quad}$
+% (\demowidth{0.277em}).  The escaped space character \verb*|\ |
+% generates a medium sized space comparable to the interword spacing and
+% \ci{quad} (\demowidth{1em}) and \ci{qquad} (\demowidth{2em}) produce
+% large spaces. The size of a \ci{quad} corresponds to the width of the
+% character `M' of the current font. \verb|\!|\cih{"!} produces a
+% negative space of $-\frac{3}{18}\:\textrm{quad}$
+% ($-$\demowidth{0.166em}).
+\LaTeX 이 조판한 수식 내의 간격이 만족스럽지 못하다면 특별한 간격 명령으로 그것을 조절할 수 있다.
+간격 조절 명령으로는 
+\ci{,} 명령은 $\frac{3}{18}\:\textrm{quad}$
+(\demowidth{0.166em}), \ci{:}는 $\frac{4}{18}\: \textrm{quad}$
+(\demowidth{0.222em}), 그리고 \ci{;}는 $\frac{5}{18}\: \textrm{quad}$
+(\demowidth{0.277em})에 해당하는 간격을 넣는다.
+백슬래시를 붙인 스페이스 \verb*|\ |는 일반적인 단어 사이 띄어쓰기 간격에 해당하는 중간 크기의 간격을, 
+\ci{quad} (\demowidth{1em})와 \ci{qquad} (\demowidth{2em})는 큰 간격을 넣는다.
+\ci{quad}의 크기는 사용중인 폰트의 M자 폭(1em)에 해당한다. \verb|\!|는 반대 방향으로 $-\frac3{18}\:\text{quad}$ 만큼
+($-$\demowidth{0.166em})을 이동한다.
+
+% \begin{example}
+% \begin{equation*}
+%   \int_1^2 \ln x \mathrm{d}x 
+%   \qquad
+%   \int_1^2 \ln x \,\mathrm{d}x
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+  \int_1^2 \ln x \mathrm{d}x 
+  \qquad
+  \int_1^2 \ln x \,\mathrm{d}x
+\end{equation*}
+\end{example}
+
+% Note that `d' in the differential is conventionally set in roman.
+% In the next example, we define a new command \ci{ud} (upright d) which produces
+% ``$\,\mathrm{d}$'' (notice the spacing \demowidth{0.166em} before the
+% $\text{d}$), so we don't have to write it every time. The \ci{newcommand} is
+% placed in the preamble. %  More on
+% % \ci{newcommand} in section~\ref{} on page \pageref{}. To Do: Add label and
+% % reference to "Customising LaTeX" -> "New Commands, Environments and Packages"
+% % -> "New Commands".
+미분 기호의 `d'를 그대로 이탤릭으로 표현하기도 하지만 로만 정자로 인쇄하는 관행도 있다.
+그럴 때에는 \ci{ud} 명령(upright d)을 ``\verb|$\,\mathrm{d}$|''로 정의해두고 쓸 수 있다.
+($\text{d}$ 앞에 \demowidth{0.166em} 만큼의 간격을 준 것에 주의하여 보라. 매번 간격 명령을 주지 않아도 되게 되었다.)
+이 명령을 정의하는 \ci{newcommand}를 전처리부에 넣어둔다.
+% \begin{example}
+% \newcommand{\ud}{\,\mathrm{d}}
+
+% \begin{equation*}
+%  \int_a^b f(x)\ud x 
+% \end{equation*}
+% \end{example}
+\begin{example}
+\newcommand{\ud}{\,\mathrm{d}}
+
+\begin{equation*}
+ \int_a^b f(x)\ud x 
+\end{equation*}
+\end{example}
+
+
+
+% If you want to typeset multiple integrals, you'll discover that the spacing
+% between the integrals is too wide. You can correct it using \ci{!}, but
+% \pai{amsmath} provides an easier way for fine-tuning
+% the spacing, namely the \ci{iint}, \ci{iiint}, \ci{iiiint}, and \ci{idotsint}
+% commands.
+중적분 등 적분기호를 이어 조판해야 할 때에 적분기호 사이가 너무 벌어지는 것을 볼 수 있다.
+\ci{!}로 간격을 줄일 수 있지만 \pai{amsmath}는 더 쉬운 방법을 제공한다. 
+\ci{iint}, \ci{iiint}, \ci{iiiint}, \ci{idotsint} 명령이 그것이다.
+
+% \begin{example}
+% \newcommand{\ud}{\,\mathrm{d}}
+
+% \begin{IEEEeqnarray*}{c}
+%   \int\int f(x)g(y) 
+%                   \ud x \ud y \\
+%   \int\!\!\!\int 
+%          f(x)g(y) \ud x \ud y \\
+%   \iint f(x)g(y)  \ud x \ud y 
+% \end{IEEEeqnarray*}
+% \end{example}
+\begin{examplek}
+\newcommand{\ud}{\,\mathrm{d}}
+
+\begin{IEEEeqnarray*}{c}
+  \int\int f(x)g(y) 
+                  \ud x \ud y \\
+  \int\!\!\!\int 
+         f(x)g(y) \ud x \ud y \\
+  \iint f(x)g(y)  \ud x \ud y 
+\end{IEEEeqnarray*}
+\end{examplek}
+
+
+% See the electronic document \texttt{testmath.tex} (distributed with
+% \AmS-\LaTeX) or Chapter 8 of \companion{} for further details.
+더 상세한 내용을 보려면
+\AmS-\LaTeX 과 함께 배포되는 전자문서 \texttt{testmath.tex}이나 \companion{}의 제8장을 
+참고하라.
+
+% \subsection{Phantoms}
+\subsection{허깨비 글자}
+
+% When vertically aligning text using \verb|^| and \verb|_| \LaTeX{} is sometimes
+% just a little too helpful. Using the \ci{phantom} command you can
+% reserve space for characters that do not show up in the final output.
+% The easiest way to understand this is to look at an example:
+\ci{phantom} 명령을 쓰면 자리는 차지하면서 출력물에는 나오지 않도록 글자 만큼의 간격을 얻을 수 있다.
+\verb|^|나 \verb|_|의 수직 위치 정렬을 \LaTeX 이 너무 심하게 잘 해주기 때문에 원하지 않는 결과를 
+보일 때 이를 이용하여 수정할 수 있다. 실례를 보는 것이 제일 좋을 것이다.
+% \begin{example}
+% \begin{equation*}
+% {}^{14}_{6}\text{C}
+% \qquad \text{versus} \qquad
+% {}^{14}_{\phantom{1}6}\text{C}
+% \end{equation*}
+% \end{example}
+\begin{example}
+\begin{equation*}
+{}^{14}_{6}\text{C}
+\qquad \text{versus} \qquad
+{}^{14}_{\phantom{1}6}\text{C}
+\end{equation*}
+\end{example}
+
+% If you want to typeset a lot of isotopes as in the example, the \pai{mhchem}
+% package is very useful for typesetting isotopes and chemical formulae too.
+화학의 반응식과 동위원소를 대거 조판해야 한다면 \pai{mhchem} 패키지가 도움이 된다.
+
+% \section{Fiddling with the Math Fonts}\label{sec:fontsz}
+\section{수학 폰트에 대하여}
+\label{sec:fontsz}
+
+% Different math fonts are listed on Table~\ref{mathalpha} on page
+% \pageref{mathalpha}.
+여러 가지 수학 폰트들이 \pageref{mathalpha} 페이지의 표~\ref{mathalpha}에 정리되어 있다.
+% \begin{example}
+%  $\Re \qquad
+%   \mathcal{R} \qquad
+%   \mathfrak{R} \qquad
+%   \mathbb{R} \qquad $  
+% \end{example}
+\begin{example}
+ $\Re \qquad
+  \mathcal{R} \qquad
+  \mathfrak{R} \qquad
+  \mathbb{R} \qquad $  
+\end{example}
+\noindent 뒤의 두 가지는 \pai{amssymb}나 \pai{amsfonts} 패키지가 필요하다.
+% The last two require \pai{amssymb} or \pai{amsfonts}.
+
+% Sometimes you need to tell \LaTeX{} the correct font
+% size. In math mode, this is set with the following four commands:
+가끔 적당한 폰트 크기를 설정해야 할 때가 있다. 다음과 같은 네 가지 명령으로 크기를 조절한다.
+% \begin{flushleft}
+% \ci{displaystyle}~($\displaystyle 123$),
+%  \ci{textstyle}~($\textstyle 123$), 
+% \ci{scriptstyle}~($\scriptstyle 123$) and
+% \ci{scriptscriptstyle}~($\scriptscriptstyle 123$).
+% \end{flushleft}
+\begin{flushleft}
+\ci{displaystyle}~($\displaystyle 123$),
+ \ci{textstyle}~($\textstyle 123$), 
+\ci{scriptstyle}~($\scriptstyle 123$),
+\ci{scriptscriptstyle}~($\scriptscriptstyle 123$).
+\end{flushleft}
+
+% If $\sum$ is placed in a fraction, it'll be typeset in text style unless you tell
+% \LaTeX{} otherwise:
+분수의 분모나 분자 위치에 $\sum$이 오면 별다른 지정이 없는 한 텍스트 스타일로 식자된다.
+이것을 디스플레이 스타일로 하라고 알려주려면 다음과 같이 한다.
+% \begin{example}
+% \begin{equation*}
+%  P = \frac{\displaystyle{ 
+%    \sum_{i=1}^n (x_i- x)
+%    (y_i- y)}} 
+%    {\displaystyle{\left[
+%    \sum_{i=1}^n(x_i-x)^2
+%    \sum_{i=1}^n(y_i- y)^2
+%    \right]^{1/2}}}
+% \end{equation*}    
+% \end{example}
+\begin{example}
+\begin{equation*}
+ P = \frac{\displaystyle{ 
+   \sum_{i=1}^n (x_i- x)
+   (y_i- y)}} 
+   {\displaystyle{\left[
+   \sum_{i=1}^n(x_i-x)^2
+   \sum_{i=1}^n(y_i- y)^2
+   \right]^{1/2}}}
+\end{equation*}    
+\end{example}
+
+% Changing styles generally affects the way big operators and limits are displayed.
+\noindent 위의 예와 같이 수식의 스타일을 바꾸거나 강제하면 큰 연산자 부호와 리미트가 표시되는 방식이 달라진다.
+
+% % This is not a math accent, and no maths book would be set this way.
+% % mathop gets the spacing right.
+
+
+% \subsection{Bold Symbols}
+\subsection{굵은 부호}
+% \index{bold symbols}
+\index{bold symbols}
+
+% It is quite difficult to get bold symbols in \LaTeX{}; this is
+% probably intentional as amateur typesetters tend to overuse them.  The
+% font change command \verb|\mathbf| gives bold letters, but these are
+% roman (upright) whereas mathematical symbols are normally italic, and
+% furthermore it doesn't work on lower case Greek letters.
+% There is a \ci{boldmath} command, but \emph{this can only be used
+% outside math mode}. It works for symbols too, though:
+\LaTeX 에서 굵은 기호를 얻기는 상당히 어렵다. 아마도 의도적인 것은 아닌가 싶은데 많은 비전문가들이 이것을 남용하는 경향이 있기 때문일 것이다.
+\cs{mathbf}를 주면 글자(letter)에 대해서는 볼드체를 얻을 수 있지만 
+글자가 로만체(곧게 선 서체)로 되어버린다. 수학에 쓰이는 글자들은 이탤릭이기 때문에 
+생각과 다르게 나오는 것일 수 있다. 게다가 그리스어 소문자는 아예 굵은 글자 자체가 나오지 않는다.
+\ci{boldmath}라는 명령이 있어서 기호문자에 대해서도 동작하기는 하지만
+\emph{수식 모드를 빠져나가야지만} 쓸 수 있다.
+% \begin{example}
+% $\mu, M \qquad 
+% \mathbf{\mu}, \mathbf{M}$
+% \qquad \boldmath{$\mu, M$}
+% \end{example}
+\begin{example}
+$\mu, M \qquad 
+\mathbf{\mu}, \mathbf{M}$
+\qquad \boldmath{$\mu, M$}
+\end{example}
+
+% The package \pai{amsbsy} (included by \pai{amsmath}) as well as the
+% package \pai{bm} from the \texttt{tools} bundle make this much easier as they include
+% a \ci{boldsymbol} command:
+\pai{amsbsy} 패키지(\pai{amsmath}의 일부이다)와 \texttt{tools} 묶음의 
+\pai{bm} 패키지에 있는 \ci{boldsymbol} 명령은 이것을 훨씬 쉽게 할 수 있게 해준다.
+
+% \begin{example}
+% $\mu, M \qquad
+% \boldsymbol{\mu}, \boldsymbol{M}$
+% \end{example}
+\begin{example}
+$\mu, M \qquad
+\boldsymbol{\mu}, \boldsymbol{M}$
+\end{example}
+
+% \section{Theorems, Lemmas, \ldots}
+\section{수학적 문단(정리, 보조정리 등)}
+
+% When writing mathematical documents, you probably need a way to
+% typeset ``Lemmas'', ``Definitions'', ``Axioms'' and similar
+% structures.
+수학적인 글쓰기에 있어서 ``보조정리(Lemma)'', ``정의(Definition)'', ``공리(Axiom)''와 같은 문단을 식자해야 할 때가 있다.
+% \begin{lscommand}
+% \ci{newtheorem}\verb|{|\emph{name}\verb|}[|\emph{counter}\verb|]{|%
+%          \emph{text}\verb|}[|\emph{section}\verb|]|
+% \end{lscommand}
+\begin{lscommand}
+\ci{newtheorem}\verb|{|\emph{name}\verb|}[|\emph{counter}\verb|]{|%
+         \emph{text}\verb|}[|\emph{section}\verb|]|
+\end{lscommand}
+% The \emph{name} argument is a short keyword used to identify the
+% ``theorem''. With the \emph{text} argument you define the actual name
+% of the ``theorem'', which will be printed in the final document.
+\noindent \emph{name} 인자는 해당 ``정리''에 고유하게 부여한 짧은 키워드이다.
+\emph{text} 인자에는 그 실제 인쇄될 ``정리''의 이름을 써준다.
+
+% The arguments in square brackets are optional. They are both used to
+% specify the numbering used on the ``theorem''. Use  the \emph{counter}
+% argument to specify the \emph{name} of a previously declared
+% ``theorem''. The new ``theorem'' will then be numbered in the same
+% sequence.  The \emph{section} argument allows you to specify the
+% sectional unit within which the ``theorem'' should get its numbers.
+대괄호 안에 넣어주는 선택 인자는 생략가능하다.
+두 가지가 모두 ``정리''의 번호에 사용될 것을 가리킨다. \emph{counter} 인자는 미리 선언한 어떤 ``theorem''의 \emph{name}을 지정한다. 
+그러면 새로운 ``theorem''은 여기 적힌 이름을 가진 theorem과 동일한 번호 순차를 공유할 것이다.
+\emph{section} 인자는 ``theorem''의 번호가 section 단위에 연계되도록 
+설정하는 것이다.
+
+% After executing the \ci{newtheorem} command in the preamble of your
+% document, you can use the following command within the document.
+\ci{newtheorem}을 문서의 전처리부에 실행한 후 본문에서 다음과 같은 명령을 사용할 수 있다.
+% \begin{code}
+% \verb|\begin{|\emph{name}\verb|}[|\emph{text}\verb|]|\\
+% This is my interesting theorem\\
+% \verb|\end{|\emph{name}\verb|}|     
+% \end{code}
+\begin{code}
+\verb|\begin{|\emph{name}\verb|}[|\emph{text}\verb|]|\\
+This is my interesting theorem\\
+\verb|\end{|\emph{name}\verb|}|     
+\end{code}
+
+% The \pai{amsthm} package (part of \AmS-\LaTeX) provides the 
+% \ci{theoremstyle}\verb|{|\emph{style}\verb|}|
+\pai{amsthm} 패키지는 다음과 같은 명령을 사용할 수 있게 한다.
+\ci{theoremstyle}\verb|{|\emph{style}\verb|}|
+% command which lets you define what the theorem is all about by picking
+% from three predefined styles: \texttt{definition} (fat title, roman body),
+% \texttt{plain} (fat title, italic body) or \texttt{remark} (italic
+% title, roman body).
+명령으로 모든 theorem은 사전에 정의된 세 가지 양식 가운데 하나를 선택하여 정의하도록 되어 있다. \texttt{definition} (두꺼운 제목, 로만체 본문),
+\texttt{plain} (두꺼운 제목, 이탤릭체 본문), \texttt{remark} (이탤릭체 제목, 로만체 본문).
+
+% This should be enough theory. The following examples should
+% remove any remaining doubt, and make it clear that the
+% \verb|\newtheorem| environment is way too complex to understand.
+이것이면 충분하다. 다음 예제를 보면 모든 것이 명확해질 것이며 
+\verb|\newtheorem|의 뭔가 이해하기 어려운 점을 분명하게 알게 될 것이다.
+
+% % actually define things
+% \theoremstyle{definition} \newtheorem{law}{Law}
+% \theoremstyle{plain}      \newtheorem{jury}[law]{Jury}
+% \theoremstyle{remark}     
+% \newtheorem*{margt}{Margaret}
+\theoremstyle{definition} \newtheorem{law}{Law}
+\theoremstyle{plain}      \newtheorem{jury}[law]{Jury}
+\theoremstyle{remark}     
+\newtheorem*{margt}{Margaret}
+
+% First define the theorems:
+우선 theorem을 정의한다.
+
+% \begin{verbatim}
+% \theoremstyle{definition} \newtheorem{law}{Law}
+% \theoremstyle{plain}      \newtheorem{jury}[law]{Jury}
+% \theoremstyle{remark}     \newtheorem*{margt}{Margaret}
+% \end{verbatim}
+\begin{verbatim}
+\theoremstyle{definition} \newtheorem{law}{Law}
+\theoremstyle{plain}      \newtheorem{jury}[law]{Jury}
+\theoremstyle{remark}     \newtheorem*{margt}{Margaret}
+\end{verbatim}
+
+% \begin{example}
+% \begin{law} \label{law:box}
+% Don't hide in the witness box
+% \end{law}
+% \begin{jury}[The Twelve]
+% It could be you! So beware and
+% see law~\ref{law:box}.\end{jury}
+% \begin{jury}
+% You will disregard the last
+% statement.\end{jury}
+% \begin{margt}No, No, No\end{margt}
+% \begin{margt}Denis!\end{margt}
+% \end{example}
+\begin{example}
+\begin{law} \label{law:box}
+Don't hide in the witness box
+\end{law}
+\begin{jury}[The Twelve]
+It could be you! So beware and
+see law~\ref{law:box}.\end{jury}
+\begin{jury}
+You will disregard the last
+statement.\end{jury}
+\begin{margt}No, No, No\end{margt}
+\begin{margt}Denis!\end{margt}
+\end{example}
+
+% The ``Jury'' theorem uses the same counter as the ``Law''
+% theorem, so it gets a number that is in sequence with
+% the other ``Laws''. The argument in square brackets is used to specify 
+% a title or something similar for the theorem.
+``Jury'' 정리는 ``Law'' 정리와 동일한 카운터를 이용하도록 되어 있다.
+그래서 이전의 ``Laws'' 정리에 이어서 번호가 붙었다.
+대괄호 안에 놓인 인자는 그 정리의 제목 또는 표제를 설정한다.
+% \begin{example}
+% \newtheorem{mur}{Murphy}[section]
+
+% \begin{mur} If there are two or 
+% more ways to do something, and 
+% one of those ways can result in
+% a catastrophe, then someone 
+% will do it.\end{mur}
+% \end{example}
+\begin{example}
+\newtheorem{mur}{Murphy}[section]
+
+\begin{mur} If there are two or 
+more ways to do something, and 
+one of those ways can result in
+a catastrophe, then someone 
+will do it.\end{mur}
+\end{example}
+
+
+% The ``Murphy'' theorem gets a number that is linked to the number of
+% the current section. You could also use another unit, for example chapter or
+% subsection.
+``Murphy'' 정리는 현재 section의 번호에 연계되어 있다. chapter나 subsection 같은 다른 단위를 지정하는 것도 가능하다.
+
+% If you want to customize your theorems down to the last dot, the
+% \pai{ntheorem} package offers a plethora of options.
+만약 정리의 내용이 마지막 점 다음 줄로 내려가서 식자되게 하고 싶다면 \pai{ntheorem} 패키지가 지나칠 정도로 많은 옵션을 제공한다.
+
+% \subsection{Proofs and End-of-Proof Symbol}
+% \label{sec:putting-qed-right}
+\subsection{증명, QED 부호}
+\label{sec:putting-qed-right}
+
+% The \pai{amsthm} package also provides the \ei{proof} environment.
+\pai{amsthm} 패키지는 \ei{proof} 환경을 제공한다.
+
+% \begin{example}
+% \begin{proof}
+%  Trivial, use
+%  \begin{equation*}
+%    E=mc^2.
+%  \end{equation*}
+% \end{proof}
+% \end{example}
+\begin{example}
+\begin{proof}
+ Trivial, use
+ \begin{equation*}
+   E=mc^2.
+ \end{equation*}
+\end{proof}
+\end{example}
+
+% With the command \ci{qedhere} you can move the `end of proof' symbol
+% around for situations where it would end up alone on a line.
+``증명종료'' 부호가 외따로 한 줄을 차지하는 상황을 피하도록 하기 위해 \ci{qedhere} 명령을 쓸 수 있다.
+
+% \begin{example}
+% \begin{proof}
+%  Trivial, use
+%  \begin{equation*}
+%    E=mc^2. \qedhere
+%  \end{equation*}
+% \end{proof}
+% \end{example}
+\begin{example}
+\begin{proof}
+ Trivial, use
+ \begin{equation*}
+   E=mc^2. \qedhere
+ \end{equation*}
+\end{proof}
+\end{example}
+
+% Unfortunately, this correction does not work for \texttt{IEEEeqnarray}:
+안타깝게도 이러한 수정이 \texttt{IEEEeqnarray}에서는 제대로 동작하지 않는다.
+% \begin{example}
+% \begin{proof}
+%   This is a proof that ends
+%   with an equation array:
+%   \begin{IEEEeqnarray*}{rCl}
+%     a & = & b + c \\
+%     & = & d + e. \qedhere
+%   \end{IEEEeqnarray*}  
+% \end{proof}
+% \end{example}
+% \noindent
+\begin{example}
+\begin{proof}
+  This is a proof that ends
+  with an equation array:
+  \begin{IEEEeqnarray*}{rCl}
+    a & = & b + c \\
+    & = & d + e. \qedhere
+  \end{IEEEeqnarray*}  
+\end{proof}
+\end{example}
+\noindent
+% The reason for this is the internal structure of \texttt{IEEEeqnarray}:
+% it always puts two invisible columns at both sides of the array that
+% only contain a stretchable space. By this \texttt{IEEEeqnarray} ensures
+% that the equation array is horizontally centered. The
+% \ci{qedhere} command should actually be put \emph{outside} this
+% stretchable space, but this does not happen as these columns are
+% invisible to the user.
+그 이유는 \texttt{IEEEeqnarray}가 항상 array의 양측에 신축가능한 공간만을 가지는 눈에 보이지 않는 컬럼을 두기 때문이다. 그래서 \texttt{IEEEeqnarray}에서는 
+컬럼 안의 식이 수평으로 가운데 오도록 작동한다.
+\ci{qedhere} 명령은 사실 이 눈에 보이지 않는 공간을 벗어나서 놓여야만 한다.
+그러나 이 공간이 사용자 눈에 보이지 않기 때문에 이와 같은 일이 일어나게 된다.
+
+% There is a very simple remedy. Define the stretching
+% explicitly!
+이 문제를 수정하기 위해 신축 공백을 명시적으로 정의하는 간단한 방법이 있다.
+% \begin{example}
+% \begin{proof}
+%   This is a proof that ends
+%   with an equation array:
+%   \begin{IEEEeqnarray*}{+rCl+x*}
+%     a & = & b + c \\
+%     & = & d + e. & \qedhere
+%   \end{IEEEeqnarray*}  
+% \end{proof}
+% \end{example}
+\begin{example}
+\begin{proof}
+  This is a proof that ends
+  with an equation array:
+  \begin{IEEEeqnarray*}{+rCl+x*}
+    a & = & b + c \\
+    & = & d + e. & \qedhere
+  \end{IEEEeqnarray*}  
+\end{proof}
+\end{example}
+% \noindent
+% Note that the \verb=+= in \verb={+rCl+x*}= denotes stretchable spaces, one
+% on the left of the equations (which, if not specified, will be done
+% automatically by \texttt{IEEEeqnarray}!) and one on the right of the
+% equations. But now on the right, \emph{after} the stretching column,
+% we add an empty column \verb=x=. This column will only be needed on
+% the last line if the \ci{qedhere} command is put
+% there. Finally, we specify a \verb=*=. This is a null-space that
+% prevents \texttt{IEEEeqnarray} from adding another unwanted \verb=+=-space!
+\noindent 
+\verb={+rCl+x*}=에서 \verb|+|는 신축 공백을 의미한다. 
+하나는 식의 왼쪽에(이것은 별도로 정의하지 않으면 \texttt{IEEEeqnarray}가 자동으로 설정한다) 그리고 다른 하나는 오른쪽에 온다. 그러나 이제 오른쪽에는 
+신축 공백 칼럼 \emph{뒤에} \verb|x|라는 빈 컬럼을 추가하고 있다. 
+이 컬럼은 마지막 줄의 \ci{qedhere} 명령이 놓일 자리를 마련하기 위한 목적으로만 
+쓰이는 것이다. 마지막의 \verb|*|는 \texttt{IEEEeqnarray}에게 
+원치 않는 \verb|+| 공간을 추가하지 말라고 알려주는 것이다.
+
+% In the case of equation numbering, there is a similar problem. Comparing
+수식 번호의 경우에도 비슷한 문제가 발생한다. 다음 두 가지 사례를 비교해보라.
+% \begin{example}
+% \begin{proof}
+%   This is a proof that ends
+%   with a numbered equation:
+%   \begin{equation}
+%     a = b + c.
+%   \end{equation}
+% \end{proof}
+% \end{example}
+% \noindent
+% with
+% \begin{example}
+% \begin{proof}
+%   This is a proof that ends
+%   with a numbered equation:
+%   \begin{equation}
+%     a = b + c. \qedhere
+%   \end{equation}
+% \end{proof}
+% \end{example}
+\begin{example}
+\begin{proof}
+  This is a proof that ends
+  with a numbered equation:
+  \begin{equation}
+    a = b + c.
+  \end{equation}
+\end{proof}
+\end{example}
+% \noindent
+% with
+
+\vspace{-.5\onelineskip}
+
+\begin{example}
+\begin{proof}
+  This is a proof that ends
+  with a numbered equation:
+  \begin{equation}
+    a = b + c. \qedhere
+  \end{equation}
+\end{proof}
+\end{example}
+
+% \noindent
+% you notice that in the (correct) second version the $\Box$ is much
+% closer to the equation than in the first version.
+\noindent
+두 번째 예제에서 $\Box$가 첫 번째 것보다 수식에 훨씬 가깝게 놓였다는 것을 알 수 있다.
+
+% Similarly, the correct way of putting the QED-symbol at the end of an
+% equation array is as follows:
+이와 유사하게 \texttt{IEEEeqnarray}의 끝에 QED 부호를 두는 올바른 방법은 다음과 같다.
+% \begin{example}
+% \begin{proof}
+%   This is a proof that ends
+%   with an equation array:
+%   \begin{IEEEeqnarray}{+rCl+x*}
+%     a & = & b + c \\
+%     & = & d + e. \\
+%     &&& \qedhere\nonumber
+%   \end{IEEEeqnarray}  
+% \end{proof}
+% \end{example}
+\begin{example}
+\begin{proof}
+  This is a proof that ends
+  with an equation array:
+  \begin{IEEEeqnarray}{+rCl+x*}
+    a & = & b + c \\
+    & = & d + e. \\
+    &&& \qedhere\nonumber
+  \end{IEEEeqnarray}  
+\end{proof}
+\end{example}
+% \noindent
+% which contrasts with
+\noindent 이것을 아래와 비교해보라.
+% \begin{example}
+% \begin{proof}
+%   This is a proof that ends
+%   with an equation array:
+%   \begin{IEEEeqnarray}{rCl}
+%     a & = & b + c \\
+%     & = & d + e.
+%   \end{IEEEeqnarray}  
+% \end{proof}
+% \end{example}
+\begin{example}
+\begin{proof}
+  This is a proof that ends
+  with an equation array:
+  \begin{IEEEeqnarray}{rCl}
+    a & = & b + c \\
+    & = & d + e.
+  \end{IEEEeqnarray}  
+\end{proof}
+\end{example}
+
+
+% %
+
+% % Local Variables:
+% % TeX-master: "lshort"
+% % mode: latex
+% % mode: flyspell
+% % End:

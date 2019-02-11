@@ -1,0 +1,447 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% file: lshort-ko.sty
+%%
+%% a style file for lshort-ko 2019
+%% written by Karnes Kim, 2019
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{kotex-logo}
+\RequirePackage{ob-mathleading}
+
+\hypersetup{colorlinks=true}
+
+%%%% papersize setting
+\RequirePackage{fapapersize}
+\usefapapersize{*,*,30mm,50mm,32mm,35mm}
+
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{embrac}
+
+\RequirePackage{fancyhdr}
+\RequirePackage{tikz}
+\usepgfmodule{plot}
+\usetikzlibrary{%
+  arrows,%
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+
+\RequirePackage[all]{xy}
+
+\RequirePackage{iftex}
+%%% we will never run pdflatex...
+% \ifPDFTeX
+%     \RequirePackage{textcomp}
+% \fi
+
+%%%% chapter style
+\setlength{\midchapskip}{14pt}
+\renewcommand\prechapterprecis{%
+    \par
+    \vspace*{20pt}%
+    \begin{adjustwidth}{4cm}{0cm}
+        \precisfont
+}
+\renewcommand\postchapterprecis{%
+    \end{adjustwidth}
+    \vspace*{40pt}%
+}
+
+\providecommand\bs{\textbackslash}
+
+%%% pagestyle
+\renewcommand\chaptermark[1]{\markboth{#1}{#1}}
+\renewcommand\sectionmark[1]{\markright{#1}}
+\copypagestyle{lshortko}{plain}
+\makeoddhead{lshortko}{\rightmark}{}{\thepage}
+\makeevenhead{lshortko}{\thepage}{}{\leftmark}
+\makeoddfoot{lshortko}{}{}{}
+\makeevenfoot{lshortko}{}{}{}
+\ExplSyntaxOn 
+    \dim_set:Nn \headwidth { \textwidth + \marginparsep + .4\marginparwidth }
+    \dim_new:N \margheadwidth
+    \dim_set:Nn \margheadwidth { \marginparsep + .4\marginparwidth }
+\ExplSyntaxOff
+\makeheadposition{lshortko}{flushright}{flushleft}{}{}
+\makerunningwidth{lshortko}{\headwidth}
+\makeheadrule{lshortko}{\headwidth}{\normalrulethickness}
+
+\RequirePackage{kopubworldfonts}
+
+%%% legacy command of lshort-kr
+\let\hemph\emph 
+\let\euro\texteuro
+\newcommand\HLaTeX{H\LaTeX}
+
+%%% verbatim
+%\RequirePackage{verbatim}
+
+%%% 
+%%% reimplementation of `example' environment
+%%% 
+%\RequirePackage{verbatim}
+
+\RequirePackage[outputdir=build]{minted}
+%\usemintedstyle{bw}
+\usemintedstyle{emacs}
+\RequirePackage{tcolorbox}
+%\tcbuselibrary{xparse,listings}
+\tcbuselibrary{minted}
+\tcbset{%
+    before={\setlength{\abovedisplayskip}{0pt}
+            \setlength{\belowdisplayskip}{0pt}
+            \setlength{\abovedisplayshortskip}{0pt}
+            \setlength{\belowdisplayshortskip}{0pt}
+    },
+}
+
+\ExplSyntaxOn 
+
+\skip_set:Nn \l_tmpa_skip { 7pt plus 5pt minus 5pt }
+
+\newcount\examplecnt
+
+\NewDocumentCommand \checkexample { m m }
+{
+    \str_case:nn { #2 }
+    {
+        { R } { \tl_gset:cn {exa_\int_to_roman:n {#1}_pos } { R } }
+        { L } { \tl_gset:cn {exa_\int_to_roman:n {#1}_pos } { L } }
+    }
+}
+
+\NewDocumentEnvironment{example}{}
+{
+    \global\advance\examplecnt1
+    \expandafter\tcboutputlisting
+}
+{
+    \endtcboutputlisting
+    \par
+    \example_ending:n {happyending}
+}
+
+\NewDocumentEnvironment{examplek}{}
+{
+    \global\advance\examplecnt1
+    \expandafter\tcboutputlisting
+}
+{
+    \endtcboutputlisting
+    \par
+    \example_ending:n {killoneline}
+}
+
+\RequirePackage{refcount}
+
+\cs_new:Npn \example_ending:n #1
+{
+    \vskip\l_tmpa_skip
+%    \str_if_eq:eeTF {\use:c { exa_\int_to_roman:n{\the\examplecnt}_pos}} {R}
+	\exp_args:NNo \int_set:Nn \l_tmpa_int { \getpagerefnumber{exa-\the\examplecnt} }
+	\int_if_odd:nTF { \l_tmpa_int }
+    { \noindent\begin{adjustwidth}{0pt}{-\margheadwidth} }
+    { \noindent\begin{adjustwidth}{-\margheadwidth}{0pt} }
+    \noindent\hspace*{-\parindent}\begin{minipage}[c]{.49\linewidth}
+        \setstretch{1.0}
+        \noindent
+        \tcbinputlisting{listing~only,frame~empty,minted~options={fontsize=\small\ttfamily}}
+    \end{minipage}\fboxsep=8pt\hfill
+    \fbox{\begin{minipage}[c]{.48\linewidth}
+        \setstretch{1.0}
+        \str_if_eq:nnT { #1 } { killoneline } { \vspace*{ -1.1\onelineskip } }
+        \tcbuselistingtext
+    \end{minipage}}\label{exa-\the\examplecnt}
+%    \checkoddpage \ifoddpage 
+%        \immediate \write \@mainaux { \string \checkexample { \the\examplecnt } { R } }
+%    \else
+%        \immediate \write \@mainaux { \string \checkexample { \the\examplecnt } { L } }
+%    \fi 
+    \end{adjustwidth}%
+    \par 
+    \vskip\l_tmpa_skip
+}
+
+%\cs_new:Npn \example_ending:n #1
+%{
+%    \vskip\l_tmpa_skip
+%    \str_if_eq:eeTF {\use:c { exa_\int_to_roman:n{\the\examplecnt}_pos}} {R}
+%    { \noindent\begin{adjustwidth}{0pt}{-\margheadwidth} }
+%    { \noindent\begin{adjustwidth}{-\margheadwidth}{0pt} }
+%    \noindent\hspace*{-\parindent}\begin{minipage}[c]{.49\linewidth}
+%        \setstretch{1.0}
+%        \noindent
+%        \tcbinputlisting{listing~only,frame~empty,minted~options={fontsize=\small\ttfamily}}
+%    \end{minipage}\fboxsep=8pt\hfill
+%    \fbox{\begin{minipage}[c]{.48\linewidth}
+%        \setstretch{1.0}
+%        \str_if_eq:nnT { #1 } { killoneline } { \vspace*{ -1.1\onelineskip } }
+%        \tcbuselistingtext
+%    \end{minipage}}
+%    \checkoddpage \ifoddpage 
+%        \immediate \write \@mainaux { \string \checkexample { \the\examplecnt } { R } }
+%    \else
+%        \immediate \write \@mainaux { \string \checkexample { \the\examplecnt } { L } }
+%    \fi 
+%    \end{adjustwidth}%
+%    \par 
+%    \vskip\l_tmpa_skip
+%}
+
+\ExplSyntaxOff 
+
+\NewDocumentCommand\emphmathterm {m}
+{
+    \textsf{\bfseries #1}%
+}
+
+\RequirePackage{environ}
+\NewEnviron{intro}{\chapterprecishere{\BODY}}
+
+%%% reimplementation of \wi command
+\NewDocumentCommand \wi { m o }
+{%
+    \index{#1}#1\IfValueT{#2}{\index{#2}}%
+}
+
+%%% translator’s footnote
+\NewDocumentCommand \trfnote { +m }
+{%
+    \footnote{[역주]\ #1}%
+}
+
+%%% a variant of \secby without email
+\newcommand{\secbynomail}[1]{\nopagebreak\par\addvspace{-1.5ex}%
+     \vskip -\parskip\noindent\hfill{\tiny 글쓴이: #1}\par\nopagebreak%
+     \addvspace{1ex plus 0.8ex minus 0.2ex}%
+     \vskip -\parskip\noindent\ignorespaces}
+
+%%% font in the intro environment
+\renewcommand*\precisfont{\sffamily}
+
+\AtBeginDocument{%
+    \renewcommand\post@chapter{장}
+    \feetbelowfloat
+    \strictpagecheck
+}
+
+%%% 
+%%% copied from lshort.sty
+\providecommand{\Email}{\begingroup \def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}\Url}     % email address
+\def\mailto|#1|{\href{mailto:#1}{\Email|#1|}}        % url to mail somewhere
+
+\newcommand{\manual}{\emph{\LaTeX{} Manual}~\cite{manual}}
+\newcommand{\companion}{\emph{The \LaTeX{} Companion}~\cite{companion}}
+\newcommand{\guide}{\emph{Local Guide}~\cite{local}}
+\newcommand{\contrib}[3]{#1\quad\mailto|#2|{\small\\\quad\textit{#3}}\\[1ex]}
+
+\newcommand{\CTANref}{\begingroup \urlstyle{tt}\Url}     %
+\def\CTAN|#1|{\href{http://www.ctan.org/tex-archive/#1}{\CTANref|CTAN://#1|}}
+
+\newenvironment{code}{\begin{quote}\setstretch{1}}{\end{quote}}
+
+\newenvironment{lscommand}%
+{\nopagebreak\par\small\addvspace{3.2ex plus 0.8ex minus 0.2ex}%
+    \vskip -\parskip
+    \noindent%
+    \begin{tabular}{|l|}\hline\rule{0pt}{1em}\ignorespaces}%
+{\\\hline\end{tabular}\par\nopagebreak\addvspace{3.2ex plus 0.8ex
+    minus 0.2ex}%
+    \vskip -\parskip}
+
+\newcommand{\eei}[1]{%
+\index{extension!\texttt{#1}}\texttt{#1}}
+% probably add handling of period like handling of \ in \ci
+%\newcommand{\fni}[1]{%
+%\index{font!#1@\texttt{\bs#1}}%
+%\index{#1@\texttt{\hspace*{-1.2ex}\bs #1}}\texttt{\bs #1}}
+%\newcommand{\cih}[1]{%
+%\index{commands!#1@\texttt{\bs#1}}%
+%\index{#1@\texttt{\hspace*{-1.2ex}\bs #1}}}
+% \newcommand{\ci}[1]{\cih{#1}\texttt{\bs #1}}
+
+%%% reimplement`\ci' and `\fni' commands of lshort
+\NewDocumentCommand\ci{m}
+{%
+    \index{commands!#1@\cs{#1}}%
+    \index{#1@{\hspace*{-1.2ex}\cs{#1}}}%
+    \cs{#1}%
+}
+\let\lskci\ci 
+\NewDocumentCommand\fni{m}
+{%
+    \index{font!#1@\cs{#1}}%
+    \index{#1@{\hspace*{-1.2ex}\cs{#1}}}%
+    \cs{#1}%
+}
+\NewDocumentCommand\cih{m}
+{%
+    \index{commands!#1@\cs{#1}}%
+    \index{#1@{\hspace*{-1.2ex}\cs{#1}}}%
+}
+
+%Package
+\newcommand{\paih}[1]{%
+\index{packages!#1@\textsf{#1}}%
+\index{#1@\textsf{#1}}}
+\newcommand{\pai}[1]{%
+\paih{#1}\textsf{#1}}
+% Index entry for an environment
+\newcommand{\ei}[1]{%
+\index{environments!\texttt{#1}}%
+\index{#1@\texttt{#1}}%
+\texttt{#1}}
+
+\newenvironment{lined}[1]%
+ {\begin{center}\begin{minipage}{#1}\hrule\medskip}
+ {\vspace{-1ex}\hrule \end{minipage}\end{center}}
+
+\newcommand{\PSi}{\textsc{PostScript}\index{PostScript@\textsc{PostScript}}}
+\newcommand{\EPSi}{Encapsulated \textsc{PostScript}%
+\index{Encapsulated PostScript@Encapsulated \textsc{PostScript}}%
+\index{PostScript@\textsc{PostScript}!Encapsulated}%
+}
+
+\newcommand{\secby}[2]{\nopagebreak\par\addvspace{-1.5ex}%
+     \vskip -\parskip\noindent\hfill{\tiny 글쓴이: #1 \mailto|#2|}\par\nopagebreak%
+     \addvspace{1ex plus 0.8ex minus 0.2ex}%
+     \vskip -\parskip\noindent\ignorespaces}
+
+%
+% Symbol Entry for Math Symbol Tables
+%
+\newcommand{\mstX}[1]{$#1$&\texttt{\string#1}\hspace*{1ex}}
+% normal text ....
+\newcommand{\mstSC}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+% for accents in text mode
+\newcommand{\mstA}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+\newcommand{\mstB}[2]{#1#2&\texttt{\string#1{} #2}\hspace*{1ex}}
+\newcommand{\mstW}[2]{$#1{#2}$&
+  \texttt{\string#1}\texttt{\string{\string#2\string}}\hspace*{1ex}}
+\newcommand{\mstY}[1]{$\big#1$ &\texttt{\string#1}}  %
+
+%
+% Languages
+%
+\RequirePackage[autostyle=true]{csquotes}
+\RequirePackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{german}
+\setotherlanguage{russian}
+\setotherlanguage{greek}
+
+\newfontfamily\russianfont{cmunrm.otf}
+\newfontfamily\greekfont{cmunrm.otf}
+
+%%%
+%%% korean “names” for polyglossia
+%%%
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{그림}%
+  \renewcommand{\tablename}{표}%
+  \renewcommand{\contentsname}{목차}%
+  \renewcommand{\listfigurename}{그림 목차}%
+  \renewcommand{\listtablename}{표 목차}%
+  \renewcommand{\bibname}{문헌 목록}%
+  \renewcommand{\indexname}{색인}%
+  \renewcommand{\appendixname}{부록}
+}
+
+%% logos
+\def\MP{\hologo{METAPOST}}
+\def\MF{\hologo{METAFONT}}
+
+%%
+%% index and bibliography: set linestretch to 1
+\RequirePackage{etoolbox}
+\apptocmd{\thebibliography}{\setstretch{1}}{}{}
+\apptocmd{\theindex}{\setstretch{1.1}}{}{}
+
+%%% from preamble.tex
+\DeclareMathOperator{\argh}{argh}
+\DeclareMathOperator*{\nut}{Nut}
+
+\RequirePackage{IEEEtrantools}  %% IEEEeqnarray
+
+\newcommand{\demowidth}[1]{\rule{0.3pt}{1.3ex}\rule{#1}{0.3pt}\rule{0.3pt}{1.3ex}}
+
+\RequirePackage{amsthm}
+\RequirePackage{latexsym}
+\RequirePackage{mathrsfs}
+\RequirePackage{latexsym}
+\RequirePackage[mathcal]{euscript}
+
+\newsavebox{\symbbox}
+\newenvironment{lsksymbols}[1]%
+{\par\vspace*{2ex}
+\renewcommand{\arraystretch}{1.1}
+\begin{lrbox}{\symbbox}
+\hspace*{4ex}\begin{tabular}{@{}#1@{}}}%
+{\end{tabular}\end{lrbox}\makebox[\linewidth]{\usebox{\symbbox}}\par\medskip}
+
+%%% \ldots problem
+%%% we will use the original \ldots instead of kotex’s one
+%%% the kotex’s \ldots is renamed to “\hdots
+\let\hdots\ldots
+\def\ldots{.\kern\fontdimen3\font.\kern\fontdimen3\font.\kern\fontdimen3\font}
+
+%%%
+%%% appendix in oblivoir flavour
+%%%
+\RequirePackage{ob-koreanappendix}
+\NewDocumentCommand\setuplshortappendix{}
+{%
+    % \AppendixTitleToToc
+    \chapterstyle{appendixdefault}
+    \renewcommand*\prechapternum{\chapnamefont 부록\ \ }
+    \renewcommand*\postchapternum{\ }
+    \renewcommand*\printchapternum{\chapnumfont\thechapter}
+    \renewcommand\thechapter{\Alph{APPchapter}}
+    \renewcommand\thesection{\thechapter.\arabic{APPsection}}
+    \renewcommand\thesubsection{\thesection.\arabic{APPsubsection}}
+    \counterwithin{APPsection}{APPchapter}
+    \setcounter{APPchapter}{0}
+    \renewcommand\pre@chapter{부록}
+    \renewcommand\post@chapter{}
+}
+
+\RequirePackage{mylayout}
+
+%%% toc design
+\setlength\cftsectionnumwidth{4em}
+\setlength\cftsubsectionnumwidth{3.3em}
+\setlength\cftsubsectionindent{4em}
+
+\endinput

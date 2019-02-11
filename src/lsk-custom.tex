@@ -1,0 +1,1618 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Contents: Customising LaTeX output
+% % $Id$
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter{Customising \LaTeX}
+\chapter{마음대로 바꾸기}
+
+% \begin{intro}
+% Documents produced with the commands you have learned up to this
+% point will look acceptable to a large audience. While they are not
+% fancy-looking, they obey all the established rules of good
+% typesetting, which will make them easy to read and pleasant to look at.
+
+% However, there are situations where \LaTeX{} does not provide a
+% command or environment that matches your needs, or the output
+% produced by some existing command may not meet your requirements.
+
+% In this chapter, I will try to give some hints on
+% how to teach \LaTeX{} new tricks and how to make it produce output
+% that looks different from what is provided by default.
+% \end{intro}
+\begin{intro}
+지금까지 배운 명령을 이용하면 누구라도 납득할 만한 문서를 작성할 수 있다.
+그다지 눈에 확 띄는 것은 아닐지 몰라도 좋은 조판 규칙을 잘 준수하고 있어서 읽기 쉽고 보기에도 좋은 문서가 될 것이다.
+
+그러나 \LaTeX 이 제공하는 명령과 환경만으로는 만족하지 못하거나 
+꼭 필요한 일을 하는 데 이미 있는 명령만으로는 충분치 않은 상황이 있게 마련이다.
+
+이 장에서는 \LaTeX 에게 새로운 일을 시키거나 기본적으로 주어지는 것과 다른 모양의 
+결과를 만들어내도록 하는 방법에 대해 약간의 힌트를 제공하려 한다.
+\end{intro}
+
+% \section{New Commands, Environments and Packages}
+\section{명령, 환경, 패키지를 새로 정의하기}
+
+% You may have noticed that all the commands I introduce in this
+% book are typeset in a box, and that they show up in the index at the end
+% of the book. Instead of directly using the necessary \LaTeX{} commands
+% to achieve this, I have created a \wi{package} in which I defined new
+% commands and environments for this purpose. Now I can simply write:
+이 책자에서 명령을 소개할 때 명령어에 박스를 치고 책 뒤 색인에 나타나게 해놓았다.
+이 일을 하기 위해 \LaTeX{} 명령을 일일이 써넣지 않고 대신
+이 목적에 맞는 명령과 환경을 정의했다. 
+그리고 이것을 모아 \wi{패키지}[package]를 만들었다.
+이로써 간단히 다음과 같이 쓸 수 있다.
+
+% \begin{example}
+% \begin{lscommand}
+% \ci{dum}
+% \end{lscommand}
+% \end{example}
+\begin{example}
+\begin{lscommand}
+\ci{dum}
+\end{lscommand}
+\end{example}
+
+% In this example, I am using both a new environment called\\
+% \ei{lscommand}, which is responsible for drawing the box around the
+% command, and a new command named \ci{ci}, which typesets the command
+% name and makes a corresponding entry in the index. Check
+% this out by looking up the \ci{dum} command in the index at the back
+% of this book, where you'll find an entry for \ci{dum}, pointing to
+% every page where I mentioned the \ci{dum} command.
+이 예제에 \ei{lscommand}라는 새로운 환경과 \ci{ci}라는 새로운 명령을 쓰였다.
+\ei{lscommand}는 명령어 주변에 박스를 그리는 일을 하며
+\ci{ci}라는 명령은 명령어 이름을 식자하고 그것을 색인에 넣는 일을 한다.
+이 책의 뒤에 있는 색인에서 \ci{dum} 명령이 나타나 있는지 찾아보라. \ci{dum} 항목이 나타나 있고 \ci{dum}에 대해 언급한 모든 페이지의 번호가 나와 있을 것이다.
+
+% If I ever decide that I do not like having the commands typeset in
+% a box any more, I can simply change the definition of the
+% \texttt{lscommand} environment to create a new look. This is much
+% easier than going through the whole document to hunt down all the
+% places where I have used some generic \LaTeX{} commands to draw a
+% box around some word.
+만약에 명령어 이름에 박스를 치는 것이 싫증났다고 하자. 그러면 간단히 \texttt{lscommand}의 정의를 고치면 원하는 새로운 모양으로 바뀐다. 문서를 처음부터 뒤지면서 \LaTeX{} 명령어를 소개하려고 명령어 이름에 박스를 치고 있는 부분을 모두 찾아 하나하나 수정하는 것에 비하면 너무 쉽다.
+
+% \subsection{New Commands}
+\subsection{새로운 명령}
+
+% To add your own commands, use the
+나만의 새로운 명령을 만들어보자.
+% \begin{lscommand}
+% \ci{newcommand}\verb|{|%
+%        \emph{name}\verb|}[|\emph{num}\verb|]{|\emph{definition}\verb|}|
+% \end{lscommand}
+% \noindent command.
+\begin{lscommand}
+\ci{newcommand}\verb|{|%
+       \emph{name}\verb|}[|\emph{num}\verb|]{|\emph{definition}\verb|}|
+\end{lscommand}
+% Basically, the command requires two arguments: the \emph{name} of the
+% command you want to create, and the \emph{definition} of the command.
+% The \emph{num} argument in square brackets is optional and specifies the number
+% of arguments the new command takes (up to 9 are possible).
+% If missing it defaults to 0, i.e. no argument allowed.
+\noindent 기본적으로 이 명령은 두 개의 인자를 요구한다.
+만들려고 하는 명령의 이름인 \emph{name}과 그 \emph{정의부(definition)}이다.
+대괄호 안의 \emph{num} 인자는 새 명령이 취할 (최대 9까지) 인자의 개수를 지정하는
+것인데 선택 인자이므로 생략될 수 있다.
+선택 인자를 주지 않으면 기본값인 0이 쓰인다. 즉 아무런 인자도 받아들이지 않는 명령이 된다.
+
+% The following two examples should help you to get the idea.
+% The first example defines a new command called \ci{tnss}. This is
+% short for ``The Not So Short Introduction to \LaTeXe.'' Such a command
+% could come in handy if you had to write the title of this book over
+% and over again.
+다음 두 예제를 보면 이해하기 쉬울 것이다.
+첫 번째 예제에서 새 명령의 이름이 \ci{tnss}라고 주어졌다. 
+이 책의 제목(The Not So Short Introduction to \LaTeXe)의 약자인데
+실제로 이 제목을 여러 번 반복해서 써야 할 일이 있으면 이렇게 정의한 명령이 꽤 
+쓸모있을 것이다.
+
+% \begin{example}
+% \newcommand{\tnss}{The not
+%     so Short Introduction to
+%     \LaTeXe}
+% This is ``\tnss'' \ldots{}
+% ``\tnss''
+% \end{example}
+\begin{example}
+\newcommand{\tnss}{The not
+    so Short Introduction to
+    \LaTeXe}
+This is ``\tnss'' \ldots{}
+``\tnss''
+\end{example}
+
+% The next example illustrates how to define a new
+% command that takes two arguments.
+% The \verb|#1| tag gets replaced by the first argument you specify,
+% \verb|#2| with the second argument, and so on.
+그 다음 예제는 두 개의 인자를 받아들이는 새로운 명령을 정의하는 방법을 보여주고 있다.
+\verb|#1| 표시한 것은 첫 번째 인자로, \verb|#2|는 두 번째 인자로 치환된다.
+
+% \begin{example}
+% \newcommand{\txsit}[2]
+%  {This is the \emph{#1}
+%   #2 Introduction to \LaTeXe}
+% % in the document body:
+% \begin{itemize}
+% \item \txsit{not so}{short}
+% \item \txsit{very}{long}
+% \end{itemize}
+% \end{example}
+\begin{example}
+\newcommand{\txsit}[2]
+ {This is the \emph{#1}
+  #2 Introduction to \LaTeXe}
+% in the document body:
+\begin{itemize}
+\item \txsit{not so}{short}
+\item \txsit{very}{long}
+\end{itemize}
+\end{example}
+
+% \LaTeX{} will not allow you to create a new command that would
+% overwrite an existing one. But there is a special command in case you
+% explicitly want this: \ci{renewcommand}.
+% It uses the same syntax as the \verb|\newcommand|
+% command.
+이미 있는 명령을 \cs{newcommand}로 만드는 것은 허용되지 않는다. 이미 있는 명령을 
+수정하는 경우에 써야 하는 명령이 따로 있다. \ci{renewcommand}가 그것이다.
+명령의 사용법은 \verb|\newcommand|와 같다.
+
+% In certain cases you might also want to use the \ci{providecommand}
+% command. It works like \ci{newcommand}, but if the command is
+% already defined, \LaTeXe{} will silently ignore it.
+\ci{providecommand}라는 명령도 있다. 이것은 \ci{newcommand}와 비슷하지만 만약 같은 이름의 명령이 이미 정의되어 있다면 새로 정의하는 것을 무시한다. 즉 이미 정의된 같은 명령이 없다면 \cs{newcommand}하라는 의미이다.
+
+% There are some points to note about whitespace following \LaTeX{} commands. See
+% page \pageref{whitespace} for more information.
+\LaTeX{} 명령에 뒤따르는 공백에 관해서 주의를 기울여야 하는 부분이 있다. 
+\pageref{whitespace}페이지를 보라. 여기서 명령어 직후의 스페이스가 
+사라진다는 것을 배웠다. 인자를 주기 위한 중괄호가 있으면 그 뒤의 스페이스는 
+사라지지 않으므로 필요하다면 빈 인자\verb|{}|로 스페이스를 살리는 방법에 대해서도 
+이미 배운 바 있다.
+
+% \subsection{New Environments}
+\subsection{새로운 환경}
+% Just as with the \verb|\newcommand| command, there is a command
+% to create your own environments. The \ci{newenvironment} command uses the
+% following syntax:
+새로운 명령을 만드는 \verb|\newcommand| 명령이 있듯이 새로운 환경을 만드는 명령도 있다. \ci{newenvironment}가 그것이다. 사용법은 다음과 같다.
+
+% \begin{lscommand}
+% \ci{newenvironment}\verb|{|%
+%        \emph{name}\verb|}[|\emph{num}\verb|]{|%
+%        \emph{before}\verb|}{|\emph{after}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{newenvironment}\verb|{|%
+       \emph{name}\verb|}[|\emph{num}\verb|]{|%
+       \emph{before}\verb|}{|\emph{after}\verb|}|
+\end{lscommand}
+
+% Again \ci{newenvironment} can have
+% an optional argument. The material specified
+% in the \emph{before} argument is processed before the text in the
+% environment gets processed. The material in the \emph{after} argument gets
+% processed when the \verb|\end{|\emph{name}\verb|}| command is encountered.
+\ci{newenvironment} 명령도 인자들을 갖는다.
+\emph{before} 인자로 전달되는 것은 환경 안의 텍스트보다 먼저 실행된다.
+\emph{after} 인자로 오는 것은 \verb|\end{|\emph{name}\verb|}|을 만났을 때 실행할 내용이다.
+%\ci{newenvironment}도 옵션 인자를 가질 수 있다.
+
+% The example below illustrates the usage of the \ci{newenvironment}
+% command.
+% \begin{example}
+% \newenvironment{king}
+%  {\rule{1ex}{1ex}%
+%       \hspace{\stretch{1}}}
+%  {\hspace{\stretch{1}}%
+%       \rule{1ex}{1ex}}
+
+% \begin{king}
+% My humble subjects \ldots
+% \end{king}
+% \end{example}
+\begin{example}
+\newenvironment{king}
+ {\rule{1ex}{1ex}%
+      \hspace{\stretch{1}}}
+ {\hspace{\stretch{1}}%
+      \rule{1ex}{1ex}}
+
+\begin{king}
+My humble subjects \ldots
+\end{king}
+\end{example}
+
+% The \emph{num} argument is used the same way as in the
+% \verb|\newcommand| command. \LaTeX{} makes sure that you do not define
+% an environment that already exists. If you ever want to change an
+% existing command, use the \ci{renewenvironment} command. It
+% uses the same syntax as the \ci{newenvironment} command.
+\emph{num} 선택인자는 \verb|\newcommand| 때와 같은 방법으로 사용한다.
+
+\LaTeX 은 이미 존재하는 환경과 같은 이름을 가진 환경을 새롭게 정의하지 못하게 하고 있다. 굳이 같은 이름의 환경을 만들어서 덮어써야 한다면 \ci{renewenvironment} 명령을 사용한다. \ci{newenvironment}와 문법은 동일하다.
+
+% The commands used in this example will be explained later. For the
+% \ci{rule} command see page \pageref{sec:rule}, for \ci{stretch} go to
+% page \pageref{cmd:stretch}, and more information on \ci{hspace} can be
+% found on page \pageref{sec:hspace}.
+이 예제에서 사용한 몇 가지 명령은 나중에 설명된다. 예를 들어 \ci{rule} 명령에 대해서는 \pageref{sec:rule}페이지에서 다룬다. \ci{stretch}에 대해서는 \pageref{cmd:stretch}페이지에서, 그리고 \ci{hspace}에 대해서는 \pageref{sec:hspace}페이지에서 더 자세한 설명을 볼 수 있다.
+
+% \subsection{Extra Space}
+\subsection{불필요한 스페이스 없애기}
+
+% When creating a new environment you may easily get bitten by extra spaces
+% creeping in, which can potentially have fatal effects, for example when you
+% want to create a title environment which supresses its own indentation as
+% well as the one on the following paragraph. The \ci{ignorespaces} command in
+% the begin block of the environment will make it ignore any space after
+% executing the begin block. The end block is a bit more tricky as special
+% processing occurs at the end of an environment. With the
+% \ci{ignorespacesafterend} \LaTeX{} will issue an \ci{ignorespaces} after the
+% special `end' processing has occurred.
+새로운 환경을 정의하다보면 여분의 스페이스가 끼어들어서 고생하는 경우가 많다. 
+이런 것이 심각한 결과를 초래하기도 하는 것이다.
+예를 들어보자. 다음과 같은 환경을 만들려고 한다. 의도는 현재 문단의 첫 들여쓰기를 없애고 환경이 끝난 다음 첫 문단의 들여쓰기도 없애고 싶다는 것이겠다.
+
+% \begin{example}
+% \newenvironment{simple}%
+%  {\noindent}%
+%  {\par\noindent}
+
+% \begin{simple}
+% See the space\\to the left.
+% \end{simple}
+% Same\\here.
+% \end{example}
+\begin{example}
+\newenvironment{simple}%
+ {\noindent}%
+ {\par\noindent}
+
+\begin{simple}
+See the space\\to the left.
+\end{simple}
+Same\\here.
+\end{example}
+
+\noindent 무엇이 잘못되었는지 알겠는가? \verb|\begin| 블록을 실행하는 과정에서 스페이스가 끼어들었고 \verb|\end| 블록에서도 마찬가지인 것으로 보인다.
+\ci{ignorespaces}라는 명령을 두면 begin 블록을 실행하면서 끼어드는 스페이스를 무시하게 할 수 있다. 환경이 끝난 뒤의 스페이스를 무시하게 하는 것은 이것으로 바로 되지 않는다. 왜냐하면 \LaTeX{} 환경이 종료되는 특별한 과정이 실행되기 이전까지의 스페이스만을 무시할 것이기 때문이다. 그래서 약간 트릭을 써야 한다. \ci{ignorespacesafterend}라는 명령은 특별한 환경의 끝내기 과정을 종료한 뒤에 \verb|\ignorespaces|를 실행하라는 의미이다.
+
+% \begin{example}
+% \newenvironment{correct}%
+%  {\noindent\ignorespaces}%
+%  {\par\noindent%
+%    \ignorespacesafterend}
+
+% \begin{correct}
+% No space\\to the left.
+% \end{correct}
+% Same\\here.
+% \end{example}
+\begin{example}
+\newenvironment{correct}%
+ {\noindent\ignorespaces}%
+ {\par\noindent%
+   \ignorespacesafterend}
+
+\begin{correct}
+No space\\to the left.
+\end{correct}
+Same\\here.
+\end{example}
+
+% \subsection{Command-line \LaTeX}
+\subsection{명령행 \LaTeX}
+
+% If you work on a Unix-like OS, you might be using Makefiles to build your
+% \LaTeX{} projects. In that connection it might be interesting to produce
+% different versions of the same document by calling \LaTeX{} with command-line
+% parameters. If you add the following structure to your document:
+유닉스류의 운영체제를 사용중이라면 \LaTeX{} 문서 작업을 위해 Makefile을 만들어서 쓰고 있을 것이다. 그런 조건에서라면 \LaTeX 에 명령행 파라미터를 주어서 같은 소스에서 다른 결과물을 얻어내게 할 수 있다.%
+\trfnote{%
+       Makefile과는 상관없이 윈도우즈 시스템에서도 cmd 명령행을 
+       열고 아래 설명과 같은 일을 똑같이 할 수 있다.
+}
+
+% \begin{verbatim}
+% \usepackage{ifthen}
+% \ifthenelse{\equal{\blackandwhite}{true}}{
+%   % "black and white" mode; do something..
+% }{
+%   % "color" mode; do something different..
+% }
+% \end{verbatim}
+\begin{verbatim}
+\usepackage{ifthen}
+\ifthenelse{\equal{\blackandwhite}{true}}{
+  % "black and white" mode; do something..
+}{
+  % "color" mode; do something different..
+}
+\end{verbatim}
+
+% Now call \LaTeX{} like this:
+\LaTeX 을 다음과 같이 실행한다.
+% \begin{verbatim}
+% latex '\newcommand{\blackandwhite}{true}\input{test.tex}'
+% \end{verbatim}
+\begin{verbatim}
+latex '\newcommand{\blackandwhite}{true}\input{test.tex}'
+\end{verbatim}
+
+% First the command \verb|\blackandwhite| gets defined and then the actual file is read with input.
+% By setting \verb|\blackandwhite| to false the color version of the document would be produced.
+제일 먼저 \verb|\blackandwhite|를 정의하고 그 다음에 입력 파일을 불러들였다. 
+만들어지는 결과물은 색상을 넣지 않은 흑백 버전이 될 것이다.
+
+% \subsection{Your Own Package}
+\subsection{나만의 패키지}
+
+% If you define a lot of new environments and commands, the preamble of
+% your document will get quite long. In this situation, it is a good
+% idea to create a \LaTeX{} package containing all your command and
+% environment definitions. Use the \ci{usepackage}
+% command to make the package available in your document.
+상당량의 새로운 명령과 환경을 정의하였다면 문서의 전처리부가 아주 길어졌을 것이다.
+그렇다면 이 모든 새로 정의한 명령과 환경을 \LaTeX{} 패키지로 만들면 좋지 않겠나 생각하게 된다. \ci{usepackage} 명령을 써서 패키지를 문서에 들여올 수 있다.
+
+% \begin{figure}[!htbp]
+% \begin{lined}{\textwidth}
+% \begin{verbatim}
+% % Demo Package by Tobias Oetiker
+% \ProvidesPackage{demopack}
+% \newcommand{\tnss}{The not so Short Introduction
+%                    to \LaTeXe}
+% \newcommand{\txsit}[1]{The \emph{#1} Short
+%                        Introduction to \LaTeXe}
+% \newenvironment{king}{\begin{quote}}{\end{quote}}
+% \end{verbatim}
+% \end{lined}
+% \caption{Example Package.} \label{package}
+% \end{figure}
+\begin{figure}[!htbp]
+\begin{lined}{\textwidth}
+\begin{verbatim}
+% Demo Package by Tobias Oetiker
+\ProvidesPackage{demopack}
+\newcommand{\tnss}{The not so Short Introduction
+                   to \LaTeXe}
+\newcommand{\txsit}[1]{The \emph{#1} Short
+                       Introduction to \LaTeXe}
+\newenvironment{king}{\begin{quote}}{\end{quote}}
+\end{verbatim}
+\end{lined}
+\caption{패키지 예제} \label{package}
+\end{figure}
+
+
+% Writing a package basically consists of copying the contents of
+% your document preamble into a separate file with a name ending in
+% \texttt{.sty}. There is one special command,
+패키지를 작성하는 것은 기본적으로 문서 전처리부의 내용을 별도의 파일로 옮기는 것이다.
+패키지 파일의 확장자는 \texttt{.sty}로 한다. 특별한 명령이 하나 있는데
+% \begin{lscommand}
+% \ci{ProvidesPackage}\verb|{|\emph{package name}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{ProvidesPackage}\verb|{|\emph{package name}\verb|}|
+\end{lscommand}
+% \noindent for use at the very beginning of your package
+% file. \verb|\ProvidesPackage| tells \LaTeX{} the name of the package
+% and will allow it to issue a sensible error message when you try to
+% include a package twice. Figure~\ref{package} shows a small example
+% package that contains the commands defined in the examples above.
+\noindent 패키지 시작 부분 맨처음에 써주는 것으로 패키지의 이름을 \LaTeX 에게 등록시키는 역할을 한다. 같은 패키지를 두 번 이상 포함하려 할 적에 이미 등록되었는지 여부를 \LaTeX 이 체크하게 함으로써 같은 명령이 두 번 이상 정의되면서 발생하는 많은 에러를 피하게 해준다.
+그림~\ref{package}\는 위에서 만들어 본 명령과 환경으로 작성한 간단한 패키지의 예제이다.
+
+% \section{Fonts and Sizes}
+\section{폰트와 크기}
+% \label{sec:fontsize}
+\label{sec:fontsize}
+
+% \subsection{Font Changing Commands}
+\subsection{폰트 바꾸기 명령}
+% \index{font}\index{font size} \LaTeX{} chooses the appropriate font
+% and font size based on the logical structure of the document
+% (sections, footnotes, \ldots).  In some cases, one might like to change
+% fonts and sizes by hand. To do this, use the commands listed in
+% Tables~\ref{fonts} and~\ref{sizes}. The actual size of each font
+% is a design issue and depends on the document class and its options.
+% Table~\ref{tab:pointsizes} shows the absolute point size for these
+% commands as implemented in the standard document classes.
+\index{font}\index{font size}\index{폰트 크기}
+\LaTeX 은 문서의 논리적 구조(장절 표제, 각주 등)에 따라 적절한 폰트와 그 크기를 선택한다. 그런데 폰트와 크기를 직접 바꾸고 싶은 경우가 있을 것이다.
+표~\ref{fonts}\와 \ref{sizes}에 열거된 명령을 사용할 수 있다.
+각 폰트의 실제 크기는 디자인 문제로서 사용한 클래스와 옵션에 따라 달라진다.
+표~\ref{tab:pointsizes}\는 표준 클래스에 구현되어 있는 각 명령의 절대 크기를 포인트로 표시하였다.
+
+% \begin{example}
+% {\small The small and
+% \textbf{bold} Romans ruled}
+% {\Large all of great big
+% \textit{Italy}.}
+% \end{example}
+
+\begin{example}
+{\small The small and
+\textbf{bold} Romans ruled}
+{\Large all of great big
+\textit{Italy}.}
+\end{example}
+
+% One important feature of \LaTeXe{} is that the font attributes are
+% independent. This means that issuing size or even font
+% changing commands, and still keep bold or slant attributes set
+% earlier.
+한 가지 중요한 사실을 지적하자면 \LaTeX 에서 폰트 속성은 서로 독립적이라는 것이다.
+크기나 폰트 종류를 변경하는 명령을 내리더라도 bold나 slant라는 속성은 여전히 유지된다.%
+\trfnote{%
+  조금 기술적으로 말하면 폰트의 속성에는 family, series, shape, size가 있다. rm, sf, tt는 family이고 bf는 series이며 it, sl은 shape이다. 이들이 서로 독립적이라는 의미이다. 즉 family를 바꾸어도 series나 shape는 바뀌지 않는다.
+}
+
+% In \emph{math mode} use the font changing \emph{commands} to
+% temporarily exit \emph{math mode} and enter some normal text. If you want to
+% switch to another font for math typesetting you need another
+% special set of commands; refer to Table~\ref{mathfonts}.
+\emph{math mode} 내에서 폰트를 바꾸려면 일시적으로 \emph{math mode}를 빠져나가서 일반 텍스트로 입력해야 한다. 수식에 적용되는 폰트를 바꾸는 것은 다른 문제이며 별도의 명령을 사용한다. 표~\ref{mathfonts}\를 보라.
+
+% \begin{table}[!bp]
+% \caption{Fonts.} \label{fonts}
+% \begin{lined}{12cm}
+% %
+% % Alan suggested not to tell about the other form of the command
+% % e.g. \verb|\sffamily| or \verb|\bfseries|. This seems a good thing to me.
+% %
+% \begin{tabular}{@{}rl@{\qquad}rl@{}}
+% \fni{textrm}\verb|{...}|        &       \textrm{\wi{roman}}&
+% \fni{textsf}\verb|{...}|        &       \textsf{\wi{sans serif}}\\
+% \fni{texttt}\verb|{...}|        &       \texttt{typewriter}\\[6pt]
+% \fni{textmd}\verb|{...}|        &       \textmd{medium}&
+% \fni{textbf}\verb|{...}|        &       \textbf{\wi{bold face}}\\[6pt]
+% \fni{textup}\verb|{...}|        &       \textup{\wi{upright}}&
+% \fni{textit}\verb|{...}|        &       \textit{\wi{italic}}\\
+% \fni{textsl}\verb|{...}|        &       \textsl{\wi{slanted}}&
+% \fni{textsc}\verb|{...}|        &       \textsc{\wi{Small Caps}}\\[6pt]
+% \ci{emph}\verb|{...}|           &       \emph{emphasized} &
+% \fni{textnormal}\verb|{...}|    &       \textnormal{document} font
+% \end{tabular}
+
+% \bigskip
+% \end{lined}
+% \end{table}
+
+\begin{table}[!bp]
+\caption{폰트} \label{fonts}
+\begin{lined}{12cm}
+%
+% Alan suggested not to tell about the other form of the command
+% e.g. \verb|\sffamily| or \verb|\bfseries|. This seems a good thing to me.
+%
+\begin{tabular}{@{}rl@{\qquad}rl@{}}
+\fni{textrm}\verb|{...}|        &       \textrm{\wi{roman}}&
+\fni{textsf}\verb|{...}|        &       \textsf{\wi{sans serif}}\\
+\fni{texttt}\verb|{...}|        &       \texttt{typewriter}\\[6pt]
+\fni{textmd}\verb|{...}|        &       \textmd{medium}&
+\fni{textbf}\verb|{...}|        &       \textbf{\wi{bold face}}\\[6pt]
+\fni{textup}\verb|{...}|        &       \textup{\wi{upright}}&
+\fni{textit}\verb|{...}|        &       \textit{\wi{italic}}\\
+\fni{textsl}\verb|{...}|        &       \textsl{\wi{slanted}}&
+\fni{textsc}\verb|{...}|        &       \textsc{\wi{Small Caps}}\\[6pt]
+\ci{emph}\verb|{...}|           &       \emph{emphasized} &
+\fni{textnormal}\verb|{...}|    &       \textnormal{document} font
+\end{tabular}
+
+\bigskip
+\end{lined}
+\end{table}
+
+
+% \begin{table}[!bp]
+% \index{font size}
+% \caption{Font Sizes.} \label{sizes}
+% \begin{lined}{12cm}
+% \begin{tabular}{@{}ll}
+% \fni{tiny}      & \tiny        tiny font \\
+% \fni{scriptsize}   & \scriptsize  very small font\\
+% \fni{footnotesize} & \footnotesize  quite small font \\
+% \fni{small}        &  \small            small font \\
+% \fni{normalsize}   &  \normalsize  normal font \\
+% \fni{large}        &  \large       large font
+% \end{tabular}%
+% \qquad\begin{tabular}{ll@{}}
+% \fni{Large}        &  \Large       larger font \\[5pt]
+% \fni{LARGE}        &  \LARGE       very large font \\[5pt]
+% \fni{huge}         &  \huge        huge \\[5pt]
+% \fni{Huge}         &  \Huge        largest
+% \end{tabular}
+
+% \bigskip
+% \end{lined}
+% \end{table}
+
+\begin{table}[!bp]
+\index{font size}
+\caption{폰트 크기} \label{sizes}
+\begin{lined}{12cm}
+\begin{tabular}{@{}ll}
+\fni{tiny}      & \tiny        tiny font \\
+\fni{scriptsize}   & \scriptsize  very small font\\
+\fni{footnotesize} & \footnotesize  quite small font \\
+\fni{small}        &  \small            small font \\
+\fni{normalsize}   &  \normalsize  normal font \\
+\fni{large}        &  \large       large font
+\end{tabular}%
+\qquad\begin{tabular}{ll@{}}
+\fni{Large}        &  \Large       larger font \\[5pt]
+\fni{LARGE}        &  \LARGE       very large font \\[5pt]
+\fni{huge}         &  \Huge        huge \\[5pt]
+\fni{Huge}         &  \HUGE        largest
+\end{tabular}
+
+\bigskip
+\end{lined}
+\end{table}
+
+
+% \begin{table}[!tbp]
+% \caption{Absolute Point Sizes in Standard Classes.}\label{tab:pointsizes}
+% \label{tab:sizes}
+% \begin{lined}{12cm}
+% \begin{tabular}{lrrr}
+% \multicolumn{1}{c}{size} &
+% \multicolumn{1}{c}{10pt (default) } &
+%            \multicolumn{1}{c}{11pt option}  &
+%            \multicolumn{1}{c}{12pt option}\\
+% \verb|\tiny|       & 5pt  & 6pt & 6pt\\
+% \verb|\scriptsize| & 7pt  & 8pt & 8pt\\
+% \verb|\footnotesize| & 8pt & 9pt & 10pt \\
+% \verb|\small|        & 9pt & 10pt & 11pt \\
+% \verb|\normalsize| & 10pt & 11pt & 12pt \\
+% \verb|\large|      & 12pt & 12pt & 14pt \\
+% \verb|\Large|      & 14pt & 14pt & 17pt \\
+% \verb|\LARGE|      & 17pt & 17pt & 20pt\\
+% \verb|\huge|       & 20pt & 20pt & 25pt\\
+% \verb|\Huge|       & 25pt & 25pt & 25pt\\
+% \end{tabular}
+
+% \bigskip
+% \end{lined}
+% \end{table}
+
+\begin{table}[!tbp]
+\caption{표준 클래스의 폰트 크기 포인트}\label{tab:pointsizes}
+\label{tab:sizes}
+\begin{lined}{12cm}
+\begin{tabular}{lrrr}
+\multicolumn{1}{c}{size} &
+\multicolumn{1}{c}{10pt (default) } &
+           \multicolumn{1}{c}{11pt option}  &
+           \multicolumn{1}{c}{12pt option}\\
+\verb|\tiny|       & 5pt  & 6pt & 6pt\\
+\verb|\scriptsize| & 7pt  & 8pt & 8pt\\
+\verb|\footnotesize| & 8pt & 9pt & 10pt \\
+\verb|\small|        & 9pt & 10pt & 11pt \\
+\verb|\normalsize| & 10pt & 11pt & 12pt \\
+\verb|\large|      & 12pt & 12pt & 14pt \\
+\verb|\Large|      & 14pt & 14pt & 17pt \\
+\verb|\LARGE|      & 17pt & 17pt & 20pt\\
+\verb|\huge|       & 20pt & 20pt & 25pt\\
+\verb|\Huge|       & 25pt & 25pt & 25pt\\
+\end{tabular}
+
+\bigskip
+\end{lined}
+\end{table}
+
+% \begin{table}[!bp]
+% \caption{Math Fonts.} \label{mathfonts}
+% \begin{lined}{0.7\textwidth}
+% \begin{tabular}{@{}ll@{}}
+% \fni{mathrm}\verb|{...}|&     $\mathrm{Roman\ Font}$\\
+% \fni{mathbf}\verb|{...}|&     $\mathbf{Boldface\ Font}$\\
+% \fni{mathsf}\verb|{...}|&     $\mathsf{Sans\ Serif\ Font}$\\
+% \fni{mathtt}\verb|{...}|&     $\mathtt{Typewriter\ Font}$\\
+% \fni{mathit}\verb|{...}|&     $\mathit{Italic\ Font}$\\
+% \fni{mathcal}\verb|{...}|&    $\mathcal{CALLIGRAPHIC\ FONT}$\\
+% \fni{mathnormal}\verb|{...}|& $\mathnormal{Normal\ Font}$\\
+% \end{tabular}
+
+\begin{table}[!bp]
+\caption{수학 폰트} \label{mathfonts}
+\begin{lined}{0.7\textwidth}
+\begin{tabular}{@{}ll@{}}
+\fni{mathrm}\verb|{...}|&     $\mathrm{Roman\ Font}$\\
+\fni{mathbf}\verb|{...}|&     $\mathbf{Boldface\ Font}$\\
+\fni{mathsf}\verb|{...}|&     $\mathsf{Sans\ Serif\ Font}$\\
+\fni{mathtt}\verb|{...}|&     $\mathtt{Typewriter\ Font}$\\
+\fni{mathit}\verb|{...}|&     $\mathit{Italic\ Font}$\\
+\fni{mathcal}\verb|{...}|&    $\mathcal{CALLIGRAPHIC\ FONT}$\\
+\fni{mathnormal}\verb|{...}|& $\mathnormal{Normal\ Font}$\\
+\end{tabular}
+
+
+% %\begin{tabular}{@{}lll@{}}
+% %\textit{Command}&\textit{Example}&    \textit{Output}\\[6pt]
+% %\fni{mathcal}\verb|{...}|&    \verb|$\mathcal{B}=c$|&     $\mathcal{B}=c$\\
+% %\fni{mathscr}\verb|{...}|&    \verb|$\mathscr{B}=c$|&     $\mathscr{B}=c$\\
+% %\fni{mathrm}\verb|{...}|&     \verb|$\mathrm{K}_2$|&      $\mathrm{K}_2$\\
+% %\fni{mathbf}\verb|{...}|&     \verb|$\sum x=\mathbf{v}$|& $\sum x=\mathbf{v}$\\
+% %\fni{mathsf}\verb|{...}|&     \verb|$\mathsf{G\times R}$|&        $\mathsf{G\times R}$\\
+% %\fni{mathtt}\verb|{...}|&     \verb|$\mathtt{L}(b,c)$|&   $\mathtt{L}(b,c)$\\
+% %\fni{mathnormal}\verb|{...}|& \verb|$\mathnormal{R_{19}}\neq R_{19}$|&
+% %$\mathnormal{R_{19}}\neq R_{19}$\\
+% %\fni{mathit}\verb|{...}|&     \verb|$\mathit{ffi}\neq ffi$|& $\mathit{ffi}\neq ffi$
+% %\end{tabular}
+
+% \bigskip
+% \end{lined}
+% \end{table}
+
+\bigskip
+\end{lined}
+\end{table}
+
+% In connection with the font size commands, \wi{curly braces} play a
+% significant role. They are used to build \emph{groups}.  Groups
+% limit the scope of most \LaTeX{} commands.\index{grouping}
+폰트 크기 명령 관련해서 \wi{중괄호}[curly braces](curly braces)가 아주 중요한 역할을 한다. 중괄호는 \emph{범위(group)}를 설정하는 데 쓰인다.
+대부분의 \LaTeX{} 명령은 설정된 범위로 내에서 효력을 갖는다.\index{명령 적용 범위}\index{group}
+
+% \begin{example}
+% He likes {\LARGE large and
+% {\small small} letters}.
+% \end{example}
+\begin{example}
+He likes {\LARGE large and
+{\small small} letters}.
+\end{example}
+
+% The font size commands also change the line spacing, but only if the
+% paragraph ends within the scope of the font size command. The closing curly
+% brace \verb|}| should therefore not come too early.  Note the position of
+% the \ci{par} command in the next two examples. \footnote{\texttt{\bs{}par}
+% is equivalent to a blank line}
+폰트 크기 명령은 행간격도 변경한다. 그러나 명령이 영향을 미치는 유효 범위 안에서 문단이 종료될 때에만 그러하다. 그러므로 닫는 중괄호 \verb|}|가 너무 일찍 놓이면 안 된다. 다음 두 예제에서 \ci{par} 명령의 위치에 따라 행간격이 달라지는 것을 주의깊게 보라.\footnote{\cs{par}는 빈 줄 하나와 같다.}
+
+% \begin{example}
+% {\Large Don't read this!
+%  It is not true.
+%  You can believe me!\par}
+% \end{example}
+
+% \begin{example}
+% {\Large This is not true either.
+% But remember I am a liar.}\par
+% \end{example}
+
+\begin{example}
+{\Large Don't read this!
+ It is not true.
+ You can believe me!\par}
+\end{example}
+
+\vspace{-.5\onelineskip}
+
+\begin{example}
+{\Large This is not true either.
+But remember I am a liar.}\par
+\end{example}
+
+
+% If you want to activate a size changing command for a whole paragraph
+% of text or even more, you might want to use the environment syntax for
+% font changing commands.
+전체 문단이나 여러 문단에 걸쳐 \wi{폰트 크기} 명령을 적용하려 한다면 환경 형식으로 입력하는 것을 생각해볼 수 있다.
+
+% \begin{example}
+% \begin{Large}
+% This is not true.
+% But then again, what is these
+% days \ldots
+% \end{Large}
+% \end{example}
+
+\begin{example}
+\begin{Large}
+This is not true.
+But then again, what is these
+days \ldots
+\end{Large}
+\end{example}
+
+% \noindent This will save you from counting lots of curly braces.
+\noindent 여닫는 중괄호의 짝을 맞추기 위해 개수를 세는 노력을 줄일 수 있다.
+
+% \subsection{Danger, Will Robinson, Danger}
+\subsection{폰트 명령 사용에 대한 중요한 경고}
+
+% As noted at the beginning of this chapter, it is dangerous to clutter
+% your document with explicit commands like this, because they work in
+% opposition to the basic idea of \LaTeX{}, which is to separate the
+% logical and visual markup of your document.  This means that if you
+% use the same font changing command in several places in order to
+% typeset a special kind of information, you should use
+% \verb|\newcommand| to define a ``logical wrapper command'' for the font
+% changing command.
+이 장을 시작하면서 지적한 바와 같이 이런 식의 명령을 사용하는 것은 문서를 망가뜨릴 수 있는 위험한 일이다. 왜냐하면 그것이 \LaTeX 의 기본 개념에 위배되기 때문이다. \LaTeX 은 문서의 논리적 마크업과 시각적 모양을 분리한다. 
+말하자면, 만약 특정 정보를 나타내기 위하여 폰트 모양을 바꾸어서 문서의 이곳저곳에 나타내어야 할 일이 있다고 하자. 이 때는 반드시 \verb|\newcommand|로 그 ``논리적 의미를 나타내는 명령''을 정의해서 써야지 폰트 바꾸는 명령을 직접 써서는 안 된다.
+
+% \begin{example}
+% \newcommand{\oops}[1]{%
+%  \textbf{#1}}
+% Do not \oops{enter} this room,
+% it's occupied by \oops{machines}
+% of unknown origin and purpose.
+% \end{example}
+
+\begin{example}
+\newcommand{\oops}[1]{%
+ \textbf{#1}}
+Do not \oops{enter} this room,
+it's occupied by \oops{machines}
+of unknown origin and purpose.
+\end{example}
+
+% This approach has the advantage that you can decide at some later
+% stage that you want to use a visual representation of danger other
+% than \verb|\textbf|, without having to wade through your document,
+% identifying all the occurrences of \verb|\textbf| and then figuring out
+% for each one whether it was used for pointing out danger or for some other
+% reason.
+위의 예에서 \verb|\oops|가 경고를 나타내기 위해 쓰였다고 하자. 만약 나중에 경고 표시를 위해 \verb|\textbf|를 쓰는 대신 다른 모양으로 표현하고 싶어졌을 때, 이것을 폰트 모양 명령으로 표현해두었다면 문서 전체를 뒤져서 \verb|\textbf|를 찾은 다음에 그것이 위험에 대한 경고로 쓰인 경우인지 아닌지를 일일이 따져서
+수정해야 한다. 이것은 \LaTeX 의 방식이 아니다. 간단히 전처리부의 \verb|\oops| 정의를 수정하여 한꺼번에 다른 모양으로 바꾸는 것이 훨씬 쉽고 \LaTeX 의 철학에 부합한다.
+
+% Please note the difference between telling \LaTeX{} to
+% \emph{emphasize} something and telling it to use a different
+% \emph{font}. The \ci{emph} command is context aware, while the font commands are absolute.
+그러므로 뭔가를 강조하려 할 때 \LaTeX 에게 전달해주어야 할 것은 이 단어를 ``강조한다''는 사실이지 그 단어의 ``폰트를 이러저러하게 바꾸라''는 것이 아니다.
+\ci{emph} 명령은 문맥에 따라 사용가능하지만 폰트 변경 명령은 그렇지 않다.
+
+% \begin{example}
+% \textit{You can also
+%   \emph{emphasize} text if
+%   it is set in italics,}
+% \textsf{in a
+%   \emph{sans-serif} font,}
+% \texttt{or in
+%   \emph{typewriter} style.}
+% \end{example}
+
+\begin{example}
+\textit{You can also
+  \emph{emphasize} text if
+  it is set in italics,}
+\textsf{in a
+  \emph{sans-serif} font,}
+\texttt{or in
+  \emph{typewriter} style.}
+\end{example}
+
+
+% \subsection{Advice}
+\subsection{조언}
+
+% To conclude this journey into the land of fonts and font sizes,
+% here is a little word of advice:\nopagebreak
+폰트와 폰트 크기에 대해 알아보는 것을 마치기 전에 여기서 한 마디 조언을 남기려 한다.%
+\trfnote{%
+  이 문장은 ``더 많은 폰트를 사용할수록 문서가 더 읽기 쉽고 아름다워진다''고 되어 있지만 그 식자된 모양을 보면 역설적 표현임을 알 수 있다. 이 문장은 다음과 같은 의미로 이해하는 것이 옳다. ``너무 많은 폰트를 이유없이 남용하면 문서는 읽기도 어려워지고 지저분해진다.''
+}
+
+% \begin{quote}
+%   \underline{\textbf{Remember\Huge!}} \textit{The}
+%   \textsf{M\textbf{\LARGE O} \texttt{R}\textsl{E}} fonts \Huge you
+%   \tiny use \footnotesize \textbf{in} a \small \texttt{document},
+%   \large \textit{the} \normalsize more \textsc{readable} and
+%   \textsl{\textsf{beautiful} it bec\large o\Large m\LARGE e\huge s}.
+% \end{quote}
+
+\begin{quote}
+  \underline{\textbf{Remember\Huge!}} \textit{The}
+  \textsf{M\textbf{\LARGE O} \texttt{R}\textsl{E}} fonts \Huge you
+  \tiny use \footnotesize \textbf{in} a \small \texttt{document},
+  \large \textit{the} \normalsize more \textsc{readable} and
+  \textsl{\textsf{beautiful} it bec\large o\Large m\LARGE e\huge s}.
+\end{quote}
+
+% \section{Spacing}
+\section{간격}
+
+% \subsection{Line Spacing}
+\subsection{행 간격}
+
+% \index{line spacing} If you want to use larger inter-line spacing in a
+% document, change its value by putting the
+\index{line spacing}\index{행 간격}
+문서 전체에 대하여 행 사이의 간격을%
+\trfnote{%
+  한 행의 베이스라인과 그 다음 행의 베이스라인까지의 거리를 
+  ``행송''이라 하고 행의 아래쪽 끝단과 다음 행의 위쪽 끝 사이의 
+  간격을 ``행간''이라고 한다. \LaTeX 의 line spacing은 행송에
+  해당하는 값이지만 이 용어를 엄격히 적용하지 아니하고 ``행 간격''이라 
+  표현하였다.
+}
+늘리고 싶다면 전처리부에 다음과 같이
+늘리고자 하는 값(배수)을 지정한다.
+% \begin{lscommand}
+% \ci{linespread}\verb|{|\emph{factor}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{linespread}\verb|{|\emph{factor}\verb|}|
+\end{lscommand}
+% \noindent command into the preamble of your document.
+% Use \verb|\linespread{1.3}| for ``one and a half'' line
+% spacing, and \verb|\linespread{1.6}| for ``double'' line spacing.  Normally
+% the lines are not spread, so the default line spread factor
+% is~1.\index{double line spacing}
+\noindent ``한 줄 반'' 행 간격에 \verb|\linespread{1.3}|을,
+``두 줄'' 행 간격에 \verb|\linespread{1.6}|\allowbreak 을 쓰도록 하라.
+행 간격의 기본값은 ``1''이다.\index{double line spacing}%
+\trfnote{%
+  \LaTeX 에서는 행 간격 배수가 1일 때 실제로는 행간이 살짝 주어진다.
+  이 때문에 배행간의 배수가 2가 되지 않는 것이다.
+}
+
+\medskip
+
+\noindent [한국어판을 위하여 역자가 추가] \\
+한글 문서는 라틴 문자 문서에 비해 행간을 넉넉하게 
+잡는다. 이 번역본의 경우 \pai{oblivoir} 클래스의 기본값을 적용하였으며 
+그 값은 $1.3$ 정도에 해당한다. \pai{kotex} 패키지에 \texttt{[hangul]}
+옵션을 주면 (다른 변경사항과 함께) 행간이 늘어나서 한글 문서에 적합하게 설정되는 것을 볼 수 있다.
+
+\medskip
+
+% Note that the effect of the \ci{linespread} command is rather drastic and
+% not appropriate for published work. So if you have a good reason for
+% changing the line spacing you might want to use the command:
+\ci{linespread} 명령의 효과는 꽤 강력해서 유연성이 부족하다.
+임의로 특정 부분의 행간격을 굳이 바꾸어야 할 때 다음 명령을 쓰는 것도 고려해볼 수 있다.
+% \begin{lscommand}
+% \verb|\setlength{\baselineskip}{1.5\baselineskip}|
+% \end{lscommand}
+\begin{lscommand}
+\verb|\setlength{\baselineskip}{1.5\baselineskip}|
+\end{lscommand}
+
+\vspace{-.5\onelineskip}
+
+% \begin{example}
+% {\setlength{\baselineskip}%
+%            {1.5\baselineskip}
+% This paragraph is typeset with
+% the baseline skip set to 1.5 of
+% what it was before. Note the par
+% command at the end of the
+% paragraph.\par}
+% This paragraph has a clear
+% purpose, it shows that after the
+% curly brace has been closed,
+% everything is back to normal.
+% \end{example}
+
+\begin{example}
+{\setlength{\baselineskip}%
+           {1.5\baselineskip}
+This paragraph is typeset with
+the baseline skip set to 1.5 of
+what it was before. Note the par
+command at the end of the
+paragraph.\par}
+This paragraph has a clear
+purpose, it shows that after the
+curly brace has been closed,
+everything is back to normal.
+\end{example}
+
+% \subsection{Paragraph Formatting}\label{parsp}
+\subsection{문단 모양} \label{parsp}
+
+% In \LaTeX{}, there are two parameters influencing paragraph layout.
+% By placing a definition like
+\LaTeX 에는 문단 레이아웃에 영향을 끼치는 두 가지 파라미터가 있다.
+% \begin{code}
+% \ci{setlength}\verb|{|\ci{parindent}\verb|}{0pt}| \\
+% \verb|\setlength{|\ci{parskip}\verb|}{1ex plus 0.5ex minus 0.2ex}|
+% \end{code}
+\begin{code}
+\ci{setlength}\verb|{|\ci{parindent}\verb|}{0pt}| \\
+\verb|\setlength{|\ci{parskip}\verb|}{1ex plus 0.5ex minus 0.2ex}|
+\end{code}
+% in the preamble of the input file, you can change the layout of
+% paragraphs. These two commands increase the space between two paragraphs
+% while setting the paragraph indent to zero.
+전처리부에 위의 코드를 두면 문단의 레이아웃을 변경할 수 있다. 
+위의 코드가 하는 일은 문단의 들여쓰기를 0으로 만들면서 문단 사이의 간격을 벌리는 것이다.
+
+% The \texttt{plus} and \texttt{minus} parts of the length above tell
+% \TeX{} that it can compress and expand the inter-paragraph skip by the
+% amount specified, if this is necessary to properly fit the paragraphs
+% onto the page.
+\texttt{plus}와 \texttt{minus} 부분은 주어진 값의 범위 안에서 필요하다면 문단 사이 간격을 늘리거나 줄일 수 있음을 \TeX 에게 알려주는 역할을 한다. 문단을 페이지에 적절하게 맞추기 위한 것이다.
+
+% In continental Europe,
+% paragraphs are often separated by some space and not indented. But
+% beware, this also has its effect on the table of contents. Its lines
+% get spaced more loosely now as well. To avoid this, you might want to
+% move the two commands from the preamble into your document to some
+% place below the command \verb|\tableofcontents| or to not use them at all,
+% because you'll find that most professional books use indenting and not
+% spacing to separate paragraphs.
+유럽쪽 문헌에서 문단 사이에 간격을 두고 \wi{들여쓰기} 하지 않는 식의 조판을 흔히 볼 수 있다. 그런데 이 명령은 목차에도 영향을 준다는 것을 기억하자.
+목차 사이의 간격이 정상보다 느슨하게 식자된다. 
+이것을 피하려면 위의 명령을 전처리부에 두지 말고 문서 본문의 \verb|\tableofcontents| 명령 뒤에 두는 방법이 있다. 그러나 아예 이런 것을 사용하지 않는 것도 좋은데 대부분의 전문서적은 문단 사이의 별도 간격 없이 들여쓰기하는 방법으로 조판되기 때문이다.
+
+% If you want to indent a paragraph that is not indented, use
+% \begin{lscommand}
+% \ci{indent}
+% \end{lscommand}
+% \noindent at the beginning of the paragraph.\footnote{To indent the first paragraph after each section head, use
+%   the \pai{indentfirst} package in the `tools' bundle.} Obviously,
+% this will only have an effect when \verb|\parindent| is not set to
+% zero.
+들여쓰기되지 않은 문단을 들여쓰게 하는 
+\begin{lscommand}
+\ci{indent}
+\end{lscommand}
+\noindent 명령이 있다.\footnote{%
+  장절 표제를 식자한 직후 첫 문단은 들여쓰기되지 않는 것이 
+  기본이다. 첫 문단에도 들여쓰기를 적용하려면 \pai{indentfirst} 패키지를 
+  로드하여야 한다.
+}
+이 명령은 당연히 \cs{parindent}가 0으로 설정되어 있지 않을 때만 효력이 있다.
+
+% To create a non-indented paragraph, use
+특정 문단의 들여쓰기를 없애고 싶다면
+% \begin{lscommand}
+% \ci{noindent}
+% \end{lscommand}
+\begin{lscommand}
+\ci{noindent}
+\end{lscommand}
+% \noindent as the first command of the paragraph. This might come in handy when
+% you start a document with body text and not with a sectioning command.
+\noindent 이 명령을 문단 첫머리에 둔다. 장절명령 없이 시작하는 첫 문단에 
+적용할 때 편리하다.
+
+% \subsection{Horizontal Space}
+\subsection{수평 간격}
+
+% \label{sec:hspace}
+\label{sec:hspace}
+% \LaTeX{} determines the spaces between words and sentences
+% automatically. To add horizontal space, use: \index{horizontal!space}
+단어와 문장 사이의 간격은 \LaTeX 이 자동으로 결정한다.
+수평 간격을 추가하려면 \index{horizontal!space}\index{수평!간격}
+% \begin{lscommand}
+% \ci{hspace}\verb|{|\emph{length}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{hspace}\verb|{|\emph{length}\verb|}|
+\end{lscommand}
+% If such a space should be kept even if it falls at the end or the
+% start of a line, use \verb|\hspace*| instead of \verb|\hspace|.  The
+% \emph{length} in the simplest case is just a number plus a unit.  The
+% most important units are listed in Table~\ref{units}.
+% \index{units}\index{dimensions}
+\noindent 줄의 끝이나 시작부분에도 간격이 유효하여야 한다면 \cs{hspace} 대신 \cs{hspace*}를 사용하라.
+\emph{length}는 길이를 나타내는 숫자에 단위를 붙인 꼴이다. 길이 단위는 표~\ref{units}에 정리해두었다. \index{units}\index{dimensions}\index{길이}\index{길이 단위}
+
+% \begin{example}
+% This\hspace{1.5cm}is a space
+% of 1.5 cm.
+% \end{example}
+\begin{example}
+This\hspace{1.5cm}is a space
+of 1.5 cm.
+\end{example}
+
+% \suppressfloats
+% \begin{table}[tbp]
+% \caption{\TeX{} Units.} \label{units}\index{units}
+% \begin{lined}{9.5cm}
+% \begin{tabular}{@{}ll@{}}
+% \texttt{mm} & millimetre $\approx 1/25$~inch \quad \demowidth{1mm} \\
+% \texttt{cm} & centimetre = 10~mm  \quad \demowidth{1cm}                     \\
+% \texttt{in} & inch $=$ 25.4~mm \quad \demowidth{1in}                    \\
+% \texttt{pt} & point $\approx 1/72$~inch $\approx \frac{1}{3}$~mm  \quad\demowidth{1pt}\\
+% \texttt{em} & approx width of an `M' in the current font \quad \demowidth{1em}\\
+% \texttt{ex} & approx height of an `x' in the current font \quad \demowidth{1ex}
+% \end{tabular}
+
+% \bigskip
+% \end{lined}
+% \end{table}
+
+\suppressfloats
+
+\begin{table}[tbp]
+\caption{\TeX{} 단위} \label{units}\index{units}
+\begin{lined}{9.5cm}
+\begin{tabular}{@{}ll@{}}
+\texttt{mm} & millimetre $\approx 1/25$~inch \quad \demowidth{1mm} \\
+\texttt{cm} & centimetre = 10~mm  \quad \demowidth{1cm}                     \\
+\texttt{in} & inch $=$ 25.4~mm \quad \demowidth{1in}                    \\
+\texttt{pt} & point $\approx 1/72$~inch $\approx \frac{1}{3}$~mm  \quad\demowidth{1pt}\\
+\texttt{em} & approx width of an `M' in the current font \quad \demowidth{1em}\\
+\texttt{ex} & approx height of an `x' in the current font \quad \demowidth{1ex}
+\end{tabular}
+
+\bigskip
+\end{lined}
+\end{table}
+
+% \label{cmd:stretch}
+\label{cmd:stretch}
+% The command
+다음 명령은 특별한 가변폭 간격(rubber space)을 만들어낸다.
+% \begin{lscommand}
+% \ci{stretch}\verb|{|\emph{n}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{stretch}\verb|{|\emph{n}\verb|}|
+\end{lscommand}
+% \noindent generates a special rubber space. It stretches until all the
+% remaining space on a line is filled up. If multiple
+% \verb|\hspace{\stretch{|\emph{n}\verb|}}| commands are issued on the same
+% line, they occupy all available space in proportion of their respective
+% stretch factors.
+\noindent 이와 같이 명령하면 한 행의 남은 공간이 모두 찰 때까지 간격을 채워넣는다.
+같은 행 안에 \cs{hspace}\verb|{\stretch{|\emph{n}\verb|}}|
+명령이 두 번 이상 있으면 채울 수 있는 공간을 주어진 확장배수에 비례하여 차지한다.
+
+% \begin{example}
+% x\hspace{\stretch{1}}
+% x\hspace{\stretch{3}}x
+% \end{example}
+\begin{example}
+x\hspace{\stretch{1}}
+x\hspace{\stretch{3}}x
+\end{example}
+
+% When using horizontal space together with text, it may make sense to make
+% the space adjust its size relative to the size of the current font.
+% This can be done by using the text-relative units \texttt{em} and
+% \texttt{ex}:
+수평간격과 텍스트를 함께 쓸 때 간격의 크기를 현재 폰트 크기에 맞추어서 지정할 수 있으면 좋을 것이다. 텍스트 폰트의 크기를 나타내는 상대적인 길이 단위 \texttt{em}과 \texttt{ex}를 사용하면 된다.%
+\trfnote{%
+  em은 현재 폰트 M자의 폭이라는 뜻에서, ex는 x자의 높이라는 뜻에서 온 단위이다.
+  그렇지만 em은 실제로는 디자인 단위로서 10pt 폰트에서 1em은 10pt이다. 1ex는 
+  Latin Modern Roman 폰트에서 약 4.3pt 정도이다.
+}
+
+% \begin{example}
+% {\Large{}big\hspace{1em}y}\\
+% {\tiny{}tin\hspace{1em}y}
+% \end{example}
+\begin{example}
+{\Large{}big\hspace{1em}y}\\
+{\tiny{}tin\hspace{1em}y}
+\end{example}
+
+
+% \subsection{Vertical Space}
+\subsection{수직 간격}
+% The space between paragraphs, sections, subsections, \ldots\ is
+% determined automatically by \LaTeX. If necessary, additional vertical
+% space \emph{between two paragraphs} can be added with the command:
+
+문단 사이의 간격, 장절 표제의 간격 등은 \LaTeX 이 스스로 결정한다.
+만약 \emph{문단 사이에} 추가 간격을 두어야 할 필요가 있다면 다음 명령을 쓴다.
+% \begin{lscommand}
+% \ci{vspace}\verb|{|\emph{length}\verb|}|
+% \end{lscommand}
+
+\begin{lscommand}
+\ci{vspace}\verb|{|\emph{length}\verb|}|
+\end{lscommand}
+
+% This command should normally be used between two empty lines.  If the
+% space should be preserved at the top or at the bottom of a page, use
+% the starred version of the command, \verb|\vspace*|, instead of \verb|\vspace|.
+% \index{vertical space}
+이 명령 앞뒤에 보통 빈 줄을 두어야 한다. 페이지의 마지막이나 첫머리에도 간격이 유지되도록 하려면 \cs{vspace} 대신 \cs{vspace*}를 사용하라.
+
+% The \verb|\stretch| command, in connection with \verb|\pagebreak|, can
+% be used to typeset text on the last line of a page, or to centre text
+% vertically on a page.
+\cs{stretch} 명령을 \cs{pagebreak} 명령과 함께 써서 페이지의 하단이나 중앙에 한 줄이 오게 할 수 있다.
+% \begin{code}
+% \begin{verbatim}
+% Some text \ldots
+%
+% \vspace{\stretch{1}}
+% This goes onto the last line of the page.\pagebreak
+% \end{verbatim}
+% \end{code}
+
+\begin{code}
+\begin{verbatim}
+Some text \ldots
+
+\vspace{\stretch{1}}
+This goes onto the last line of the page.\pagebreak
+\end{verbatim}
+\end{code}
+
+% Additional space between two lines of \emph{the same} paragraph or
+% within a table is specified with the
+\emph{같은 문단} 내에서, 또는 표 안에서 두 줄 사이에 간격을 주려면 다음과 같이 한다.
+% \begin{lscommand}
+% \verb|\\[|\emph{length}\verb|]|
+% \end{lscommand}
+% \noindent command.
+\begin{lscommand}
+\verb|\\[|\emph{length}\verb|]|
+\end{lscommand}
+% \noindent command.
+
+% With \ci{bigskip} and \ci{smallskip} you can skip a predefined amount of
+% vertical space without having to worry about exact numbers.
+\cs{bigskip}과 \cs{medskip}, \cs{smallskip}은 수직 간격 명령으로 미리 정의된 길이만큼 떨어뜨리는데 정확히 몇 포인트일지는 신경쓸 필요 없다.
+
+
+%%% arbitarily place this figure here
+%%% to ensure be put before that section
+\begin{figure}[p]
+  \begin{center}
+  \makeatletter\@mylayout\makeatother
+  \end{center}
+  \vspace*{1.8cm}
+  \caption[이 책자의 레이아웃 파라미터]%
+  {이 책의 레이아웃 파라미터. \pai{layouts} 패키지를 이용하면 현재 문서의 레이아웃을 확인할 수 있다.}
+  \label{fig:layout}
+  \cih{footskip}
+  \cih{headheight}
+  \cih{headsep}
+  \cih{marginparpush}
+  \cih{marginparsep}
+  \cih{marginparwidth}
+  \cih{oddsidemargin}
+  \cih{paperheight}
+  \cih{paperwidth}
+  \cih{textheight}
+  \cih{textwidth}
+  \cih{topmargin}
+  \end{figure}
+  \index{page layout}
+  
+\thispagestyle{lshortko}
+
+
+
+% \section{Page Layout}
+\section{페이지 레이아웃}
+
+% \begin{figure}[!hp]
+% \begin{center}
+% \makeatletter\@mylayout\makeatother
+% \end{center}
+% \vspace*{1.8cm}
+% \caption[Layout parameters for this book.]{Layout parameters for this book. Try the \pai{layouts} package to print the layout of your own document.}
+% \label{fig:layout}
+% \cih{footskip}
+% \cih{headheight}
+% \cih{headsep}
+% \cih{marginparpush}
+% \cih{marginparsep}
+% \cih{marginparwidth}
+% \cih{oddsidemargin}
+% \cih{paperheight}
+% \cih{paperwidth}
+% \cih{textheight}
+% \cih{textwidth}
+% \cih{topmargin}
+% \end{figure}
+% \index{page layout}
+% \LaTeXe{} allows you to specify the \wi{paper size} in the
+% \verb|\documentclass| command. It then automatically picks the right
+% text \wi{margins}, but sometimes you may not be happy with
+% the predefined values. Naturally, you can change them.
+\LaTeX 에서는 \wi{용지}[paper size] 크기를 \cs{documentclass} 명령의 옵션으로 지정한다. 그러면 텍스트의 \wi{여백}[margins](margins) 크기를 자동으로 결정한다. 그러나 이렇게 만들어진 페이지가 마음에 들지 않을 수 있다. 당연히 바꾸는 것이 가능하다.
+% %no idea why this is needed here ...
+% \thispagestyle{fancyplain}
+% Figure~\ref{fig:layout} shows all the parameters that can be changed.
+% The figure was produced with the \pai{layout} package from the tools bundle.%
+% \footnote{\CTANref|pkg/tools|}
+그림~\ref{fig:layout}\는 바꿀 수 있는 파라미터를 모두 보여준다. 이 그림은 `tools' 묶음의 \pai{layout} 패키지로 그렸다.
+
+% \textbf{WAIT!} \ldots before you launch into a ``Let's make that
+% narrow page a bit wider'' frenzy, take a few seconds to think. As with
+% most things in \LaTeX, there is a good reason for the page layout to
+% be as it is.
+\textsf{잠깐!} \hdots\hdots{} ``문서의 판면 폭이 너무 좁으니 좀 넓히자''는 생각으로 뭔가를 하기 전에 조금만 더 생각해보라.
+다른 것도 마찬가지지만 \LaTeX 이 기본 페이지 레이아웃을 그렇게 설정하는 데는 이유가 있다.
+
+% Sure, compared to your off-the-shelf MS Word page, it looks awfully
+% narrow. But take a look at your favourite book\footnote{I mean a real
+%   printed book produced by a reputable publisher.} and count the number
+% of characters on a standard text line. You will find that there are no
+% more than about 66 characters on each line. Now do the same on your
+% \LaTeX{} page. You will find that there are also about 66 characters
+% per line.  Experience shows that the reading gets difficult as soon as
+% there are more characters on a single line. This is because it is
+% difficult for the eyes to move from the end of one line to the start of the next one.
+% This is also why newspapers are typeset in multiple columns.
+확실히 (한때 쓰던) MS Word의 경우 판면이 이렇게 좁지 않았다.
+그러나 실제 책\footnote{믿을 만한 출판사에서 출간된 진짜 책을 말한다.}을 
+꺼내서 한 줄에 몇 글자나 들어가 있는지 세어보라.
+각 행마다 대략 66자를 넘지 않을 것이다. 이제 기본적으로 만들어지는 \LaTeX{} 문서에 
+대해 역시 행당 글자수를 세어보면 마찬가지로 한 행에 66자 정도가 들어간다는 것을 
+알게 될 것이다.
+경험상 한 줄이 너무 길어서 들어가는 글자수가 많으면 독서가 곤란해진다.
+줄의 끝에서 다음 줄 처음으로 이동하는 거리가 길어서 눈을 이동시키기 더 어려워지기 때문이다.
+
+% So if you increase the width of your body text, keep in mind that you
+% are making life difficult for the readers of your paper. But enough
+% of the cautioning, I promised to tell you how you do it \ldots
+그러므로 문서 본문 너비를 키우는 것은 독자에게 독서 부담을 가중하는 것이 된다는 점을 유념하여야 한다.
+그럼에도 불구하고 꼭 해야 한다면 어떻게 하면 되는지 알려주겠다.
+
+% \LaTeX{} provides two commands to change these parameters. They are
+% usually used in the document preamble.
+이 파라미터를 바꾸기 위한 명령을 두 가지 제공한다. 대개 전처리부에 두면 된다.
+
+% The first command assigns a fixed value to any of the parameters:
+첫 번째 명령은 파라미터에 일정한 값을 부여하는 것이다.
+
+% \begin{lscommand}
+% \ci{setlength}\verb|{|\emph{parameter}\verb|}{|\emph{length}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{setlength}\verb|{|\emph{parameter}\verb|}{|\emph{length}\verb|}|
+\end{lscommand}
+
+% The second command adds a length to any of the parameters:
+두 번째 것은 파라미터에 일정 길이를 더하는 것이다.
+% \begin{lscommand}
+% \ci{addtolength}\verb|{|\emph{parameter}\verb|}{|\emph{length}\verb|}|
+% \end{lscommand}
+
+\begin{lscommand}
+\ci{addtolength}\verb|{|\emph{parameter}\verb|}{|\emph{length}\verb|}|
+\end{lscommand}
+
+% This second command is actually more useful than the \ci{setlength}
+% command, because it works relative to the existing settings.
+% To add one centimetre to the overall text width, I put the
+% following commands into the document preamble:
+두 번째 명령이 \ci{setlength}를 쓰는 것보다 유용하다. 이미 있는 값을 기준으로 상대적으로 설정할 수 있기 때문이다. 전체 문단 폭(text width)에 1cm를 더하려면 
+전처리부에 다음과 같이 선언하면 된다.
+% \begin{code}
+% \verb|\addtolength{\hoffset}{-0.5cm}|\\
+% \verb|\addtolength{\textwidth}{1cm}|
+% \end{code}
+\begin{code}
+\verb|\addtolength{\hoffset}{-0.5cm}|\\
+\verb|\addtolength{\textwidth}{1cm}|
+\end{code}
+
+% In this context, you might want to look at the \pai{calc} package.
+% It allows you to use arithmetic operations in the argument of \ci{setlength}
+% and other places where numeric values are entered into function
+% arguments.
+이런 종류의 일을 할 때에 \pai{calc} 패키지가 도움이 된다.
+\ci{setlength} 명령의 인자 안에서 산술 연산을 할 수 있게 한다.
+숫자가 필요한 다른 곳에서도 연산식 인자로 값을 입력할 수 있다.
+
+% \section{More Fun With Lengths}
+\section{길이 관련 재미있는 응용}
+
+% Whenever possible, I avoid using absolute lengths in
+% \LaTeX{} documents. I rather try to base things on the width or height
+% of other page elements. For the width of a figure this could
+% be \verb|\textwidth| in order to make it fill the page.
+가능한 한 \LaTeX{} 문서에서는 절대 길이를 쓰지 않는 것이 좋다.
+텍스트의 너비나 높이와 같은 다른 페이지 요소의 길이를 기준으로 상대 길이를 
+지정하는 것이 낫다. 예컨대
+한 페이지 전체를 그래픽으로 채우려 할 때 그 폭(width)을 \cs{textwidth}로 설정한다.
+
+% The following 3 commands allow you to determine the width, height and
+% depth of a text string.
+다음 세 개의 명령은 텍스트 문자열(\emph{text})의 폭(width), 높이(height), 깊이(depth)를 계산하게 하여 변수(\emph{variable})에 할당하는 것이다.
+
+% \begin{lscommand}
+% \ci{settoheight}\verb|{|\emph{variable}\verb|}{|\emph{text}\verb|}|\\
+% \ci{settodepth}\verb|{|\emph{variable}\verb|}{|\emph{text}\verb|}|\\
+% \ci{settowidth}\verb|{|\emph{variable}\verb|}{|\emph{text}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{settoheight}\verb|{|\emph{variable}\verb|}{|\emph{text}\verb|}|\\
+\ci{settodepth}\verb|{|\emph{variable}\verb|}{|\emph{text}\verb|}|\\
+\ci{settowidth}\verb|{|\emph{variable}\verb|}{|\emph{text}\verb|}|
+\end{lscommand}
+
+% \noindent The example below shows a possible application of these commands.
+\noindent 다음 예제에서 이 명령을 응용해보았다.
+
+\enlargethispage*{2\onelineskip}
+
+% \begin{example}
+% \flushleft
+% \newenvironment{vardesc}[1]{%
+%   \settowidth{\parindent}{#1:\ }
+%   \makebox[0pt][r]{#1:\ }}{}
+
+% \begin{displaymath}
+% a^2+b^2=c^2
+% \end{displaymath}
+
+% \begin{vardesc}{Where}$a$,
+% $b$ -- are adjacent to the right
+% angle of a right-angled triangle.
+
+% $c$ -- is the hypotenuse of
+% the triangle and feels lonely.
+
+% $d$ -- finally does not show up
+% here at all. Isn't that puzzling?
+% \end{vardesc}
+% \end{example}
+
+\begin{example}
+\flushleft
+\newenvironment{vardesc}[1]{%
+  \settowidth{\parindent}{#1:\ }
+  \makebox[0pt][r]{#1:\ }}{}
+
+\begin{displaymath}
+a^2+b^2=c^2
+\end{displaymath}
+
+\begin{vardesc}{Where}$a$,
+$b$ -- are adjacent to the right
+angle of a right-angled triangle.
+
+$c$ -- is the hypotenuse of
+the triangle and feels lonely.
+
+$d$ -- finally does not show up
+here at all. Isn't that puzzling?
+\end{vardesc}
+\end{example}
+
+% \section{Boxes}
+\section{박스(Box)}
+
+% \LaTeX{} builds up its pages by pushing around boxes. At first, each
+% letter is a little box, which is then glued to other letters to form
+% words. These are again glued to other words, but with special glue,
+% which is elastic so that a series of words can be squeezed or
+% stretched as to exactly fill a line on the page.
+\LaTeX 은 박스를 쌓아서 페이지를 만든다. 먼저 글자 하나하나가 작은 박스이다.
+이 박스를 풀로 붙이듯이 이어붙여서 단어를 만든다. 그 단어를 다시 다른 단어와 이어붙이는데 이 때는 길이가 늘거나 줄어들 수 있는 특별한 연결요소(glue)를 풀처럼 사용한다. 그렇게 함으로써 한 줄이 판면에 꼭 맞도록 조절할 수 있다.
+
+% I admit, this is a very simplistic version of what really happens, but the
+% point is that \TeX{} operates on glue and boxes. Letters are not the only
+% things that can be boxes. You can put virtually everything into a box,
+% including other boxes. Each box will then be handled by \LaTeX{} as if it
+% were a single letter.
+물론 이 설명이 실제 \TeX 이 하는 일에 비하면 너무 간략한 설명이라는 것을 안다.
+그러나 핵심은 \TeX 이 박스와 글루를 가지고 작업한다는 점이다.
+글자만이 박스가 아니다. 무엇이든지 박스에 들어갈 수 있다. 박스 안에 다른 박스가 들어갈 수도 있다. 일단 박스에 들어가고 나면 전체가 하나의 글자인 것처럼 \LaTeX 이 취급한다.
+
+% In earlier chapters you encountered some boxes, although I did
+% not tell you. The \ei{tabular} environment and the \ci{includegraphics}, for
+% example, both produce a box. This means that you can easily arrange two
+% tables or images side by side. You just have to make sure that their
+% combined width is not larger than the textwidth.
+명시적으로 언급하지는 않았지만 이전 장에서 이미 박스를 다루어본 적이 있다.
+\ei{tabular} 환경이나 \ci{includegraphics}가 그러한데 둘 다 하나의 박스를 만든다.
+그러므로 표와 그림을 나란히 놓는 것도 매우 쉽다.
+박스를 이어맞춘 길이가 본문 폭보다 크지 않게 하면 된다.
+
+% You can also pack a paragraph of your choice into a box with either
+% the
+원한다면 하나의 문단도 박스 하나에 넣을 수 있다. 이를테면
+
+% \begin{lscommand}
+% \ci{parbox}\verb|[|\emph{pos}\verb|]{|\emph{width}\verb|}{|\emph{text}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{parbox}\verb|[|\emph{pos}\verb|]{|\emph{width}\verb|}{|\emph{text}\verb|}|
+\end{lscommand}
+
+% \noindent command or the
+\noindent 이와 같이 \ci{parbox} 명령을 쓰거나
+
+% \begin{lscommand}
+% \verb|\begin{|\ei{minipage}\verb|}[|\emph{pos}\verb|]{|\emph{width}\verb|}| text
+% \verb|\end{|\ei{minipage}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\verb|\begin{|\ei{minipage}\verb|}[|\emph{pos}\verb|]{|\emph{width}\verb|}| text
+\verb|\end{|\ei{minipage}\verb|}|
+\end{lscommand}
+
+% \noindent environment. The \texttt{pos} parameter can take one of the letters
+% \texttt{c, t} or \texttt{b} to control the vertical alignment of the box,
+% relative to the baseline of the surrounding text. \texttt{width} takes
+% a length argument specifying the width of the box. The main difference
+% between a \ei{minipage} and a \ci{parbox} is that you cannot use all commands
+% and environments inside a \ei{parbox}, while almost anything is possible in
+% a \ei{minipage}.
+\noindent 이런 식으로 \ei{minipage} 환경을 쓰면 된다.
+\texttt{pos} 파라미터는 \texttt{c}, \texttt{t}, \texttt{b} 중에서 하나를 취하는데, 주변 텍스트 베이스라인을 기준으로 한 박스의 수직 정렬 위치를 나타낸다.
+\texttt{width}는 박스의 폭을 지시하는 길이이다. 
+\ei{minipage}와 \ci{parbox}의 차이점은 \cs{parbox} 안에는 사용할 수 없는 명령이나 환경이 있다는 것이다. 반면 \ei{minipage} 안에는 무엇이든 가능하다.
+
+% While \ci{parbox} packs up a whole paragraph doing line breaking and
+% everything, there is also a class of boxing commands that operates
+% only on horizontally aligned material. We already know one of them;
+% it's called \ci{mbox}. It simply packs up a series of boxes into
+% another one, and can be used to prevent \LaTeX{} from breaking two
+% words. As boxes can be put inside boxes, these horizontal box packers
+% give you ultimate flexibility.
+\ci{parbox}가 줄나눔같은 수직적 조판요소까지 포함하여 문단 전체를 박스에 담는 데 비해 오직 수평적으로 나열된 것들만을 박스에 넣는 명령도 있다. 이미 그 중 하나를 써본 적이 있는데 \ci{mbox}가 그것이다. 이것은 이어지는 일련의 박스를 넣으면서 두 단어 사이에서 줄나눔이 일어나지 못하게 한다. 박스가 박스 안에 들어갈 수 있으므로 이 수평 박스를 유연하게 잘 이용할 수 있다.
+
+% \begin{lscommand}
+% \ci{makebox}\verb|[|\emph{width}\verb|][|\emph{pos}\verb|]{|\emph{text}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{makebox}\verb|[|\emph{width}\verb|][|\emph{pos}\verb|]{|\emph{text}\verb|}|
+\end{lscommand}
+
+% \noindent \texttt{width} defines the width of the resulting box as
+% seen from the outside.\footnote{This means it can be smaller than the
+% material inside the box. You can even set the
+% width to 0pt so that the text inside the box will be typeset without
+% influencing the surrounding boxes.}  Besides the length
+% expressions, you can also use \ci{width}, \ci{height}, \ci{depth}, and
+% \ci{totalheight} in the width parameter. They are set from values
+% obtained by measuring the typeset \emph{text}. The \emph{pos} parameter takes
+% a one letter value: \textbf{c}enter, flush\textbf{l}eft,
+% flush\textbf{r}ight, or \textbf{s}pread the text to fill the box.
+\noindent \texttt{width}는 박스의 폭을 나타내는데 박스 외부에서 보는 길이가 된다.\footnote{이 말은 박스 내부에 있는 것들의 길이보다 박스 길이가 작을 수도 있다는 뜻이다. 박스의 width를 0pt로 정의할 수도 있는데 그렇게 하면 주변 박스의 배열에 영향을 주지 않으면서 어떤 것을 식자할 수 있다.}
+이 파라미터에는 길이 표현이 올 수 있는 것은 당연하고 그밖에 \ci{width}, \ci{height}, \ci{depth}, \ci{totalheight}와 같은 명령이 올 수도 있다. 이들은 \emph{text}로 주어지는 것을 조판하였을 때 가지게 되는 값을 측정하여 취한 것이다.
+\emph{pos} 인자는 \texttt{c}, \texttt{l}, \texttt{r}, \texttt{s} 가운데  하나를 취할 수 있는데 각각 \textbf{c}enter, flush\textbf{l}eft, flush\textbf{r}ight, \textbf{s}pread의 의미이다. spread란 박스를 꽉 채우도록 텍스트를 벌려 배열하라는 뜻이다.%
+
+% The command \ci{framebox} works exactly the same as \ci{makebox}, but
+% it draws a box around the text.
+\ci{framebox}라는 명령은 \ci{makebox}와 완전히 똑같이 동작한다. 그러면서 박스 주변에 선을 그려준다.
+
+% The following example shows you some things you could do with
+% the \ci{makebox} and \ci{framebox} commands.
+다음 예제를 살펴보면 \ci{makebox}와 \ci{framebox} 명령을 어떻게 쓰는지 짐작할 수 있을 것이다.%
+\trfnote{%
+  앞서 글자 박스가 단어가 될 때는 ``풀''로 이어붙였고 단어와 단어 사이는 ``늘어나는 길이(글루)''로
+  연결하였다고 한 말을 곰곰 생각해본다면 \texttt{spread}할 때 벌어질 수 있는 것은 
+  단어와 단어 사이이지 글자와 글자 사이가 아님을 짐작할 수 있다. 다음에 보이는 예제에서 spread하기 
+  위해서 글자 사이에 스페이스를 준 것은 그런 까닭이다.
+}
+
+
+% \begin{example}
+% \makebox[\textwidth]{%
+%     c e n t r a l}\par
+% \makebox[\textwidth][s]{%
+%     s p r e a d}\par
+% \framebox[1.1\width]{Guess I'm
+%     framed now!} \par
+% \framebox[0.8\width][r]{Bummer,
+%     I am too wide} \par
+% \framebox[1cm][l]{never
+%     mind, so am I}
+% Can you read this?
+% \end{example}
+\begin{example}
+\makebox[\textwidth]{%
+    c e n t r a l}\par
+\makebox[\textwidth][s]{%
+    s p r e a d}\par
+\framebox[1.1\width]{Guess I'm
+    framed now!} \par
+\framebox[0.8\width][r]{Bummer,
+    I am too wide} \par
+\framebox[1cm][l]{never
+    mind, so am I}
+Can you read this?
+\end{example}
+
+% Now that we control the horizontal, the obvious next step is to go for
+%   the vertical.\footnote{Total control is only to be obtained by
+%   controlling both the horizontal and the vertical \ldots}
+%  No problem for \LaTeX{}. The
+수평 제어에 대해 알아보았다. 다음 차례는 수직 제어에 대한 것이 당연하다.\footnote{%
+  완전 제어는 수평제어와 수직제어를 모두 달성해야 성취된다.
+}
+어려울 것이 없다.
+
+% \begin{lscommand}
+% \ci{raisebox}\verb|{|\emph{lift}\verb|}[|\emph{extend-above-baseline}\verb|][|\emph{extend-below-baseline}\verb|]{|\emph{text}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{raisebox}\verb|{|\emph{lift}\verb|}[|\emph{extend-above-baseline}\verb|][|\emph{extend-below-baseline}\verb|]{|\emph{text}\verb|}|
+\end{lscommand}
+
+% \noindent command lets you define the vertical properties of a
+% box. You can use \ci{width}, \ci{height}, \ci{depth}, and
+%   \ci{totalheight} in the first three parameters, in order to act
+%   upon the size of the box inside the \emph{text} argument.
+\noindent 이 명령은 박스의 수직 위치 이동을 정의한다. 
+앞에서부터 세 번째까지 인자에 
+\ci{width}, \ci{height}, \ci{depth}, \ci{totalheight}를 
+쓸 수 있다. 이들은 \emph{text}로 주어진 문자열의 크기에 따라 결정되는 값이므로 박스 크기에 맞추어서 이동하게 할 수 있다.
+
+% \begin{example}
+% \raisebox{0pt}[0pt][0pt]{\Large%
+% \textbf{Aaaa\raisebox{-0.3ex}{a}%
+% \raisebox{-0.7ex}{aa}%
+% \raisebox{-1.2ex}{r}%
+% \raisebox{-2.2ex}{g}%
+% \raisebox{-4.5ex}{h}}}
+% she shouted, but not even the next
+% one in line noticed that something
+% terrible had happened to her.
+% \end{example}
+\begin{example}
+\raisebox{0pt}[0pt][0pt]{\Large%
+\textbf{Aaaa\raisebox{-0.3ex}{a}%
+\raisebox{-0.7ex}{aa}%
+\raisebox{-1.2ex}{r}%
+\raisebox{-2.2ex}{g}%
+\raisebox{-4.5ex}{h}}}
+she shouted, but not even the next
+one in line noticed that something
+terrible had happened to her.
+\end{example}
+
+% \section{Rules}
+% \label{sec:rule}
+\section{괘선(Rule)}
+\label{sec:rule}
+
+% A few pages back you may have noticed the command
+몇 페이지 앞에서 본 적이 있는 명령이다.
+
+% \begin{lscommand}
+% \ci{rule}\verb|[|\emph{lift}\verb|]{|\emph{width}\verb|}{|\emph{height}\verb|}|
+% \end{lscommand}
+\begin{lscommand}
+\ci{rule}\verb|[|\emph{lift}\verb|]{|\emph{width}\verb|}{|\emph{height}\verb|}|
+\end{lscommand}
+
+% \noindent In normal use it produces a simple black box.
+\noindent 보편적인 이용방법은 간단한 검은색 박스를 그리는 것이다.
+또 다른 용법 중에
+\pageref{strutrule}페이지에서 이미 이 명령으로 ``폭이 0인 괘선''을 strut로 이용하는 
+방법을 배운 적이 있다.
+
+% \begin{example}
+% \rule{3mm}{.1pt}%
+% \rule[-1mm]{5mm}{1cm}%
+% \rule{3mm}{.1pt}%
+% \rule[1mm]{1cm}{5mm}%
+% \rule{3mm}{.1pt}
+% \end{example}
+\begin{example}
+\rule{3mm}{.1pt}%
+\rule[-1mm]{5mm}{1cm}%
+\rule{3mm}{.1pt}%
+\rule[1mm]{1cm}{5mm}%
+\rule{3mm}{.1pt}
+\end{example}
+
+% \noindent This is useful for drawing vertical and horizontal
+% lines. The line on the title page, for example, has been created with a
+% \ci{rule} command.
+\noindent 수평괘선이나 수직괘선을 그릴 때 좋다. 이 책자의 표지에 그려진 괘선이 이 명령으로 작성되었다. 
+
+% \bigskip
+% {\flushright The End.\par}
+\bigskip
+{\flushright 끝\par}
+
+% %
+
+% % Local Variables:
+% % TeX-master: "lshort2e"
+% % mode: latex
+% % mode: flyspell
+% % End:

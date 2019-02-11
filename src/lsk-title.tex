@@ -1,0 +1,68 @@
+%%%% the title page of lshort-kr
+%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Contents: The title page
+% $Id: title.tex,v 1.2 2003/03/19 20:57:47 oetiker Exp $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined % We're not running pdftex
+\else
+%\pdfbookmark{Title Page}{title}
+\pdfbookmark{표지}{title}
+\fi
+\newlength{\centeroffset}
+\setlength{\centeroffset}{-0.5\oddsidemargin}
+\addtolength{\centeroffset}{0.5\evensidemargin}
+%\addtolength{\textwidth}{-\centeroffset}
+\thispagestyle{empty}
+\vspace*{\stretch{1}}
+\noindent\hspace*{\centeroffset}\makebox[0pt][l]{\begin{minipage}{\textwidth}
+\flushright
+%{\Huge\bfseries The Not So Short\\ 
+%Introduction to \LaTeXe
+%
+%}
+{\Large\bfseries The Not So short\\
+ Introduction to \LaTeXe\\
+ \ \\
+ \Huge\bfseries \LaTeXe{} 입문
+ 
+}
+\noindent\rule[-1ex]{\textwidth}{5pt}\\[2.5ex]
+%\hfill\emph{\Large Or \LaTeXe{} in \pageref{verylast} minutes}
+%%% lastsheet from memoir
+\hfill\emph{%
+    \addhangulfontfeature{FakeSlant=.167}%
+    \Large \thelastsheet\,분 동안 익히는 \LaTeXe}
+\end{minipage}}
+
+\vspace{\stretch{1}}
+\noindent\hspace*{\centeroffset}\makebox[0pt][l]{\begin{minipage}{\textwidth}
+\flushright
+{\bfseries 
+by Tobias Oetiker\\[1.5ex]
+Hubert Partl, Irene Hyna and  Elisabeth Schlegl\\[3ex]} 
+%Version~4.17, September 27, 2005 \\
+Version~6.2, February 28, 2018 \\
+\ \\[5ex]
+{\bfseries\large 김강수, 조인성} 옮김 \\[2ex]
+% {\bfseries for proofreading only! DO NOT distribute!} \\[2ex]
+% (교정용) \\[2ex]
+한국어판 2019, 2019년 2월 9일 \\
+\end{minipage}}
+
+%\addtolength{\textwidth}{\centeroffset}
+\vspace{\stretch{2}}
+
+
+\pagebreak
+
+\endinput
+
+%
+
+% Local Variables:
+% TeX-master: "lshort2e"
+% mode: latex
+% mode: flyspell
+% End:
