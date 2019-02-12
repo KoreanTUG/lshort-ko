@@ -27,6 +27,7 @@ make
 xelatex --shell-escape lshort-ko.tex
 komkindex -k -s kotex lshort-ko.idx
 xelatex --shell-escape lshort-ko.tex
+xelatex --shell-escape lshort-ko.tex
 ```
 
 ## License
