@@ -66,20 +66,6 @@
 % \end{example}
 % }
 %\enlargethispage{4\onelineskip}
-\begin{figure}[htp]
-{
-\renewcommand\bibname{Bibliography}
-\begin{example}
-Partl~\cite{pa} has
-proposed that \ldots
-\begin{thebibliography}{99}
-\bibitem{pa} H.~Partl:
-\emph{German \TeX},
-TUGboat Volume~9, Issue~1 (1988)
-\end{thebibliography}
-\end{example}
-}
-\end{figure}
 
 숫자 레이블에 얼마 만큼의 
   공간이 필요한지를
@@ -88,8 +74,6 @@ TUGboat Volume~9, Issue~1 (1988)
 % \chaptermark{Specialities} % w need to fix the damage done by the
 %                            %bibliography example.
 % \thispagestyle{fancyplain}
-\chaptermark{특별한 기능}
-
 % For larger projects, you might want to check out the Bib\TeX{}
 % program. Bib\TeX{} is included with most \TeX{} distributions. It
 % allows you to maintain a bibliographic database and then extract the
@@ -103,6 +87,22 @@ Bib\TeX 은 대부분의 \TeX{} 배포판에 포함되어 있다. 이 프로그�
 Bib\TeX 에 의하여 생성되는 참고문헌 목록은 자신이 만들고자 하는 문헌목록과 
 인용방식에 의한 스타일시트에 입각하여 모양이 갖추어진다. 여러 학술지나 단행본에서 
 채택하고 있는 문헌목록과 인용방식의 스타일이 제공된다.
+
+%\begin{figure}[htp]
+{
+\renewcommand\bibname{Bibliography}
+\begin{example}
+Partl~\cite{pa} has
+proposed that \ldots
+\begin{thebibliography}{99}
+\bibitem{pa} H.~Partl:
+\emph{German \TeX},
+TUGboat Volume~9, Issue~1 (1988)
+\end{thebibliography}
+\end{example}
+%\end{figure}
+}
+\chaptermark{특별한 기능}
 
 % \section{Indexing} \label{sec:indexing}
 \section{색인}
@@ -140,6 +140,7 @@ Bib\TeX 에 의하여 생성되는 참고문헌 목록은 자신이 만들고자
 \end{lscommand}
 % \noindent command in the preamble.
 \noindent 이 명령은 전처리부에 놓인다.
+
 
 % The content of the index is specified with
 색인으로 들어갈 내용은 다음과 같이 지정한다.
@@ -348,7 +349,11 @@ position of the full stop.
 % If you want to change the look of the chapter
 % name in the header line, you need only ``renew'' the \ci{chaptermark}
 % command. \cih{sectionmark}\cih{subsectionmark}
-면주의 장표제 모양을 바꾸고 싶으면 \ci{chaptermark}를 재정의(renewcommand)하면 된다.
+면주의 장표제 모양을 바꾸고 싶으면 \ci{chaptermark}를 재정의(renewcommand)하면 된다.\trfnote{%
+    예시된 코드를 잘 보면 \cs{markboth}와 \cs{markright}라는 명령을 볼 수 있다.
+    \cs{rightmark}와 \cs{markright}를 혼동하기 쉬운데 \cs{rightmark}는 러닝 헤딩을 가지고 있는
+    문자열 매크로이고 \cs{markright}는 오른쪽(홀수쪽) 러닝 헤딩을 부여하는 명령이라고 기억하면 된다.
+    이 책자의 왼쪽 상단 면주에는 장의 제목이, 오른쪽 상단 면주에는 절의 제목이 들어가 있다.}
 
 % Figure~\ref{fancyhdr} shows a possible setup for the \pai{fancyhdr}
 % package that makes the headers look about the same as they look in
