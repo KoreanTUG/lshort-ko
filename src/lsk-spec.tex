@@ -141,7 +141,6 @@ TUGboat Volume~9, Issue~1 (1988)
 % \noindent command in the preamble.
 \noindent 이 명령은 전처리부에 놓인다.
 
-
 % The content of the index is specified with
 색인으로 들어갈 내용은 다음과 같이 지정한다.
 % \begin{lscommand}
@@ -183,14 +182,14 @@ TUGboat Volume~9, Issue~1 (1988)
 \begin{center}
 \begin{tabular}{@{}lll@{}}
   \textbf{Example} &\textbf{Index Entry} &\textbf{Comment}\\\hline
-  \rule{0pt}{1.05em}\verb|\index{hello}| &hello, 1 &Plain entry\\
-\verb|\index{hello!Peter}|   &\hspace*{2ex}Peter, 3 &Subentry under `hello'\\
-\verb|\index{Sam@\textsl{Sam}}|     &\textsl{Sam}, 2& Formatted entry\\
-\verb|\index{Lin@\textbf{Lin}}|     &\textbf{Lin}, 7& Formatted entry\\
-\verb|\index{Kaese@K\"ase}|     &\textbf{K\"ase}, 33& Formatted entry\\
-\verb.\index{ecole@\'ecole}.     &\'ecole, 4& Formatted entry\\
-\verb.\index{Jenny|textbf}.     &Jenny, \textbf{3}& Formatted page number\\
-\verb.\index{Joe|textit}.     &Joe, \textit{5}& Formatted page number
+  \rule{0pt}{1.05em}\verb|\index{hello}| &hello, 1 & 일반표제항목 \\
+\verb|\index{hello!Peter}|   &\hspace*{2ex}Peter, 3 & `hello' 아래 하위항목\\
+\verb|\index{Sam@\textsl{Sam}}|     &\textsl{Sam}, 2& 항목 출력형식 장식\\
+\verb|\index{Lin@\textbf{Lin}}|     &\textbf{Lin}, 7& 항목 출력형식 장식\\
+\verb|\index{Kaese@K\"ase}|     &\textbf{K\"ase}, 33& 항목 출력형식 장식\\
+\verb.\index{ecole@\'ecole}.     &\'ecole, 4& 항목 출력형식 장식\\
+\verb.\index{Jenny|textbf}.     &Jenny, \textbf{3}& 페이지번호 출력형식 장식\\
+\verb.\index{Joe|textit}.     &Joe, \textit{5}& 페이지번호 출력형식 장식
 \end{tabular}
 \end{center}
 \end{table}

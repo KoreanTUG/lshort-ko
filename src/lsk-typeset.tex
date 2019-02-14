@@ -1129,7 +1129,7 @@ script를 잘 지정해야 한다는 점을 기억하자.
 현대적 텍 엔진인 \XeTeX 과 Lua\TeX 에서 한글을 식자하려면 \pai{fontspec} 패키지와 한글 글리프를 가진 글꼴만 
 있으면 가능하다. \TeX\,Live에 포함된 한글 트루타입 폰트 ``은 글꼴''이 있으므로 
 \begin{verbatim}
-\fontspec{UnBatang.ttf} 한글 漢字
+{\fontspec{UnBatang.ttf}한글 漢字}
 \end{verbatim}
 와 같이 식자할 수 있다. 한자에 대해서도 마찬가지이다.
 
@@ -1153,8 +1153,8 @@ script를 잘 지정해야 한다는 점을 기억하자.
     CJKspace=true,%
     CJKecglue={}%
   }
-  \setCJKmainfont{NanumMyeongjo}%
-    [Ligatures=TeX,BoldFont={* ExtraBold},AutoFakeSlant]
+  \setCJKmainfont{UnBatang}%
+    [Ligatures=TeX,BoldFont={*-Bold},AutoFakeSlant]
 \end{verbatim}
 
 이상의 방법들은 한국어를 주요 언어로 하는 문서보다는 보조 언어로서 한글 표기가 필요할 경우에 쓸 수 있다.
@@ -1903,8 +1903,8 @@ The abstract abstract.
 \begin{lscommand}
 \ci{verb}\verb|+|\emph{text}\verb|+|
 \end{lscommand}
-\noindent \verb|+|는 시작과 끝을 나타내는 경계문자의 한 예시이다. 문자(letter), \verb|*|, 공백(space)을
-제외한 다른 글자를 사용할 수 있다. 이 문서의 많은 \LaTeX{} 코딩의 예들이 이 명령을 이용해서 작성되었다.
+\noindent \verb|+|는 시작과 끝을 나타내는 경계문자의 한 예시이다. 글자(letter), \verb|*|, 공백(space)을
+제외한 다른 문자를 사용할 수 있다. 이 문서의 많은 \LaTeX{} 코딩의 예들이 이 명령을 이용해서 작성되었다.
 
 % \begin{example}
 % The \verb|\ldots| command \ldots

@@ -12,7 +12,7 @@
 ## How to build
 
 - `pygmentize` (python-pygments) is required.
-- `lshort-ko` uses [KoPubWorld](http://www.kopus.org/biz/electronic/font.aspx) font. Since the font is not redistributable, the source given here will use Nanum font.
+- `lshort-ko` uses the [KoPubWorld](http://www.kopus.org/biz/electronic/font.aspx) font, but it's not redistributable. Instead the Nanum or Un font can be used alternatively. Uncomment font setting lines in `kopubworldfonts.sty` to use either one. Install the TrueType font to use Nanum.
 
 ### macOS/Linux
 
