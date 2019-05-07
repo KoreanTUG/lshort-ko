@@ -288,8 +288,11 @@ is the core of a very different transistor model. \ldots
 % algorithm does not find the correct hyphenation points,
 % remedy the situation by using the following commands to tell \TeX{}
 % about the exception.
-\LaTeX 은 필요할 때 단어를 \wi{분철}(hyphenate)한다. 분철 알고리즘이 적절한 분철 위치를 찾지 못하면
-\TeX{}에게 예외 처리를 지시하는 다음 명령을 써서 문제를 해결한다.
+\LaTeX 은 필요할 때 단어를 \wi{분철}(hyphenate)한다.\trfnote{%
+  한국어 표기법에서는 분철부호를 쓰지 않으며 모든 음절문자 사이에서 (일부 예외를 제외하면) 줄나눔을 할 수 있다.
+}
+분철 알고리즘이 적절한 분철 위치를 찾지 못하면
+예외 처리를 \TeX{}에게 지시하는 다음 명령을 써서 문제를 해결한다.
 
 % The command
 % \begin{lscommand}
@@ -320,7 +323,7 @@ is the core of a very different transistor model. \ldots
 % from being hyphenated at all.  No special characters or symbols are allowed
 % in the argument.
 다음 예는 ``hyphenation''과 ``Hyphenation''에 동일한 분철 규칙을 적용하고 ``FORTRAN'', ``Fortran'', ``fortran''에 
-대해서 분철을 허용하지 않게 한다. 특수문자나 기호는 허용되지 않는다.\trfnote{각 단어 사이에 \texttt{,} 등의 구분 기호가 없음에 주의.}
+대해서 분철을 허용하지 않게 한다. 특수문자나 기호는 허용되지 않는다.\trfnote{각 단어 사이에 \texttt{,} 등의 구분 기호가 없음에 주의}
 
 % Example:
 % \begin{code}
@@ -342,8 +345,7 @@ is the core of a very different transistor model. \ldots
 이 명령은 특수문자(예: 강세표시 문자)를 포함하고 있는 단어에서 특히 유용한데 특수문자를 포함하는 단어에 대하여 
 \LaTeX 이 자동으로 분철하지 않기 때문이다.\trfnote{%
   강세표시 문자가 포함된 단어를 분철하지 못한다는 것은 OT1 인코딩의 폰트를 사용하는 경우에 해당한다.
-  현대의 유니코드 텍엔진이나 T1 인코딩 폰트를 사용하는 경우에 이런 문자가 포함된 단어에 대해서도 분철이
-  가능하다. 한편 한국어 표기는 분철부호를 쓰지 않으며 모든 음절문자 사이에서(일부 예외를 제외하면) 줄나눔을 할 수 있다.
+  현대의 유니코드 텍엔진으로는 이런 문자가 포함된 단어에 대해서도 분철이 가능하다.
 }
 
 % \begin{example}
@@ -362,11 +364,13 @@ al\-i\-do\-cious
 % \ci{mbox}\verb|{|\emph{text}\verb|}|
 % \end{lscommand}
 % \noindent It causes its argument to be kept together under all circumstances.
-몇 단어를 묶어서 줄나눔을 하지 않도록 하려면 다음과 같이 한다.
+몇 단어를 묶어서 줄나눔이 일어나지 않도록 하려면 다음과 같이 한다.
 \begin{lscommand}
 \ci{mbox}\verb|{|\emph{text}\verb|}|
 \end{lscommand}
 \noindent 인자로 주어진 단어들은 항상 묶인 상태가 된다.
+
+
 
 % \begin{example}
 % My phone number will change soon.
@@ -425,7 +429,7 @@ contain the name of the file.
 
 \footnotetext{%
   [역주] 한국어 \TeX 에서 \cs{today} 명령이 만들어내는 문자열은 
-  ``2019년 2월 12일''과 같은 모양일 수 있다. 이 날짜 문자열은 
+  ``2019년 5월 6일''과 같은 모양일 수 있다. 이 날짜 문자열은 
   \pai{polyglossia} 패키지가 해당 언어에 따라 생성할 수도 있다.
 }
 
@@ -532,7 +536,7 @@ http://www.clever.edu/$\sim$demo
 두 단어 사이에 슬래시를 넣으려면 간단히 \texttt{read/write}와 같이 입력할 수 있다.
 그렇지만 이렇게 하면 이 전체를 하나의 단어로 인식하게 된다. 단어 내부에서 분철이 일어나지 않기 
 때문에 `overfull' 경고를 만날 수 있다. \ci{slash} 명령을 사용하여 예컨대 \verb|read\slash write|와 
-같이 입력하면 분철이 허용되게 된다. 그러나 `\texttt{/}' 문자는 분수나 단위를 나타낼 때는 
+같이 입력하면 분철이 허용되게 된다. 그러나 분수나 단위를 나타낼 때는 `\texttt{/}' 문자를
 그대로 사용해야 한다.
 \texttt{5 MB/s}.
 
@@ -565,8 +569,8 @@ super-conduct.
 30 \textcelsius{} is
 86 \textdegree{}F.
 \end{example}
-\noindent 이 경우에, 만약 \XeLaTeX 이나 Lua\LaTeX 이 아닌 legacy \TeX (pdf\LaTeX)으로 컴파일하고 있다면 \pai{textcomp}
-패키지를 usepackage 하여야 한다.
+\noindent 이 경우에, 만약 \XeLaTeX 이나 Lua\LaTeX 이 아닌 레거시(legacy) \TeX~(pdf\LaTeX)으로 컴파일하고 있다면 \pai{textcomp}
+패키지를 \verb|\usepackage{textcomp}| 명령으로 로드하여야 한다.
 
 % \subsection{The Euro Currency Symbol \texorpdfstring{(\officialeuro)}{}}
 \subsection{유로 통화 기호(\texorpdfstring{{\texteuro}}{})}
@@ -718,8 +722,7 @@ but shelf\mbox{}ful
 % being applied to the letter o. Naturally other letters work too.
 \LaTeX 은 여러 언어의 \wi{액센트}[accent]와 \wi{특수 문자}[special character]를 지원한다.
 표~\ref{accents}\는 o 문자에 다양한 액센트를 붙인 예를 보여준다. 다른 글자에도 마찬가지로 적용 가능하다.\trfnote{%
-  \XeTeX 이나 Lua\TeX 과 같은 유니코드 텍 엔진을 사용할 적에 액센트 붙은 문자는 유니코드 문자를 그대로 입력해도 잘 처리한다.
-  ò ó ô õ ö ø.
+  \XeTeX 이나 Lua\TeX 과 같은 유니코드 텍 엔진을 사용할 적에 액센트 붙은 문자는 유니코드 문자를 그대로 입력해도 잘 처리한다: ò ó ô õ ö ø.
 }
 
 % To place an accent on top of an i or a j, its dots have to be
@@ -872,8 +875,9 @@ Stra\ss e
 % editor and \hologo{TeX} will understand them.
 그 동안은 유니코드 \TeX{} 엔진을 사용해서 얻을 이득이 별로 없었다. 이 상황은 라틴 문자를 벗어나서 
 그리스어나 러시아어와 같은 흥미로운 언어를 만나면서 바뀌게 되었다.
-유니코드에 기반을 둔 시스템을 사용하면 에디터에 고유 문자를 손쉽게\footnote{손쉽다는 말의 최소한도의 의미에서} 입력해넣을 
-수 있다. 그리고 \TeX 이 그것을 이해한다.
+유니코드에 기반을 둔 시스템을 사용하면 에디터에 고유 문자를 손쉽게(얼마나 쉬운가는 생각하기 나름이지만)
+%\footnote{손쉽다는 말의 최소한도의 의미에서} 
+입력해넣을 수 있다. 그리고 \TeX 이 그것을 이해한다.
 
 % Writing in different languages is easy, just specify the languages in the
 % preamble. This example uses the \pai{csquotes} package which generates
@@ -1115,7 +1119,7 @@ script를 잘 지정해야 한다는 점을 기억하자.
 
 % \subsubsection{Chinese, Japanese and Korean (CJK)}
 % \index{Chinese}\index{Japanese}\index{Korean}
-\subsubsection{중국어, 일본어, 한국어 (CJK)}
+\subsubsection{한국어, 중국어, 일본어 (CJK)}
 \index{Chinese}\index{Japanese}\index{Korean}\index{중국어}\index{일본어}\index{한국어}
 
 % The package \pai{xeCJK}\cite{xecjk} takes care of font selection and
@@ -1133,6 +1137,8 @@ script를 잘 지정해야 한다는 점을 기억하자.
 \end{verbatim}
 와 같이 식자할 수 있다. 한자에 대해서도 마찬가지이다.
 
+\medskip 
+
 \pai{polyglossia} 패키지는 korean 언어 모듈을 가지고 있어서 한글을 지원한다.
 글꼴을 잘 설정해주는 것에 주의하면 된다.
 \begin{verbatim}
@@ -1142,6 +1148,8 @@ script를 잘 지정해야 한다는 점을 기억하자.
 \end{verbatim}
 이제 korean 환경이나 \ci{textkorean} 명령을 사용할 수 있다. 원한다면 main language를 korean으로 설정하고 쓸 수도
 있으며 이 경우에는 자동 생성 문자열, 행 간격, 일부 문장부호 등을 한글 문서에 알맞도록 설정해준다.
+
+\medskip 
 
 앞선 절에서 소개하는 \pai{xeCJK} 패키지로 한글을 식자하는 것도 어렵지 않다. 이 때 주의할 것은
 중국어나 일본어에는 띄어쓰기가 없는 데 반해 우리 글은 띄어쓰기를 한다는 점이다. 그러므로 폰트 설정 시에 
@@ -1661,7 +1669,7 @@ by people using \LaTeX.
 % \cih{item}
 \ei{itemize}는 단순 리스트,
 \ei{enumerate}는 번호붙은 리스트,
-\ei{description}은 설명형 리스트를 위한 환경이다. \cih{item}
+\ei{description}은 설명형 리스트를 위한 환경이다.\cih{item}
 각 항목은 \verb|\item|으로 지시해야 하며 하나 이상의 \verb|\item|이 반드시 있어야 한다.
 \index{리스트 문단}
 
@@ -1689,22 +1697,22 @@ by people using \LaTeX.
 \begin{example}
 \flushleft
 \begin{enumerate}
-\item You can nest the list
+  \item You can nest the list
 environments to your taste:
-\begin{itemize}
-\item But it might start to
+  \begin{itemize}
+    \item But it might start to
 look silly.
-\item[-] With a dash.
-\end{itemize}
-\item Therefore remember:
-\begin{description}
-\item[Stupid] things will not
+    \item[-] With a dash.
+  \end{itemize}
+  \item Therefore remember:
+  \begin{description}
+    \item[Stupid] things will not
 become smart because they are
 in a list.
-\item[Smart] things, though,
+    \item[Smart] things, though,
 can be presented beautifully
 in a list.
-\end{description}
+  \end{description}
 \end{enumerate}
 \end{example}
 
@@ -2141,7 +2149,7 @@ leading space left and right\\
 % \ci{multicolumn} command.
 \index{소수점 정렬}
 아무런 패키지를 쓰지 않은 \LaTeX\ 자체만으로는 소수점을 기준으로 컬럼의 숫자를 정렬할 방법이 없다.\footnote{%
-  `tools' 패키지묶음에 포함되어 있는 \pai{dcolumn} 패키지가 이런 일을 해준다.
+  \textsf{tools} 패키지묶음에 포함되어 있는 \pai{dcolumn} 패키지가 이런 일을 해준다.
 }
 ``변칙적인'' 방법을 생각해보자. 두 개의 컬럼을 사용하되 왼쪽 컬럼에는 정수부분을, 오른쪽 컬럼에는 소수부분을 넣어두는 것이다.
 그런 다음 \verb|@{.}|를 이용하여 컬럼 사이의 스페이스를 점(``.'')으로 대체하도록 \verb|\begin{tabular}|의 인자를
@@ -2537,7 +2545,7 @@ width와 height 인자의 값으로는 절대 길이를 지정할 수도 있다.
 넣어두고 처리를 미룬다.\footnote{FIFO, 즉 ``먼저 들어온 것이 먼저 나가는'' 큐(queue)이다.}
 \LaTeX 은 대기열에 있는 개체들로 특별한 `플로트가 놓이는' 페이지를 만들기에 충분한지를 검사한다.
 이것이 만약 불가능하면 대기열의 첫 번째 개체가 지금 막 그 위치에서 불린 것처럼 취급한다. 즉
-\LaTeX 은 그 개체에 주어져 있는 위치지정자의 요구에 따라 다시 위치를 결정하려 한다. (단 `h'
+\LaTeX 은 그 개체에 주어져 있는 위치지정자의 요구에 따라 다시 위치를 결정하려 한다. (단 `\texttt{h}'
 지정자는 더이상 무의미하다.)
 텍스트에서 떠다니는 개체가 새로이 발생할 때마다 각자 대기열 속에 들어간다.
 \LaTeX 은 개체의 유형별로 출현 순서를 엄격히 유지한다. 그러다 보면 문서의 끝까지
@@ -2563,8 +2571,8 @@ width와 height 인자의 값으로는 절대 길이를 지정할 수도 있다.
 \LaTeX 에게 위치지정자를 하나만 전달하는 것도 가능하지만 이렇게 하면 문제가 생긴다.
 만약 플로트가 그 지정된 위치에 놓이는 데 실패하면 바로 정체되어 그 이후에 오는 플로트들이
 처리되지 못하게 만든다.
-특히, [h] 옵션 하나만 지정되어 있다면 아주 곤란하기 때문에 요즘 \LaTeX 은 문서작성자가 
-[h]라고만 하더라도 자동으로 [ht]로 바꾸어서 처리한다.
+특히, \texttt{[h]} 옵션 하나만 지정되어 있다면 아주 곤란하기 때문에 요즘 \LaTeX 은 문서작성자가 
+\texttt{[h]}라고만 하더라도 자동으로 \texttt{[ht]}로 바꾸어서 처리한다.
 
 % \bigskip
 % \noindent Having explained the difficult bit, there are some more things to
@@ -2664,7 +2672,7 @@ Figure~\ref{white} is an example of Pop-Art.
 % had just occurred in the text.
 \noindent 이 예에서 
 \LaTeX 은 바로 이곳 (\texttt{h})에 그림을 놓으려고 \emph{할 수 있는 한} (\texttt{!})
-시도해 본다.\footnote{대기열에 다른 그림이 없다고 가정.}
+시도해 본다.\footnote{대기열에 다른 그림이 없다고 가정}
 만약 이것이 불가능하면 그림을 페이지의 \emph{바닥} (\texttt{b})에 놓으려 한다.
 현재 페이지에서 그것이 불가능하면 (표 대기열에 혹시 표가 있다면 그것과 함께) 이 그림을 
 놓을 별도의 플로트 페이지를 만들 수 있을지를 결정한다. 

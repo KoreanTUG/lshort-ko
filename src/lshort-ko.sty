@@ -4,20 +4,23 @@
 %% a style file for lshort-ko 2019
 %% written by Karnes Kim, 2019
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{lshort-ko}[2019/05/05]
+%
 \RequirePackage{kotex-logo}
 \RequirePackage{ob-mathleading}
 
+%%%% color links
 \hypersetup{colorlinks=true}
 
 %%%% papersize setting
 \RequirePackage{fapapersize}
 \usefapapersize{*,*,30mm,50mm,32mm,35mm}
 
+%%%% Loading packages required
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \RequirePackage{embrac}
-
-\RequirePackage{fancyhdr}
+%\RequirePackage{fancyhdr}
 \RequirePackage{tikz}
 \usepgfmodule{plot}
 \usetikzlibrary{%
@@ -98,11 +101,12 @@
 \makerunningwidth{lshortko}{\headwidth}
 \makeheadrule{lshortko}{\headwidth}{\normalrulethickness}
 
+%%% Hangul Font Settings
 \RequirePackage{kopubworldfonts}
 
 %%% legacy command of lshort-kr
-\let\hemph\emph 
-\let\euro\texteuro
+%\let\hemph\emph 
+%\let\euro\texteuro
 \newcommand\HLaTeX{H\LaTeX}
 
 %%% verbatim
@@ -114,6 +118,7 @@
 %\RequirePackage{verbatim}
 
 \RequirePackage[outputdir=build]{minted}
+%\RequirePackage{minted}
 %\usemintedstyle{bw}
 \usemintedstyle{emacs}
 \RequirePackage{tcolorbox}

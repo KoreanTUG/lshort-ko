@@ -267,7 +267,7 @@ position of the full stop.
 % package.
 문서의 면주\index{면주}%
 \trfnote{``면주(面柱)''란 책의 본문 외곽에 편장절의 표제 등을 적어넣은 것을 가리키는 조판 용어이다. \emph{header}와 \emph{footer}를 이용하여 만드는 \emph{page style}을 가리키는 의미로 사용하였다. 편의상 header를 상단면주, footer를 하단면주라고 하였다.}%
-를 사용자가 만들 수 있도록 하는 명령을 제공하는 패키지가 있다. Piet van Oostrum이 작성한 \pai{fancyhdr}이다.\footnote{\CTAN|macros/latex/contrib/supported/fancyhdr|.}
+를 사용자가 만들 수 있도록 하는 명령을 제공하는 패키지가 있다. Piet van Oostrum이 작성한 \pai{fancyhdr}이다.\footnote{\CTAN|macros/latex/contrib/supported/fancyhdr|}
 영문판 lshort 문서의 \wi{페이지 스타일}이 이 패키지를 이용하여 만들어진 것이다.%
 \trfnote{한국어판은 영문판 페이지 스타일을 비슷하게 흉내내었지만 조금 다른 방법으로 만들었다.}
 
@@ -766,7 +766,7 @@ PDF 파일의 \texttt{문서 정보}에 들어갈 내용을 다음과 같이 설
 % ``\textcolor{cyan}{here}''
 % will open the file \texttt{manual.pdf}. (The filename is relative to
 % the location of the current document).
-링크가 가리키는 목적지가 URL이 아니라 파일인 경우에 \ci{href} 명령에 `http://' 부분을 제외하고 쓴다.
+링크가 가리키는 목적지가 URL이 아니라 파일인 경우에 \ci{href} 명령에 `\texttt{http://}' 부분을 제외하고 쓴다.
 \begin{verbatim}
   전체 문서는 \href{manual.pdf}{여기}를 보시오.
 \end{verbatim}
@@ -796,7 +796,7 @@ PDF 파일의 \texttt{문서 정보}에 들어갈 내용을 다음과 같이 설
 % work well within Acrobat, but once the page is printed the email address
 % would not be visible anymore.
 위의 예에서 저자의 이름에 이메일 주소 하이퍼링크를 걸지 않고 이메일 주소를 쓰면서 거기에 다시 링크를 걸었는데 이렇게 한 이유는 저자 이름에만 이메일 주소 링크를 \\
-\verb+\href{mailto:mary@oetiker.ch}{Mary Oetiker}+\\
+\verb+.    \href{mailto:mary@oetiker.ch}{Mary Oetiker}+\\
 이런 식으로 걸어둔 경우에 PDF를 화면으로 읽고 있다면 문제없이 동작하지만 인쇄했을 때 이메일 주소가 사라져서 보이지 않게 되기 때문이다.
 
 % \subsection{Problems with Links}
@@ -1094,7 +1094,7 @@ vim이나 Emacs와 같이 특수 문자 입력 방법을 제공하는 에디터�
 한글 오픈타입 또는 트루타입 폰트는 대부분 \XeLaTeX 에서 사용가능하다.
 손쉽게 사용할 수 있는 한글 폰트는 은 글꼴, 
 \href{https://hangeul.naver.com}{나눔글꼴}, 
-\href{http://wiki.ktug.org/wiki/wiki.php/%ED%95%A8%EC%B4%88%EB%A1%AC%EC%B2%B4LVT}{함초롬LVT} 폰트,
+\href{http://wiki.ktug.org/wiki/wiki.php/%ED%95%A8%EC%B4%88%EB%A1%AC%EC%B2%B4LVT}{함초롬 LVT} 폰트,
 \href{https://www.google.com/get/noto/}{Noto CJK Fonts} 등이 있다.
 은 글꼴 트루타입은 \TeX\,Live로 배포되므로 별도로 설치할 필요가 없지만 다른 글꼴은 \emph{스스로 운영체제에 설치해야} 사용가능하다.
 

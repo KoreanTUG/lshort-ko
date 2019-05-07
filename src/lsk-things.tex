@@ -70,7 +70,7 @@
   독일어에는 사실 두 가지 ``ch'' 발음이 있다. ``Pech''의 부드러운 ``ch'' 소리가 더 적절하지
   않으냐고 생각하는 사람도 있다. Knuth에게 이것에 대해 질문하였는데 그는 독일 위키백과에 다음과 같이 썼다.
   \emph{나는 사람들이 \TeX 을 제각기 좋을 대로 발음한다 해도 화나지 않는다 \ldots X가 모음 e 다음에 오기
-  때문에 독일 사람들은 a 다음에 이어지는 거친 ch 소리가 아니라 부드러운 ch로 소리내는 사람이 많은데.
+  때문에 독일 사람들은 a 다음에 이어지는 거친 ch 소리가 아니라 부드러운 ch로 소리내는 사람이 많은데,
   러시아에서 `tex'은 익숙한 단어이고 `tyekh'로 발음한다. 그러나 가장 적절한 발음은 그리스어에 있다고 생각하며
   거기서는 ach와 Loch의 거친 ch 소리를 들을 수 있다.}}
 또는 스코틀랜드어 ``Loch''에서
@@ -939,7 +939,7 @@ Well, and here begins my lovely article.
   \wi{1단}[one column]이나 \wi{2단}[two column] 조판을 선택한다.
 
 \item[\normalfont\texttt{twoside, oneside}] \quad 
-  \wi{단면문서}[single sided]인지 \wi{펼침면} 조판[double sided]인지를 지정한다. \texttt{article} 클래스와 \texttt{report}는
+  \wi{단면문서}[single sided]인지 \wi{펼침면} 조판(double sided)인지를 지정한다. \texttt{article} 클래스와 \texttt{report}는
   단면이 기본이고 \texttt{book}은 펼침면 조판이 기본이다.
   이 옵션이 의미하는 바는 문서의 모양을 어떻게 만들 것이냐에 관한 것일 뿐이고 
   프린터에게 양면인쇄를 하라는 명령을 보내는 것은 아니라는 점을 알아두자.
@@ -1229,17 +1229,18 @@ Well, and here begins my lovely article.
 \item[\eei{.sty}] \LaTeX{} 매크로 패키지.
   이 파일은 \ci{usepackage} 명령으로 문서 중에 로드할 수 있다.
 \item[\eei{.dtx}] 
-  \TeX{} 문서화 파일. \LaTeX{} 스타일 파일은 이 형식으로 배포한다.
-  .dtx 파일을 컴파일하면 스타일 파일에 관련된 문서를 얻을 수 있다.
+  \TeX{} 문서화 파일. \LaTeX{} 스타일 파일을 배포할 때에 이 형식으로 하는 경우가 많다.
+  문서와 코드를 동시에 포함하고 있는 파일로서 이를
+  컴파일하여 스타일 파일과 관련 문서를 얻을 수 있다.
 \item[\eei{.ins}] 
   .dtx 파일에 포함되어 있는 파일을 풀어내기 위하여 필요한 지침을 적은 
   인스톨 보조 파일. 온라인으로부터 \LaTeX{} 패키지를 내려받았을 때 
-  보통 .dtx와 .ins로 이루어져 있다. .ins에 \LaTeX 을 적용하면 
+  .dtx와 .ins로 이루어져 있다면 .ins에 \LaTeX 을 적용하여 
   .dtx로부터 필요한 파일을 풀어낸다.
 \item[\eei{.cls}]
   클래스 파일. \ci{documentclass} 명령으로 지정할 수 있다.
 \item[\eei{.fd}] 
-  폰트 기술 파일. 
+  폰트 기술(description) 파일. 
 \end{description}
 
 
@@ -1328,8 +1329,8 @@ Well, and here begins my lovely article.
 \begin{lscommand}
 \ci{include}\verb|{|\emph{filename}\verb|}|
 \end{lscommand}
-\noindent 이 명령을 본문에 쓰면 \emph{filename.tex}이라는 이름의 외부 파일의 내용을 
-그 위치에 삽입한다. \emph{filename.tex}에 포함된 내용을 처리하기 직전에 
+\noindent 이 명령을 본문에 쓰면 \emph{filename.tex}\,이라는 이름의 외부 파일의 내용을 
+그 위치에 삽입한다. \emph{filename.tex}\,에 포함된 내용을 처리하기 직전에 
 페이지가 나누어진다는 사실을 기억하라.
 
 % The second command can be used in the preamble. It allows you to

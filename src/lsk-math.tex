@@ -400,7 +400,7 @@ $p^3_{ij} \qquad
  e^{x^2} \neq {e^x}^2$
 \end{example}
 \noindent 예제에 나오는 $\neq$와 같은 이항관계연산부호 명령을 
-\pageref{binaryrel}페이지 표~\ref{binaryrel}에서 $\subseteq$, $\perp$ 등 여러 가지 볼 수 있다.
+\pageref{binaryrel}페이지 표~\ref{binaryrel}에서 $\subseteq$, $\perp$를 포함하여 여러 가지 볼 수 있다.
 
 
 % The \textbf{\wi{square root}} is entered as \ci{sqrt}; the
@@ -419,7 +419,7 @@ $n$제곱근을 표시하려면 \verb|\sqrt[|$n$\verb|]|으로 쓴다. 제곱근
 %  \quad \sqrt{x^{2} + \sqrt{y}}
 %  \quad \surd[x^2 + y^2]$
 % \end{example}
-\noindent 예제에 나오는 $\Leftrightarrow$와 같은 화살표를 \pageref{tab:arrows}페이지의 표 \ref{tab:arrows}에서 $\hookrightarrow$, $\rightleftharpoons$ 등 여러 종류 볼 수 있다.
+\noindent 예제에 나오는 $\Leftrightarrow$ 화살표 종류로서 $\hookrightarrow$, $\rightleftharpoons$ 같은 것을 \pageref{tab:arrows}페이지의 표 \ref{tab:arrows}에서 볼 수 있다.
 \begin{example}
 $\sqrt{x} \Leftrightarrow x^{1/2}
  \quad \sqrt[3]{2}
@@ -738,7 +738,7 @@ Pascal's rule is
 
 % To get more control over the placement of indices in complex
 % expressions, \pai{amsmath} provides the \ci{substack} command:
-복잡한 표현식에서 인덱스의 위치를 잘 위치짓기 위해 \pai{amsmath} 패키지의 \ci{substacks} 명령을 쓸 수 있다.
+복잡한 표현식에서 인덱스의 위치를 잘 위치짓기 위해 \pai{amsmath} 패키지의 \ci{substack} 명령을 쓸 수 있다.
 % \begin{example}
 % \begin{equation*}
 % \sum^n_{\substack{0<i<n \\ 
@@ -843,7 +843,7 @@ $\big( \Big( \bigg( \Bigg( \quad
 표시해야 할 때가 있다. 그러나 행을 나눈 수식은 그렇지 않은 것에 비해 
 읽고 이해하기 어렵다. 가독성을 향상하기 위해 행을 나눌 때 적용하는 규칙이 있다.
 % \begin{enumerate}
-\begin{enumerate}
+\begin{enumerate} \firmlist
   % \item In general one should always wrap an equation \textbf{before} an
 %   equality sign or an operator.
 \item 일반적으로 수식은 등호나 연산자 부호 \emph{앞에서} 행을 나눈다.
@@ -972,7 +972,12 @@ $\big( \Big( \bigg( \Bigg( \quad
 %   Another excellent use case for the
 %   \ei{IEEEeqnarray} environment. Try an argument like
 %   \texttt{\{rCl+rCl\}}.} could be used:
-여러 줄 수식을 \ei{align} 환경으로 다음과 같이 사용할 수 있다.\footnote{%
+여러 줄 수식을 식자하는 \textsf{amsmath} 표준 환경은 \ei{align}이다.%
+\trfnote{%
+	\texttt{align}과 그 파생 환경(\texttt{aligned}, \texttt{alignat}, \texttt{xalignat})으로 여러 줄 수식을 대부분 훌륭하게 조판할 수 있다. 
+	이 환경의 사용법을 보려면 \texttt{texdoc amsldoc} 명령을 실행하라.}%
+\textsuperscript{,}%
+\footnote{%
   \texttt{align} 환경은 여러 수식군을 서로 나란히 놓는 데도 사용할 수 있다.
   \ei{IEEEeqnarray} 환경에서 \texttt{\{rCl+rCl\}} 인자를 주어서 이것을 멋지게 처리할 수 있다.
 }
@@ -1152,7 +1157,7 @@ $\big( \Big( \bigg( \Bigg( \quad
 %\footnote{%
 %   \pai{IEEEtrantools} 패키지가 설치되어 있지 않다면 CTAN에서 내려받는다.
 % }
-그리고 문서의 전처리부에 다음과 같이 써넣는다.
+문서의 전처리부에 다음과 같이 써넣는다.
 \begin{verbatim}
   \usepackage{IEEEtrantools}
 \end{verbatim}
@@ -1256,7 +1261,7 @@ $\big( \Big( \bigg( \Bigg( \quad
   & = & l + m + n
 \end{IEEEeqnarray}
 \end{examplek}
-이렇게 수정할 수 있다.
+\noindent 다음과 같이 수정할 수 있다.
 %   we get
 % \begin{example}
 % \begin{IEEEeqnarray}{rCl}
