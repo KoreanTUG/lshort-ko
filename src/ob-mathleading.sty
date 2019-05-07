@@ -1,0 +1,144 @@
+%%
+%% file: ob-mathleading.sty
+%%
+%% written by nova
+%%
+%% a supplementary package to oblivoir
+%% set lineskips in multi-lined math environments
+%% (amsmath required)
+%%
+%% v. 0.1alpha  : 2018/12/22
+%% v. 0.0.1-pr2 : 2018/12/24
+%% v. 0.0.1     : 2018/12/25
+%%
+\RequirePackage{expl3}
+\ProvidesExplPackage
+	{ob-mathleading}
+	{2018/12/25}
+	{v0.0.1}
+	{adjust math leadings for oblivoir}
+
+\@ifpackageloaded{amsmath}{}{\RequirePackage{amsmath}}
+\RequirePackage{xparse}
+\RequirePackage{etoolbox}
+\RequirePackage{l3keys2e}
+
+\keys_define:nn { obmathleading }
+{
+	default			.bool_set:N	= \l_defaultopt_bool,
+	mathleading		.fp_set:N 	= \l_opt_mathleading_fp,
+	exception		.clist_set:N = \g_opt_mlexception_clist,
+	noallowdisplaybreaks	.bool_set:N = \g_noallowdispbreak_bool
+}
+
+\keys_set:nn { obmathleading }
+{
+	default 	= true,
+	mathleading	= 1.0,
+	exception	= {},
+	noallowdisplaybreaks = false
+}
+
+\ProcessKeysOptions { obmathleading }
+
+\scan_stop:
+
+\bool_if:NTF \l_defaultopt_bool
+{
+	\tl_set:Nn \l_obml_stretch_tl { \fp_use:N \l_opt_mathleading_fp }
+}
+{
+	\tl_set:No \l_obml_stretch_tl { \baselinestretch }
+}
+
+\NewDocumentCommand \obmathleading { m }
+{
+	\tl_set:Nn \l_obml_stretch_tl { #1 }
+}
+
+\NewDocumentEnvironment { obMathLeading } { O{1.0} }
+{
+	\obmathleading { #1 }
+}
+{
+}
+
+\cs_new:Npn \mathleading_set_default:nN #1 #2
+{
+	\clist_if_in:NnF \g_opt_mlexception_clist { #1 }
+	{
+    	\AtBeginEnvironment { #1 }
+    	{
+    		\linespread { #2 } \selectfont \ignorespaces
+    	}
+	}
+}
+
+\cs_new:Npn \splitleading_set_default:N #1
+{
+	\clist_if_in:NnF \g_opt_mlexception_clist { split }
+	{
+    	\patchcmd \start@split
+    	{ \spread@equation }
+    	{ \linespread { #1 } \selectfont \spread@equation }
+    	{ }
+    	{ }
+	}
+}
+
+\mathleading_set_default:nN { array    } \l_obml_stretch_tl
+\mathleading_set_default:nN { matrix   } \l_obml_stretch_tl
+\mathleading_set_default:nN { matrix*  } \l_obml_stretch_tl
+\mathleading_set_default:nN { pmatrix  } \l_obml_stretch_tl
+\mathleading_set_default:nN { pmatrix* } \l_obml_stretch_tl
+\mathleading_set_default:nN { bmatrix  } \l_obml_stretch_tl
+\mathleading_set_default:nN { bmatrix* } \l_obml_stretch_tl
+\mathleading_set_default:nN { Bmatrix  } \l_obml_stretch_tl
+\mathleading_set_default:nN { Bmatrix* } \l_obml_stretch_tl
+\mathleading_set_default:nN { vmatrix  } \l_obml_stretch_tl
+\mathleading_set_default:nN { vmatrix* } \l_obml_stretch_tl
+\mathleading_set_default:nN { Vmatrix  } \l_obml_stretch_tl
+\mathleading_set_default:nN { Vmatrix* } \l_obml_stretch_tl
+\mathleading_set_default:nN { cases    } \l_obml_stretch_tl
+\mathleading_set_default:nN { cases*   } \l_obml_stretch_tl
+\mathleading_set_default:nN { aligned  } \l_obml_stretch_tl
+\mathleading_set_default:nN { alignedat } \l_obml_stretch_tl
+\mathleading_set_default:nN { gathered } \l_obml_stretch_tl
+
+\splitleading_set_default:N \l_obml_stretch_tl 
+
+\clist_if_in:NnF \g_opt_mlexception_clist { gather }
+{
+	\patchcmd \start@gather
+	{ \collect@body }
+	{ \linespread { \l_obml_stretch_tl } \selectfont \collect@body }
+	{ }
+	{ }
+}
+
+\clist_if_in:NnF \g_opt_mlexception_clist { align }
+{
+	\patchcmd \start@align
+	{ \collect@body }
+	{ \linespread { \l_obml_stretch_tl } \selectfont \collect@body }
+	{ }
+	{ }
+}
+
+\clist_if_in:NnF \g_opt_mlexception_clist { multline }
+{
+	\patchcmd \start@multline
+	{ \collect@body }
+	{ \linespread { \l_obml_stretch_tl } \selectfont \collect@body }
+	{ }
+	{ }
+}
+
+
+
+\bool_if:NF \g_noallowdispbreak_bool
+{
+	\AtBeginDocument { \allowdisplaybreaks }
+}
+
+%% end of file
