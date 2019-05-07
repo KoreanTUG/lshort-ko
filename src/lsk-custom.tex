@@ -662,7 +662,12 @@ latex '\newcommand{\blackandwhite}{true}\input{test.tex}'
 % significant role. They are used to build \emph{groups}.  Groups
 % limit the scope of most \LaTeX{} commands.\index{grouping}
 폰트 크기 명령 관련해서 \wi{중괄호}[curly braces](curly braces)가 아주 중요한 역할을 한다. 중괄호는 \emph{범위(group)}를 설정하는 데 쓰인다.
-대부분의 \LaTeX{} 명령은 설정된 범위로 내에서 효력을 갖는다.\index{명령 적용 범위}\index{group}
+대부분의 \LaTeX{} 명령은 범위 내부에 효력이 미친다.\index{명령 적용 범위}\index{group}\trfnote{%
+		따라서 글꼴 크기 명령이 놓인 위치가 어떤 범위의 내부라면 그 범위가 종료될 때까지 계속해서 
+		영향을 미친다.
+		이와 같이 놓인 위치로부터 범위가 종료될 때까지 계속 영향을 미치는 명령을 `선언'이라
+		부르기도 한다.
+}
 
 % \begin{example}
 % He likes {\LARGE large and
