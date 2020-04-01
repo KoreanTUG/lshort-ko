@@ -8,8 +8,13 @@
 %\setkosansfont(\koreansansregularfont)(\koreansansboldfont)
 
 %%% UnFonts in TeXLive
-%\setkomainfont(UnBatang.ttf)(UnBatangBold.ttf)(UnGraphicBold.ttf)[interhchar=-.08em]
-%\setkosansfont(UnDotum.ttf)(UnDotumBold.ttf)[interhchar=-.04em]
-%\setkomonofont(UnTaza.ttf)[](UnDotum.ttf)
+\def\koreanmainregularfont{UnBatang.ttf}
+\def\koreanmainboldfont{UnBatangBold.ttf}
+\def\koreanmainemphfont{UnGraphicBold.ttf}
+\def\koreansansregularfont{UnDotum.ttf}
+\def\koreansansboldfont{UnDotumBold.ttf}
+\setkomainfont(\koreanmainregularfont)(\koreanmainboldfont)(\koreanmainemphfont)[interhchar=-.08em]
+\setkosansfont(\koreansansregularfont)(\koreansansboldfont)[interhchar=-.04.em]
+\setkomonofont(UnTaza.ttf)[](UnDotum.ttf)
 
 \endinput

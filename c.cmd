@@ -1,1 +1,1 @@
-pdf2htmlex lshort-ko.pdf
+C:\home\bin\pdf2htmlEX\pdf2htmlex lshort-ko.pdf

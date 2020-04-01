@@ -63,6 +63,11 @@
 
 \RequirePackage[all]{xy}
 
+%\RequirePackage{chextras}
+\ifx\textsi\undefined
+\providecommand*\textsi[1]{#1}
+\fi
+
 \RequirePackage{iftex}
 %%% we will never run pdflatex...
 % \ifPDFTeX
@@ -254,7 +259,7 @@
      \vskip -\parskip\noindent\ignorespaces}
 
 %%% font in the intro environment
-\renewcommand*\precisfont{\sffamily}
+     \renewcommand*\precisfont{\sffamily\hangulfontspec{\koreansansregularfont}[BoldFont=\koreansansboldfont]}
 
 \AtBeginDocument{%
     \renewcommand\post@chapter{장}

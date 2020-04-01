@@ -202,7 +202,7 @@ is the core of a very different transistor model. \ldots
 \begin{lscommand}
 \verb|\\| 또는 \ci{newline}
 \end{lscommand}
-\noindent 이 명령은 새로운 문단을 시작하지 않은 상태에서 줄나눔을 행한다.
+\noindent 이 명령은 새로운 문단을 시작하지 않은 상태에서 줄나눔을 행한다.\trfnote{이 안내서의 많은 예제에서 \texttt{\textbackslash\textbackslash}에 의하여 강제 개행하는 예를 보이고 있다. 그러나 그것은 좁은 example 공간에서 부득이하게 그리 한 것이다. 문단 나누기를 위해서는 빈 줄을 두어야 한다. 강제 개행을 문단 나누기 대신 써서는 안 된다.}
 
 % \begin{lscommand}
 % \ci{\bs*}
@@ -1027,7 +1027,7 @@ or disclosure in philosophy
 % (Since \pai{polyglossia} loads \pai{bidi} this means that \pai{polyglossia}
 % should be the last package loaded.)
 왼쪽에서 오른쪽으로 쓰는 것이 보통이지만 오른쪽에서 왼쪽으로 쓰는(RTL) 언어가 있다.
-RTL 언어를 식자하기 위하여 \pai{polyglossia} 패키지는 \pai{bidi} 패키지를 요구한다. (\pai{bidi}는 \hologo{LuaTeX}을 지원하지 않는다.)
+RTL 언어를 식자하기 위하여 \pai{polyglossia} 패키지는 \pai{bidi} 패키지를 요구한다. %(\pai{bidi}는 \hologo{LuaTeX}을 지원하지 않는다.)\trfnote{2020년 현재 \pai{bidi} 패키지는 \hologo{XeTeX}과 \hologo{LuaTeX}을 모두 잘 지원한다.}
 \pai{bidi} 패키지는 보통 마지막에 로드하는 \pai{hyperref}보다도 뒤, 마지막에 위치하여야 한다. 
 (\pai{polyglossia}가 \pai{bidi}를 로드하기 때문에 \pai{polyglossia}도 마지막으로 로드하는 패키지가 되어야 한다.)
 
