@@ -7,8 +7,7 @@
   - Korean translation by Kang-su Kim, In-sung Cho.
 - LaTeX2e 입문 - 143분동안 익히는 LaTeX2e
   - 김강수, 조인성 옮김.
-  - 한국어판 2019, 2019년 2월 9일
-  - TeX Live 2020으로 컴파일되도록 스타일 수정, 2020년 4월 2일
+  - 한국어판 2021, 2021년 3월 16일
 
 ## How to build
 
