@@ -3,11 +3,11 @@
 
 - Korean translation of "The Not So short Introduction to LaTeX2e"
   - Written by Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl
-  - Version 6.2, February 28, 2018
+  - Version 6.4, March 09, 2021
   - Korean translation by Kang-su Kim, In-sung Cho.
 - LaTeX2e 입문 - 143분동안 익히는 LaTeX2e
   - 김강수, 조인성 옮김.
-  - 한국어판 2021, 2021년 3월 16일
+  - 한국어판 2021, 3월 16일
 
 ## How to build
 
