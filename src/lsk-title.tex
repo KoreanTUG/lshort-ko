@@ -5,10 +5,13 @@
 % $Id: title.tex,v 1.2 2003/03/19 20:57:47 oetiker Exp $
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifx\pdfoutput\undefined % We're not running pdftex
-\else
-%\pdfbookmark{Title Page}{title}
-\pdfbookmark{표지}{title}
+%%%\ifx\pdfoutput\undefined % We're not running pdftex
+%%%\else
+%%%%\pdfbookmark{Title Page}{title}
+%%%\pdfbookmark{표지}{title}
+%%%\fi
+\ifpdf
+  \pdfbookmark{표지}{title}
 \fi
 \newlength{\centeroffset}
 \setlength{\centeroffset}{-0.5\oddsidemargin}
@@ -22,7 +25,7 @@
 %Introduction to \LaTeXe
 %
 %}
-{\Large\bfseries The Not So short\\
+{\Large\bfseries The Not So Short\\
  Introduction to \LaTeXe\\
  \ \\
  \Huge\bfseries \LaTeXe{} 입문
@@ -43,12 +46,13 @@
 by Tobias Oetiker\\[1.5ex]
 Hubert Partl, Irene Hyna and  Elisabeth Schlegl\\[3ex]} 
 %Version~4.17, September 27, 2005 \\
-Version~6.2, February 28, 2018 \\
+%Version~6.2, February 28, 2018 \\
+Version~6.4, March 09, 2021
 \ \\[5ex]
 {\bfseries\large 김강수, 조인성} 옮김 \\[2ex]
 % {\bfseries for proofreading only! DO NOT distribute!} \\[2ex]
 % (교정용) \\[2ex]
-한국어판 2019, 5월 7일 \\
+한국어판 2021, 3월 16일\\
 \end{minipage}}
 
 %\addtolength{\textwidth}{\centeroffset}

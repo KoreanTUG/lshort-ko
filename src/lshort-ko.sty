@@ -4,7 +4,7 @@
 %% a style file for lshort-ko 2019
 %% written by Karnes Kim, 2019
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesPackage{lshort-ko}[2019/05/05]
+\ProvidesPackage{lshort-ko}[2021/03/16]
 %
 \RequirePackage{kotex-logo}
 \RequirePackage{ob-mathleading}
@@ -108,6 +108,9 @@
 
 %%% Hangul Font Settings
 \RequirePackage{kopubworldfonts}
+\ExplSyntaxOn 
+\bool_set_true:N \opt_mainfontdeclared_bool
+\ExplSyntaxOff
 
 %%% legacy command of lshort-kr
 %\let\hemph\emph 
@@ -431,6 +434,23 @@
 %%% appendix in oblivoir flavour
 %%%
 \RequirePackage{ob-koreanappendix}
+
+\gdef\set@appendix@chapter{%
+  \renewcommand\thesection{\thechapter.\arabic{APPsection}}%
+  \renewcommand\thesubsection{\thesection.\arabic{APPsubsection}}
+  \ifanappendix
+    \counterwithout{APPsection}{APPchapter}
+    \counterwithin{APPsubsection}{APPsection}
+  \fi%
+  \counterwithin{figure}{APPsection}
+  \counterwithin{table}{APPsection}%
+  \counterwithin{equation}{APPsection}%
+%  \renewcommand\thefigure{\Alph{APPsection}.\arabic{figure}}%
+%  \renewcommand\thetable{\Alph{APPsection}.\arabic{table}}%
+%  \renewcommand\theequation{\Alph{APPsection}.\arabic{equation}}%
+  \set@appendix@chapsec
+}
+
 \NewDocumentCommand\setuplshortappendix{}
 {%
     % \AppendixTitleToToc
@@ -439,9 +459,10 @@
     \renewcommand*\postchapternum{\ }
     \renewcommand*\printchapternum{\chapnumfont\thechapter}
     \renewcommand\thechapter{\Alph{APPchapter}}
-    \renewcommand\thesection{\thechapter.\arabic{APPsection}}
-    \renewcommand\thesubsection{\thesection.\arabic{APPsubsection}}
-    \counterwithin{APPsection}{APPchapter}
+%    \renewcommand\thesection{\thechapter.\arabic{APPsection}}
+%    \renewcommand\thesubsection{\thesection.\arabic{APPsubsection}}
+%    \counterwithin{APPsection}{APPchapter}
+%    \counterwithin{section}{APPchapter}
     \setcounter{APPchapter}{0}
     \renewcommand\pre@chapter{부록}
     \renewcommand\post@chapter{}
