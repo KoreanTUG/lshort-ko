@@ -8,4 +8,10 @@
 %\setkosansfont(\koreansansregularfont)(\koreansansboldfont)
 %\setkomonofont(UnDotum.ttf)[](UnDotum.ttf)
 %
+
+\ifx\koreansansregularfont\undefined
+\def\koreansansregularfont{UnDotum.ttf}
+\def\koreansansboldfont{UnDotumBold.ttf}
+\fi
+
 \endinput
