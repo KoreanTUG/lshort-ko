@@ -12,7 +12,7 @@
 ## How to build
 
 - `pygmentize` (python-pygments) is required.
-- `lshort-ko` uses the KoPubWorld font for Hangul characters, which is not redistributable. Install the KoPub World truetype font (downloadable from [kopub website](http://www.kopus.org/biz/electronic/font.aspx)) by yourself and uncomment the font setting lines in `kopubworldfonts.sty`. Otherwise the result PDF file contains Un Fonts shipped in TeX Live.
+- `lshort-ko` uses the KoPubWorld font for Hangul characters, which is not redistributable. Install the KoPub World truetype font (downloadable from [kopub website](https://www.kopus.org/biz-electronic-font2/)) by yourself and uncomment the font setting lines in `kopubworldfonts.sty`. Otherwise the result PDF file contains Un Fonts shipped in TeX Live.
 
 ### macOS/Linux
 

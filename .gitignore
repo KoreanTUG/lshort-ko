@@ -1,1 +1,6 @@
 *.cmd
+**/.DS_Store
+
+!lshort-ko.pdf
+src/build
+**/*.pdf
