@@ -5,14 +5,13 @@
   - Written by Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl
   - Version 6.4, March 09, 2021
   - Korean translation by Kangsoo Kim, In-Sung Cho.
-- LaTeX2e 입문 - 143분동안 익히는 LaTeX2e
+- LaTeX2e 입문 - 144분동안 익히는 LaTeX2e
   - 김강수, 조인성 옮김.
-  - 한국어판 2021, 3월 16일
+  - 한국어판 2025, 2월 8일
 
 ## How to build
 
-- `pygmentize` (python-pygments) is required.
-- `lshort-ko` uses the KoPubWorld font for Hangul characters, which is not redistributable. Install the KoPub World truetype font (downloadable from [kopub website](https://www.kopus.org/biz-electronic-font2/)) by yourself and uncomment the font setting lines in `kopubworldfonts.sty`. Otherwise the result PDF file contains Un Fonts shipped in TeX Live.
+For Hangul characters, `lshort-ko` uses the KoPubWorld font which is not redistributable. To compile the document from source code, you need to install the KoPubWorld truetype font (from [kopub website](http://www.kopus.org/biz/electronic/font.aspx)) by yourself. Otherwise  comment the lines for font setting in `kopubworldfont.sty` manually, and the result PDF file contains UnFonts shipped in the TeXLive distribution.
 
 ### macOS/Linux
 
@@ -24,10 +23,10 @@ make
 ### Windows
 
 ```bash
-xelatex --shell-escape lshort-ko.tex
+xelatex lshort-ko.tex
 komkindex -k -s kotex lshort-ko.idx
-xelatex --shell-escape lshort-ko.tex
-xelatex --shell-escape lshort-ko.tex
+xelatex lshort-ko.tex
+xelatex lshort-ko.tex
 ```
 
 ## License

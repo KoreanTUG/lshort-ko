@@ -1,5 +1,6 @@
 # Makefile
-# lshort-ko 2019
+# lshort-ko 2025
+# Requires TeX Live 2025
 LATEX = xelatex
 MAKEINDEX = komkindex
 FILE = lshort-ko
@@ -15,22 +16,22 @@ mkdirbuild:
 	if [ -d "./build" ]; then echo "directory build exists"; else mkdir build; fi
 
 pdf: mkdirbuild
-	${LATEX} -shell-escape -synctex=1 -output-directory=${OUTDIR} ${FILE}
+	${LATEX} -synctex=1 -output-directory=${OUTDIR} ${FILE}
 	${MAKEINDEX} -k -s kotex -o ${OUTDIR}${FILE}.ind -t ${OUTDIR}${FILE}.ilg ${OUTDIR}${FILE}.idx
-	${LATEX} -shell-escape -synctex=1 -output-directory=${OUTDIR} ${FILE}
+	${LATEX} -synctex=1 -output-directory=${OUTDIR} ${FILE}
 
 once: mkdirbuild
-	${LATEX} -shell-escape -synctex=1 -output-directory=build/ ${FILE}
+	${LATEX} -synctex=1 -output-directory=build/ ${FILE}
 
 makeindex: mkdirbuild
 	${MAKEINDEX} -k -s kotex -o ${OUTDIR}${FILE}.ind -t ${OUTDIR}${FILE}.ilg ${OUTDIR}${FILE}.idx
 
 silent:	mkdirbuild
-	${LATEX} -shell-escape -synctex=1 -interaction=nonstopmode -output-directory=${OUTDIR} ${FILE} | grep -q "Warning|Error" || echo "error or warning detected" ;
+	${LATEX} -synctex=1 -interaction=nonstopmode -output-directory=${OUTDIR} ${FILE} | grep -q "Warning|Error" || echo "error or warning detected" ;
 
 clean: 
 	if [ -d "${OUTDIR}" ]; then rm -rf ${OUTDIR}; fi
-	if [ -d "_minted-${FILE}" ]; then rm -rf _minted-${FILE}; fi
+	if [ -d "_minted*" ]; then rm -rf _minted*; fi
 
 copypdf:
 	if [ -f ${OUTDIR}${FILE}.pdf ]; then cp ${OUTDIR}${FILE}.pdf ./ && cp ${OUTDIR}${FILE}.synctex.gz ./ ; fi

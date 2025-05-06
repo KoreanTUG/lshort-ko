@@ -820,7 +820,8 @@ Stra\ss e
 % venerable \pai{babel} package. It takes care of the hyphenation patterns and automatically
 % generated text strings in your documents.
 \pai{polyglossia}\cite{polyglossia}는 \pai{babel} 패키지를 대체하는 패키지로서 각 언어의 분철 패턴과 자동 생성 문자열을 
-처리해준다.
+처리해준다. 한국어(한글)를 이 패키지로 조판하는 문제에 대하여는 \pageref{sec:koreanlang} 페이지
+\ref{sec:koreanlang}절을 보라.
 
 % The package \pai{fontspec}\cite{fontspec} handles font loading for
 % \hologo{XeLaTeX} and \hologo{LuaTeX}. The default font is Latin Modern
@@ -1127,17 +1128,53 @@ script를 잘 지정해야 한다는 점을 기억하자.
 \pai{xeCJK}\cite{xecjk} 패키지가 이 언어들에 대한 폰트 선택과 문장부호 등을 다룬다.
 
 
-\subsection{한글과 한국어 문서}
+\subsection{한글과 한국어 문서}\label{sec:koreanlang}
 \index{한국어}\index{Korean}\index{kotex}
 \secbynomail{역자가 한국어판을 위해 추가}
+
+\subsubsection{\koTeX{}을 쓰지 않는 경우}
 현대적 텍 엔진인 \XeTeX 과 Lua\TeX 에서 한글을 식자하려면 \pai{fontspec} 패키지와 한글 글리프를 가진 글꼴만 
 있으면 가능하다. \TeX\,Live에 포함된 한글 트루타입 폰트 ``은 글꼴''이 있으므로 
 \begin{verbatim}
 {\fontspec{UnBatang.ttf}한글 漢字}
 \end{verbatim}
 와 같이 식자할 수 있다. 한자에 대해서도 마찬가지이다.
+그러나 이것만으로는 그저 한글의 인쇄가 가능한 것뿐이고, 특히 한글 문장의
+조판에 필요한 요소들이 지원되지 않기 때문에 한국어 문장의 만족스런 조판이 
+가능하다고 하기 어렵다. 단지 한두 글자의 한글 문자를 표현할 수 있는 것이라고 
+보아야 한다.
 
-\medskip 
+\paragraph{\pai{babel}과 \pai{polyglossia}}
+\pai{babel}과 \pai{polyglossia}는 다국어 조판을 가능하게 하는
+패키지이다. 
+\XeTeX{} 또는 Lua\TeX 엔진과 이 다국어 패키지를 통하여
+한국어를 한글로 조판할 수 있다. 
+다국어 문서에서는 주언어(main language)가 
+무엇인가가 매우 중요하다. 영어가 주언어이고 한글로 된 한국어 문장이 
+보조적으로 사용되는 경우를 생각하자.
+
+\pai{fontspec}과 \pai{babel}을 이용하여 한국어 언어와 폰트를 선언한다.
+\begin{verbatim}
+\usepackage{fontspec}
+\usepackage[english]{babel}
+\babelprovide[import]{korean}
+\babelfont{rm}{FreeSerif}
+\babelfont[korean]{rm}{UnBatang}
+\end{verbatim}
+이제 한글을 식자하기 위해서 \cmd{\foreignlanguage} 명령
+또는 \ei{otherlanguage} 환경을 이용하여야 한다. 
+\begin{verbatim}
+Hello, \foreignlanguage{korean}{안녕}
+\begin{otherlanguage}{korean}
+안녕하세요
+\end{otherlanguage}
+\end{verbatim}
+
+만약 한국어가 주언어인 문서라면 \cmd{\babelprovide}의 옵션에 \texttt{[main]}을
+선언할 수 있다. 이 때에는 별도의 명령이나 환경을 사용하지 않고 본문 기본 폰트를 한글 표현이 가능한 것으로 지정하여
+한글을 조판할 수 있다.
+
+\medskip
 
 \pai{polyglossia} 패키지는 korean 언어 모듈을 가지고 있어서 한글을 지원한다.
 글꼴을 잘 설정해주는 것에 주의하면 된다.
@@ -1149,8 +1186,7 @@ script를 잘 지정해야 한다는 점을 기억하자.
 이제 korean 환경이나 \ci{textkorean} 명령을 사용할 수 있다. 원한다면 main language를 korean으로 설정하고 쓸 수도
 있으며 이 경우에는 자동 생성 문자열, 행 간격, 일부 문장부호 등을 한글 문서에 알맞도록 설정해준다.
 
-\medskip 
-
+\paragraph{기타 패키지}
 앞선 절에서 소개하는 \pai{xeCJK} 패키지로 한글을 식자하는 것도 어렵지 않다. 이 때 주의할 것은
 중국어나 일본어에는 띄어쓰기가 없는 데 반해 우리 글은 띄어쓰기를 한다는 점이다. 그러므로 폰트 설정 시에 
 이 사실을 명시해야 할 것이다.
