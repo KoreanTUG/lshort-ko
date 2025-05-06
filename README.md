@@ -11,7 +11,7 @@
 
 ## How to build
 
-For Hangul characters, `lshort-ko` uses the KoPubWorld font which is not redistributable. To compile the document from source code, you need to install the KoPubWorld truetype font (from [kopub website](http://www.kopus.org/biz/electronic/font.aspx)) by yourself. Otherwise  comment the lines for font setting in `kopubworldfont.sty` manually, and the result PDF file contains UnFonts shipped in the TeXLive distribution.
+For Hangul characters, `lshort-ko` uses the KoPubWorld font which is not redistributable. To compile the document from the source code, you need to install the KoPubWorld truetype font (from [kopub website](http://www.kopus.org/biz/electronic/font.aspx)) by yourself. Otherwise comment out the lines for font setting in `kopubworldfont.sty` manually, and the resulting PDF file will contain UnFonts shipped in the TeXLive distribution.
 
 ### macOS/Linux
 
@@ -33,4 +33,4 @@ xelatex lshort-ko.tex
 
 - GNU General Public License.
 - 한국어판 저작권: GNU 자유 문서 라이선스(FDL)
-- Please refer to page 2 of document.
+- Please refer to the page 2 of document.
